@@ -1,0 +1,21 @@
+<div class="dialogDiv">
+    <i class="material-icons cancelIcon" mat-dialog-close>close</i>
+    <h3 class="headerHeading">Do you want to Delete your Account ?</h3>
+    <hr class="headerLine">
+    <div>
+        <mat-dialog-content>
+            <div>
+                <h5>You will no longer be able to login and use the account. All data will be deleted within 90 days
+                    from our system and no recovery possible </h5>
+                <h5>
+                    To confirm enter <span class="deleteText">DELETE</span>
+                </h5>
+                    <input class="input-delete" maxlength="10" matInput autocomplete="off" tabindex="1" [(ngModel)]="keyword" (input)="onInputChange($event)">
+            </div>
+            <mat-dialog-actions align="end">
+                <button class="mat-raised-button vsAdminCLientBtn" (click)="close()">Close</button>
+                <button class="mat-raised-button vsAdminCLientBtn" [disabled]="!showDelete" (click)="deleteAccount()">Delete</button>
+            </mat-dialog-actions>
+        </mat-dialog-content>
+    </div>
+</div>

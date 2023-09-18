@@ -1,0 +1,74 @@
+<div class="mainContent">
+    <div class="titleHeadet">
+        <h3 *ngIf="!showUpdate" class="vsecom_pageHeader">Add Brand</h3>
+        <h3 *ngIf="showUpdate" class="vsecom_pageHeader">Update Brand</h3>
+        <button>
+            <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+        </button>
+    </div>
+    <mat-card>
+        <form [formGroup]="brandForm">
+            <div class="imagerCenter">
+                <div fxLayout fxLayoutAlign="center" class="uploadImage">
+                    <div class="businessImage">
+                        <div class="multiSelectBrandImage" *ngIf="!selectImage">
+                            <label class="plusIconLabel">
+                                <div class="addButton">
+                                    <i class="material-icons addBrandButtonIcon" (change)="uploadImage($event)">add</i>
+                                </div>
+                                <input type="file" accept="image/*" onclick="this.value = null" style="display:none;"
+                                    (change)="uploadImage($event)" multiple>
+                            </label>
+                        </div>
+                        <div *ngIf="selectImage">
+                            <div *ngIf="!showUpdate" class="multiSelectBrandImage">
+                                <img src="{{this.brandimage}}">
+                                <i class="material-icons cancelImage" (click)=" removeImage($event)">cancel</i>
+                            </div>
+                            <div *ngIf="showUpdate" class="multiSelectBrandImage">
+                                <img src="{{this.brandimage}}">
+                                <i class="material-icons deleteImage"
+                                    (click)="deleteManufacturerImage($event)">delete</i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <div fxFlex="33" class="matAlign">
+                    <mat-form-field class="addBrand" appearance="outline">
+                        <mat-label>BrandName</mat-label>
+                        <input matInput formControlName="BrandName" maxlength="300">
+                        <mat-error>
+                            <span
+                                *ngIf="brandForm.controls['BrandName'].errors && brandForm.controls['BrandName'].errors['required']">Brand
+                                Name is required</span>
+                            <span
+                                *ngIf="brandForm.controls['BrandName'].errors && brandForm.controls['BrandName'].errors['maxlength']">
+                                Only 300 characters Allowed
+                            </span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="addProductTextArea">
+                <mat-label>Slogan</mat-label>
+                <hr class="line">
+                <textarea matInput rows="3" maxlength="3000" formControlName="Slogan"></textarea>
+                <hr class="line">
+                <span class="maxchar">Maximum Character is 3000</span>
+            </div>
+            <div class="btncls Savestyle">
+                <button *ngIf="!showUpdate" mat-raised-button class="vsAdminCLientButn"
+                    (click)="AddManufacturer()">Save</button>
+                <button *ngIf="showUpdate" mat-raised-button class="vsAdminCLientButn"
+                    (click)="updateManufacturer()">Update</button>
+            </div>
+        </form>
+    </mat-card>
+</div>
+<div class="spinnerDialog" *ngIf="spinner">
+    <div class="spinLoaderHide">
+      <p class="spinLoaderV">V</p>
+    </div>
+  </div>

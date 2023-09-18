@@ -1,0 +1,61 @@
+<div class="mainContent">
+    <div class="titleHeadet">
+        <h3 class="vsecom_pageHeader">Category</h3>
+        <button>
+            <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+        </button>
+      </div>
+<div >
+    <mat-card class="example-card" >
+        <div class="btncls">
+            <button mat-raised-button class="vsecom_Btn" (click)="openAddCategory()">
+                <mat-icon class="material-icons-outlined addicons">add</mat-icon>
+                <b>Add Category</b>
+            </button>
+        </div>
+        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+            <mat-tree-node class="treeNodeAlignment" *matTreeNodeDef="let node" matTreeNodePadding>
+                <button mat-icon-button disabled></button>
+                <div class="categoryImage" *ngIf="node.categoryImage">
+                    <img src="{{node.categoryImage}}" alt="">
+                </div>
+                <span class="categoryName">{{node.name}}</span>
+                <span (click)="updateCategory(node.id)"><i class="material-icons editIcon">edit</i></span>
+                <span (click)="deleteSubCategory(node.id)"><i
+                        class="material-icons editIcon deleteIcon">delete</i></span>
+                        
+            </mat-tree-node>
+            <mat-tree-node class="treeNodeAlignment" *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
+                    <mat-icon class="mat-icon-rtl-mirror">
+                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                    </mat-icon>
+                </button>
+                <div class="categoryImage" *ngIf="node.categoryImage">
+                    <img src="{{node.categoryImage}}" alt="">
+                </div>
+                <span class="categoryName">{{node.name}}</span>
+                <span (click)="updateCategory(node.id)"><i class="material-icons editIcon">edit</i></span>
+                <span (click)="deleteCategory(node.id)"><i class="material-icons editIcon deleteIcon">delete</i></span>
+            </mat-tree-node>
+        </mat-tree>
+        <div class="noRecordsTable" *ngIf="dataSource && dataSource.data.length === 0">
+            No Records Found!
+        </div>
+        <div class="btncls">
+            <button mat-raised-button class="vsecom_Btn" (click)="openAddCategory()">
+                <mat-icon class="material-icons-outlined addicons">add</mat-icon>
+                <b>Add Category</b>
+            </button>
+        </div>
+    </mat-card>
+
+</div>
+
+    
+</div>
+<div class="LoaderDiv" *ngIf="loader">
+    <div class="spinLoaderHide">
+        <p class="spinLoaderV">V</p>
+    </div>
+</div>

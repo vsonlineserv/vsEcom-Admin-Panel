@@ -1,0 +1,45 @@
+
+.statusTracking{
+    width: 550px;
+    box-shadow: 0 0 10px;
+}
+.heading{
+    height: 50px;
+    background-color: var(--vs-color-primary) !important;
+    color: white;
+    font-size: 25px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.valueData{
+    padding: 10px;
+    min-height: 160px;
+    position: relative;
+}
+
+.TrackURL{
+    position: absolute;
+    bottom: 5px;
+    right: 0px;
+    width: 100%;
+    text-align: center;
+    padding-right: 10px;
+    
+}
+.subHeading{
+    font-size: 14px;
+    width: 100px;
+    color: black;
+}
+.statusValue{
+    font-size: 15px;
+    color: black;
+    font-weight: 600;
+}
+
+.track_url{
+    color: var(--vs-color-primary);
+    text-decoration: underline;
+}

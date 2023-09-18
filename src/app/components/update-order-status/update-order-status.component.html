@@ -1,0 +1,207 @@
+<div class="dialogDiv">
+  <i class="material-icons cancelIcon" mat-dialog-close>close</i>
+  <h3 class="headerHeading">Confirm Status Change</h3>
+  <hr class="headerLine">
+  <div>
+    <mat-dialog-content>
+      <div *ngIf="FromSalesPage && orderStatusView.length > 0">
+        <div class="order_Details">
+          <div>
+            <div class="summary-title b">
+              #{{brandOrderId}}
+            </div>
+            <div class="summary-date pt8 medium_font">
+              {{findOrderDate(orderStatusView[0].orderDateUtc)}}
+            </div>
+          </div>
+          <div>
+            <div class="medium_font">
+              Item Count: <span class="order_Details_GrandTotal">{{itemCount}}</span>
+            </div>
+            <div class="taE">
+              <span class="order_Details_GrandTotal b">{{global.currency}}{{orderStatusView[0].orderTotal |
+                number}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="order_Status">
+          <div class="td_Payment_Status">
+            <div *ngIf="CurrentOrderStatus == 'Shipping in Progress'" class="fancyColumnStatus fancyColumnStatus9">
+              {{CurrentOrderStatus}}
+            </div>
+            <div *ngIf="CurrentOrderStatus == 'Order Created'" class="fancyColumnStatus fancyColumnStatus2">
+              {{CurrentOrderStatus}}
+            </div>
+            <div *ngIf="CurrentOrderStatus == 'Others'" class="fancyColumnStatus fancyColumnStatus4">
+              {{CurrentOrderStatus}}
+            </div>
+            <div *ngIf="CurrentOrderStatus == 'Cancelled'" class="fancyColumnStatus fancyColumnStatus1">
+              {{CurrentOrderStatus}}
+            </div>
+            <div *ngIf="CurrentOrderStatus == 'Processing'" class="fancyColumnStatus fancyColumnStatus5">
+              {{CurrentOrderStatus}}
+            </div>
+            <div *ngIf="CurrentOrderStatus == 'Under Verification'" class="fancyColumnStatus fancyColumnStatus6">
+              {{CurrentOrderStatus}}
+            </div>
+            <div *ngIf="CurrentOrderStatus == 'Verified'" class="fancyColumnStatus fancyColumnStatus10">
+              {{CurrentOrderStatus}}
+            </div>
+            <div *ngIf="CurrentOrderStatus == 'Refund'" class="fancyColumnStatus fancyColumnStatus8">
+              {{CurrentOrderStatus}}
+            </div>
+            <div *ngIf="CurrentOrderStatus == 'Returned'" class="fancyColumnStatus fancyColumnStatus7">
+              {{CurrentOrderStatus}}
+            </div>
+            <div *ngIf="CurrentOrderStatus == 'Delivered'" class="fancyColumnStatus fancyColumnStatus3">
+              {{CurrentOrderStatus}}
+            </div>
+          </div>
+          <div>
+            <i class="material-icons">keyboard_double_arrow_right</i>
+          </div>
+          <div class="td_Payment_Status">
+            <div *ngIf="RequestedOrderStatus == 'ShippingInProgress'" class="fancyColumnStatus fancyColumnStatus9">
+              Shipping in Progress
+            </div>
+            <div *ngIf="RequestedOrderStatus == 'Created'" class="fancyColumnStatus fancyColumnStatus2">
+              Order Created
+            </div>
+            <div *ngIf="RequestedOrderStatus == 'Others'" class="fancyColumnStatus fancyColumnStatus4">
+              {{RequestedOrderStatus}}
+            </div>
+            <div *ngIf="RequestedOrderStatus == 'Cancelled'" class="fancyColumnStatus fancyColumnStatus1">
+              {{RequestedOrderStatus}}
+            </div>
+            <div *ngIf="RequestedOrderStatus == 'Processing'" class="fancyColumnStatus fancyColumnStatus5">
+              {{RequestedOrderStatus}}
+            </div>
+            <div *ngIf="RequestedOrderStatus == 'VerificationInProgress'" class="fancyColumnStatus fancyColumnStatus6">
+              Under Verification
+            </div>
+            <div *ngIf="RequestedOrderStatus == 'Verified'" class="fancyColumnStatus fancyColumnStatus10">
+              {{RequestedOrderStatus}}
+            </div>
+            <div *ngIf="RequestedOrderStatus == 'Refund'" class="fancyColumnStatus fancyColumnStatus8">
+              {{RequestedOrderStatus}}
+            </div>
+            <div *ngIf="RequestedOrderStatus == 'Returned'" class="fancyColumnStatus fancyColumnStatus7">
+              {{RequestedOrderStatus}}
+            </div>
+            <div *ngIf="RequestedOrderStatus == 'Delivered'" class="fancyColumnStatus fancyColumnStatus3">
+              {{RequestedOrderStatus}}
+            </div>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="popupCard">
+            <div id="content" *ngFor="let eachOrderDetails of orderStatusView">
+              <div fxFlex="100" class="card dashboardCardLeft">
+                <div fxFlex="70" fxLayoutGap="10px" fxLayoutAlign="start end" class="product_Details1">
+                  <div>
+                    <div class="product_name">
+                      {{eachOrderDetails.name}}
+                    </div>
+                    <div class="ml15">
+                      <div *ngIf="eachOrderDetails.selectedSize != null || eachOrderDetails.selectedSize != ''">
+                        {{eachOrderDetails.selectedSize}}
+                      </div>
+                      <div class="summary-subtitle">
+                        <label class="quantity_Box">
+                          {{eachOrderDetails.quantity}}
+                        </label>
+                        <span class="pl5"> x {{global.currency}}{{eachOrderDetails.unitPriceInclTax
+                          | number}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div fxFlex="30" fxLayoutAlign="end end" fxLayoutGap="10px" class="product_Details">
+                  <div>
+                    <div class="summary-subtitle mb8">
+                      {{global.currency}}{{eachOrderDetails.priceInclTax | number}}
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!FromSalesPage && orderStatusView.length > 0">
+        <div class="message">Your order <span class="summary-title b">#{{brandOrderId}}</span> status to be changed from
+          <span class="td_Payment_Status">
+            <span *ngIf="CurrentOrderStatus == 'Shipping in Progress'" class="fancyColumnStatus fancyColumnStatus9">
+              {{CurrentOrderStatus}}
+            </span>
+            <span *ngIf="CurrentOrderStatus == 'Order Created'" class="fancyColumnStatus fancyColumnStatus2">
+              {{CurrentOrderStatus}}
+            </span>
+            <span *ngIf="CurrentOrderStatus == 'Others'" class="fancyColumnStatus fancyColumnStatus4">
+              {{CurrentOrderStatus}}
+            </span>
+            <span *ngIf="CurrentOrderStatus == 'Cancelled'" class="fancyColumnStatus fancyColumnStatus1">
+              {{CurrentOrderStatus}}
+            </span>
+            <span *ngIf="CurrentOrderStatus == 'Processing'" class="fancyColumnStatus fancyColumnStatus5">
+              {{CurrentOrderStatus}}
+            </span>
+            <span *ngIf="CurrentOrderStatus == 'Under Verification'" class="fancyColumnStatus fancyColumnStatus6">
+              {{CurrentOrderStatus}}
+            </span>
+            <span *ngIf="CurrentOrderStatus == 'Verified'" class="fancyColumnStatus fancyColumnStatus10">
+              {{CurrentOrderStatus}}
+            </span>
+            <span *ngIf="CurrentOrderStatus == 'Refund'" class="fancyColumnStatus fancyColumnStatus8">
+              {{CurrentOrderStatus}}
+            </span>
+            <span *ngIf="CurrentOrderStatus == 'Returned'" class="fancyColumnStatus fancyColumnStatus7">
+              {{CurrentOrderStatus}}
+            </span>
+            <span *ngIf="CurrentOrderStatus == 'Delivered'" class="fancyColumnStatus fancyColumnStatus3">
+              {{CurrentOrderStatus}}
+            </span>
+          </span>
+          to
+          <span class="td_Payment_Status">
+            <span *ngIf="RequestedOrderStatus == 'ShippingInProgress'" class="fancyColumnStatus fancyColumnStatus9">
+              {{RequestedOrderStatus}}
+            </span>
+            <span *ngIf="RequestedOrderStatus == 'Created'" class="fancyColumnStatus fancyColumnStatus2">
+              {{RequestedOrderStatus}}
+            </span>
+            <span *ngIf="RequestedOrderStatus == 'Others'" class="fancyColumnStatus fancyColumnStatus4">
+              {{RequestedOrderStatus}}
+            </span>
+            <span *ngIf="RequestedOrderStatus == 'Cancelled'" class="fancyColumnStatus fancyColumnStatus1">
+              {{RequestedOrderStatus}}
+            </span>
+            <span *ngIf="RequestedOrderStatus == 'Processing'" class="fancyColumnStatus fancyColumnStatus5">
+              {{RequestedOrderStatus}}
+            </span>
+            <span *ngIf="RequestedOrderStatus == 'VerificationInProgress'" class="fancyColumnStatus fancyColumnStatus6">
+              {{RequestedOrderStatus}}
+            </span>
+            <span *ngIf="RequestedOrderStatus == 'Verified'" class="fancyColumnStatus fancyColumnStatus10">
+              {{RequestedOrderStatus}}
+            </span>
+            <span *ngIf="RequestedOrderStatus == 'Refund'" class="fancyColumnStatus fancyColumnStatus8">
+              {{RequestedOrderStatus}}
+            </span>
+            <span *ngIf="RequestedOrderStatus == 'Returned'" class="fancyColumnStatus fancyColumnStatus7">
+              {{RequestedOrderStatus}}
+            </span>
+            <span *ngIf="RequestedOrderStatus == 'Delivered'" class="fancyColumnStatus fancyColumnStatus3">
+              {{RequestedOrderStatus}}
+            </span>
+          </span>
+        </div>
+      </div>
+      <mat-dialog-actions align="end">
+        <button class="mat-raised-button vsAdminCLientBtn closeButton" (click)="close()">Cancel</button>
+        <button class="mat-raised-button vsAdminCLientBtn" (click)="changeOrderStatus()">Confirm</button>
+      </mat-dialog-actions>
+    </mat-dialog-content>
+  </div>
+</div>

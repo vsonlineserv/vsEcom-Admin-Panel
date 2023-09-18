@@ -1,0 +1,397 @@
+<div class="mainContent">
+
+  <div class="titleHeadet">
+    <h3 *ngIf="!showUpdate" class="vsecom_pageHeader">Add Product</h3>
+    <h3 *ngIf="showUpdate" class="vsecom_pageHeader">Update Product</h3>
+    <button>
+      <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+    </button>
+  </div>
+  <mat-card>
+    <form [formGroup]="productForm" #f="ngForm">
+
+      <div class="vsecom_dFlex vsecom_justify_center imagerCenter">
+        <div class="addProduct_img_slider">
+          <div class="multiSelectImage">
+            <label class="plusIconLabel">
+              <div class="addButton">
+                <i class="material-icons addButtonIcon" (change)="onSelectFile($event)">add</i>
+              </div>
+              <input type="file" accept="image/*" style="display:none;" onclick="this.value = null"
+                (change)="onSelectFile($event)" multiple>
+            </label>
+          </div>
+          <div *ngFor='let url of urls; let i = index' class="multiSelectImage">
+            <img [src]="url">
+            <i class="material-icons cancelImage" (click)="removeImage(i)">cancel</i>
+          </div>
+          <div *ngFor='let eachProductImage of productImages'>
+            <div class="multiSelectImage" *ngIf="showImage">
+              <img src="{{eachProductImage.pictureName}}">
+              <i class="material-icons deleteImage" (click)="deleteProductImage(eachProductImage.id)">delete</i>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div *ngIf="showUpdate" class="inventoryButton">
+        <button mat-raised-button class="vsAdminCLientButn" (click)="addInventory()">Inventory</button>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div fxFlex="33">
+          <mat-form-field class="searchInput" floatLabel="never" appearance="outline">
+            <mat-label>Product Name</mat-label>
+            <input type="text" class="vsecom-header-search-bar-form-input" [(ngModel)]="searchValue"
+              (keydown.enter)="productSelected(searchValue)" matInput [formControl]="productName"
+              [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let eachItem of masterProducts | async" (click)="productSelected(eachItem)"
+                (keydown.enter)="productSelected(eachItem)" [value]="eachItem.name">
+                {{eachItem.name}}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error>
+              <span
+                *ngIf="productName.errors && productName.errors['required']">Product
+                Name is required</span>
+              <span *ngIf="productName.errors && productName.errors['maxlength']">
+                Only 300 characters Allowed
+              </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="space-between end">
+        <div fxFlex="49">
+          <mat-form-field class="addProduct" appearance="outline">
+            <mat-label>Category</mat-label>
+            <mat-select class="vsecom_custom_arrow" #singleSelect formControlName="category"
+              (selectionChange)="getSubCategory($event)">
+              <mat-option *ngFor="let mainCategory of catergoryListMain" [value]="mainCategory.id">
+                {{mainCategory.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error>
+              <span
+                *ngIf="productForm?.controls['category'].errors && productForm?.controls['category'].errors['required']">Category
+                is
+                required</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="49">
+          <mat-form-field class="addProduct" appearance="outline">
+            <mat-label>Sub Category</mat-label>
+            <mat-select class="vsecom_custom_arrow" #singleSelect formControlName="subcategory">
+              <mat-option *ngFor="let subCat of subCatergoryList" [value]="subCat.categoryId">
+                {{subCat.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error>
+              <span
+                *ngIf="productForm?.controls['subcategory'].errors && productForm?.controls['subcategory'].errors['required']">Sub
+                Category is
+                required</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap" fxLayoutAlign="space-between end">
+        <div fxFlex="33">
+          <mat-form-field class="addProduct" appearance="outline">
+            <mat-label>Store Price</mat-label>
+            <input matInput formControlName="NewPrice" (keyup)="replaceValue()"
+              onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+            <mat-error>
+              <span
+                *ngIf="productForm?.controls['NewPrice'].errors && productForm?.controls['NewPrice'].errors['required']">Store
+                price
+                is required</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="33">
+          <mat-form-field class="addProduct" appearance="outline">
+            <mat-label>Deal price</mat-label>
+            <input matInput formControlName="NewSpecialPrice" (keyup)="replaceValue()"
+              onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+          </mat-form-field>
+          <div *ngIf="storeShow" class="errormes">
+            <span>*Deal price should be less than Store price</span>
+          </div>
+        </div>
+        <div fxFlex="33">
+          <mat-form-field class="addProduct" appearance="outline">
+            <mat-label>Deal Description</mat-label>
+            <input matInput formControlName="NewSpecialPriceDescription">
+            <mat-error>
+              <span
+                *ngIf="productForm.controls['NewSpecialPriceDescription'].errors && productForm.controls['NewSpecialPriceDescription']['errors']['maxlength']">
+                Only 50 characters Allowed
+              </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <!-- <div class="addProductTextArea">
+        <mat-label>Short Description</mat-label>
+        <hr class="line">
+        <textarea  matInput rows="3" maxlength="150" formControlName="shortDescription"></textarea>
+        <hr class="line">
+        <span class="maxchar">Maximum Character is 150</span>
+      </div>
+      <br> -->
+      <div class="addProductTextArea">
+        <mat-label>Product Description</mat-label>
+        <hr class="line">
+        <textarea matInput rows="3" maxlength="3000" formControlName="fullDescription"></textarea>
+        <hr class="line">
+        <span class="maxchar">Maximum Character is 3000</span>
+      </div>
+
+
+      <br>
+      <mat-expansion-panel expanded='false' hideToggle="true" (click)="click()">
+        <mat-expansion-panel-header fxLayout="row" class="mat-expansion-panel-add">
+          <mat-panel-title>
+            <mat-icon>{{icon ? 'remove' : 'add' }}</mat-icon>
+            Other Parameters
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div style="padding-right: 10px;">
+
+          <div fxLayout="row wrap" fxLayoutAlign="space-between end">
+            <div fxFlex="49">
+              <mat-form-field appearance="outline" class="addProduct">
+                <mat-label>Manufacturer Part Number</mat-label>
+                <input matInput formControlName="manufacturerPartNumber">
+              </mat-form-field>
+            </div>
+            <div fxFlex="49">
+              <mat-form-field appearance="outline" class="addProduct">
+                <mat-label>Brand / Manufacturer</mat-label>
+                <mat-select class="vsecom_custom_arrow" #singleSelect formControlName="manufacturer">
+                  <mat-option *ngFor="let mainCategory of catergoryList['brands']" [value]="mainCategory.key">
+                    {{mainCategory.value}}
+                  </mat-option>
+                </mat-select>
+
+              </mat-form-field>
+            </div>
+          </div>
+
+
+          <div fxLayout="row wrap" fxLayoutAlign="space-between end">
+            <div fxFlex="49">
+              <mat-form-field appearance="outline" class="addProduct">
+                <mat-label>Weight</mat-label>
+                <input matInput formControlName="Weight">
+              </mat-form-field>
+            </div>
+            <div fxFlex="49">
+              <mat-form-field appearance="outline" class="addProduct">
+                <mat-label>Size</mat-label>
+                <mat-select class="vsecom_custom_arrow" #singleSelect>
+                  <mat-option value=1>g</mat-option>
+                  <mat-option value=2>mg</mat-option>
+                  <mat-option value=3>kg</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div fxLayout="row wrap" fxLayoutAlign="space-between end">
+            <div fxFlex="24">
+              <mat-form-field appearance="outline" class="addProduct">
+                <mat-label>Length</mat-label>
+                <input matInput formControlName="Length">
+              </mat-form-field>
+            </div>
+            <div fxFlex="24">
+              <mat-form-field appearance="outline" class="addProduct">
+                <mat-label>Width</mat-label>
+                <input matInput formControlName="Width">
+              </mat-form-field>
+            </div>
+            <div fxFlex="24">
+              <mat-form-field appearance="outline" class="addProduct">
+                <mat-label>Height</mat-label>
+                <input matInput formControlName="Height">
+              </mat-form-field>
+            </div>
+            <div fxFlex="24">
+              <mat-form-field appearance="outline" class="addProduct">
+                <mat-label>Size</mat-label>
+                <mat-select class="vsecom_custom_arrow" #singleSelect>
+                  <mat-option value=1>cm</mat-option>
+                  <mat-option value=2>mm</mat-option>
+                  <mat-option value=3>inch</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div fxLayout="row wrap" fxLayoutAlign="space-between end">
+            <div fxFlex="49">
+              <mat-form-field appearance="outline" class="addProduct">
+                <mat-label>Size (if any)</mat-label>
+                <input matInput formControlName="Size1">
+              </mat-form-field>
+            </div>
+            <div fxFlex="49">
+              <mat-form-field appearance="outline" class="addProduct">
+                <mat-label>Size 1</mat-label>
+                <input matInput formControlName="Size2">
+              </mat-form-field>
+            </div>
+          </div>
+
+
+
+
+
+        </div>
+      </mat-expansion-panel>
+      <br>
+      <div fxLayout="row wrap">
+        <div [fxFlex]=maxWidth>
+          <div class="styVariant">
+            <div class="headVariant">
+              <h5 class="headOptions">Options</h5>
+              <div>
+                <mat-checkbox (change)="activeOptions($event)" [checked]="false">
+                </mat-checkbox>
+                <span>This product has options, like size or color</span>
+              </div>
+            </div>
+            <form [formGroup]="variantForm"  *ngIf="showOptions"  (ngSubmit)="onSubmit()">
+              <div formArrayName="sections">
+                <div [formGroupName]="i" class="bodyVariant"
+                  *ngFor="let variantSection of getVariantSections(variantForm); let i = index">
+                  <div>
+                    <div>
+                      <div class="selectDiv">
+                        <span class="dragIcon"></span>
+                        <!-- <span class="inputSelect"></span> -->
+                        <span class="deleteIcon"></span>
+                      </div>
+                      <div class="selectDiv">
+                        <!-- <span class="dragIcon"><i class="material-icons iconsVariant">drag_handle</i></span> -->
+                        <span class="inputSelect">
+                          <mat-form-field appearance="outline"  class="inputclass">
+                            <mat-label>Option name</mat-label>
+                            <input type="text" class="" matInput formControlName="selectVariant" placeholder="Color, Size, Material">
+                            <mat-error *ngIf="variantForm.get('sections').get(i.toString()).get('selectVariant').errors">
+                              This field is required.
+                            </mat-error>
+                        </mat-form-field>
+                        
+
+                          <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let eachItem of searchList" (click)="searchCatalogue(eachItem)"
+                              (keydown.enter)="searchCatalogue(eachItem)" [value]="eachItem">
+                              {{eachItem}}
+                            </mat-option>
+                          </mat-autocomplete>
+                        </span>
+                        <span class="deleteIcon"><i class="material-icons iconsVariant"
+                            (click)="removeVariantSection(i)">delete_outline</i></span>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="selectDiv">
+                        <span class="dragIcon"></span>
+                        <!-- <span class="inputSelect "></span> -->
+                        <span class="deleteIcon"></span>
+                      </div>
+ 
+                      <div formArrayName="options">
+                        <div class="selectDiv" [formGroupName]="k"
+                          *ngFor="let option of getVariantOptions(variantSection); let k=index">
+                          <!-- <span class="dragIcon"><i class="material-icons iconsVariant">drag_handle</i></span> -->
+                          <div class="inputSelect"> 
+                            <mat-form-field appearance="outline" class="inputclass">
+                              <mat-label>Option values</mat-label>
+                              <input class="" matInput type="text"
+                              formControlName="selectVariantOption" placeholder="Blue or S or Silk" autocomplete="off">
+                              <mat-error *ngIf="variantForm.get('sections').get(i.toString()).get('options').get(k.toString()).get('selectVariantOption').errors">
+                                This field is required.
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                          <span class="deleteIcon"><i class="material-icons iconsVariant"
+                              (click)="removeVariantOption(i,k)">delete_outline</i></span>
+                        </div>
+                      </div>
+                      <div class="selectDiv">
+                        <span class="dragIcon"></span>
+                        <span class="DoneBut" (click)="addVariantOption(i)">Add Option</span>
+                        <span class="deleteIcon"></span>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="selectDiv">
+                        <span class="dragIcon"></span>
+                        <span class="inputSelect"></span>
+                        <button class="DoneBut vsAdminCLientButn" type="submit">Done</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="addVariant" *ngIf="getVariantSections(variantForm).length < 3 && variantsList"
+                  (click)="addVariantSection()">
+                  <span><i class="material-icons iconsVariant">add</i></span><span>Add another option</span>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div fxFlex="50" *ngIf="variantsList">
+          <div class="styVariantData">
+            <div class="headVariant">
+              <h5 class="headOptions">Variants</h5>
+            </div>
+            <div>
+              <table>
+                <tr>
+                  <th>Variant</th>
+                  <th class="PriceInput" (keyup)="replaceValue()">Store Price</th>
+                  <th class="PriceInput" (keyup)="replaceValue()">Deal Price</th>
+                </tr>
+                <tr *ngFor="let option of VariantToDisplay; let i=index">
+                  <td>{{option.variantType}}</td>
+                  <td>
+                    <input class="PriceInput" type="text" (change)="storePrice($event, i)" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                      value={{option.NewPriceVariant}}>
+                    </td>
+                  <td>
+                    <input class="PriceInput" type="text" (change)="dealPriPce($event, i)" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                      value={{option.NewSpecialPriceVariant}}>
+                    </td>
+                </tr>
+              </table>
+            </div>
+            <div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <br>
+      <div class="btncls">
+        <button *ngIf="!showUpdate" mat-raised-button class="vsAdminCLientButn" (click)="addProduct()">Save</button>
+        <button *ngIf="showUpdate" mat-raised-button class="vsAdminCLientButn" (click)="updateProduct()">Update</button>
+      </div>
+    </form>
+  </mat-card>
+</div>
+
+<div class="spinnerDialog" *ngIf="spinner">
+  <div class="spinLoaderHide">
+    <p class="spinLoaderV">V</p>
+  </div>
+</div>

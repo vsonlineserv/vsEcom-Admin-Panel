@@ -1,0 +1,146 @@
+.replyButton {
+  background: var(--vs-color-primary);
+  color: white;
+  border-radius: 4px;
+  padding: 5px;
+  /* margin: 2px 2px; */
+  min-width: 75px;
+  float: right;
+}
+
+.replyButton:hover {
+  background: white;
+  color: var(--vs-color-primary);
+}
+
+table {
+  width: 100%;
+}
+
+th,
+td {
+  width: 25%;
+  max-width: 25%;
+}
+
+.smallFont {
+  font-size: 9px;
+}
+
+.wordBreak {
+  word-break: break-all;
+}
+
+.grid {
+  margin-top: 5px;
+  box-shadow: 0 1px 10px -3px rgb(0 0 0 / 50%);
+}
+
+.tableContainer {
+  overflow: auto;
+  height: 45vh;
+}
+
+.textarea_resize {
+  resize: none;
+  width: inherit;
+  outline: none;
+}
+
+
+.replyMesaageTextarea {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.messageArea {
+  width: 380px;
+  height: 139px;
+  width: 100%;
+  display: flex;
+}
+
+.matSelectAlign {
+  text-align: left;
+  font-size: 15px;
+}
+
+.selectLabelDiv {
+  width: auto;
+  display: inline-block;
+  padding-right: 10px;
+}
+
+
+.matSelect:hover {
+  border-radius: 8px;
+  box-shadow: 0 0 5px var(--vs-color-primary);
+}
+
+.matSelect:focus {
+  border-radius: 8px;
+  box-shadow: 0 0 5px var(--vs-color-primary);
+  outline: 0px;
+}
+
+.matSelect:active {
+  border-radius: 8px;
+  box-shadow: 0 0 5px var(--vs-color-primary);
+  outline: 0px;
+}
+
+.mat-option.mat-active {
+  background-color: var(--vs-color-primary);
+  color: var(--color-white);
+}
+
+.searchbarIcon {
+  display: flex;
+  margin-left: 10px;
+  align-items: center;
+  position: absolute;
+  top: 20px;
+  right: 8px;
+}
+
+.searchInputSearch {
+  width: 100%;
+  position: relative;
+}
+
+.toprightCroner {
+  position: absolute;
+  top: 8px;
+  right: 0px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.countDiv {
+
+  font-size: 12px;
+  background: var(--vs-color-primary);
+  color: var(--color-white);
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  border-radius: 50%;
+  line-height: 0;
+  position: absolute;
+  top: -15px;
+  right: -17px;
+}
+
+.showNotReply {
+  position: relative;
+  padding-left: 5px;
+}
+
+.showNotReplyOnlyDiv {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 20px;
+} 

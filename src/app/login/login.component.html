@@ -1,0 +1,239 @@
+<div class="login-section" *ngIf="loginPage">
+  <header id="header">
+    <div id="containerRef" class="vsLogo">
+      <div class="vsecom_logoDiv">
+        <a id="img_align" href="https://www.vsecommerce.com/" target="_blank">
+          <img src="assets/img/Vsecomlogo.png" alt="VSOnlineServices logo" />
+        </a>
+      </div>
+    </div>
+  </header>
+  <div class="content-section row section-mar0">
+    <div class="divcontainer col-lg-7">
+      <div class="row">
+        <div class="col-lg-7 col-md-12">
+          <div class="home-heading">
+            <h1 class="main-heading">vsEcommerce</h1>
+            <h3 class="sub-heading">Grow Your Business Easier, Faster</h3>
+            <div class="content">
+              <div class="content__container">
+                <p class="content__container__text">
+                  Manage
+                </p>
+                <ul class="content__container__list">
+                  <li class="content__container__list__item">CUSTOMERS!</li>
+                  <li class="content__container__list__item">CATALOG!</li>
+                  <li class="content__container__list__item">ORDERS!</li>
+                  <li class="content__container__list__item">SALES!</li>
+                  <li class="content__container__list__item">ENQUIRY!</li>
+                  <li class="content__container__list__item">INVENTORY!</li>
+                  <li class="content__container__list__item">THEMES!</li>
+                </ul>
+              </div>
+            </div>
+            <div class="available-devices">
+              <div class="appstoreIconsdiv" fxLayout="row">
+                <a href="https://play.google.com/store/apps/details?id=com.vsonlineservices.vsecommerce"
+                  target="_blank">
+                  <img class="storeIcons img-responsive"
+                    src="https://static.wixstatic.com/media/56b215_e2d14d0e68a8412ba41ba71812d3b109~mv2.png/v1/crop/x_53,y_14,w_652,h_269/fill/w_153,h_50,al_c,q_85,usm_0.66_1.00_0.01/Android_BUTTON.webp"></a>
+                <a href="https://apps.apple.com/app/id1608689547" target="_blank">
+                  <img class="storeIcons img-responsive"
+                    src="https://static.wixstatic.com/media/56b215_163583472ce5439aa32919ca9df3e21e~mv2.png/v1/crop/x_53,y_14,w_666,h_269/fill/w_160,h_50,al_c,q_85,usm_0.66_1.00_0.01/Apple_BUTTON.webp"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 col-md-12">
+          <div class="rocket-image">
+            <img src=" /assets/images/rocket-img.png" class="rocket rocket-fly">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="image-section col-lg-12 singleimgshow">
+          <div class="mobil-image"><img src="assets/images/Lap1.png" class="mobil vs-img-resp"></div>
+          <div class="mobile-image1"><img src="assets/images/mobile-left.png" class="mobil1"></div>
+          <div class="mobile-image2"><img src="assets/images/Mobile.png" class="mobil2"></div>
+        </div>
+        <div class="col-lg-12 groupimgshow">
+          <div class="groupimgPos"><img src="assets/images/Group-mob.png" class="vs-img-resp"></div>
+        </div>
+      </div>
+    </div>
+    <div class="vsecommercehomebanner col-lg-5 col-md-12 ">
+      <div class="vs-home-right">
+        <div class="welcome-head-content">
+          <div class="rocket-image-mobile">
+            <img src=" /assets/images/rocket-img.png" class="rocket rocket-fly-mobile">
+          </div>
+          <h4 class="Welcome-title-content">Welcome!</h4>
+          <h4 class="modal-title-content">Login to your <span class="primary-color">VSAccount</span></h4>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <form class="form" [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+              <div class="input-section-div">
+                <div>
+                  <div class="input-div">
+                    <div >
+                      <div id="email-input" class="matForm">
+                        <div class="" *ngIf="!showEmailIcon">
+                          <img class="vsecom_img_icon" src="/assets/images/email-Phone.png" alt="icon">
+                        </div>
+                        <div *ngIf="showEmailIcon">
+                            <mat-icon class="material-icons icon-form">
+                              mail_outline</mat-icon>
+                          </div>
+                        <div class="storeVsecommercetel">
+                          <input matInput class="inputs" placeholder="Email or Mobile Number" autocomplete="off" id="loginemail"
+                            tabindex="3" (focusout)="focusOut()" formControlName="Username"
+                            (keyup)="showcountrycode($event)">
+                        </div>
+                      </div>
+                      <div id="phonenumber-input" class="matForm">
+                        <div class="storeVsecommercetel">
+                          <mat-icon  class="material-icons-outlined icon-forms">
+                            call</mat-icon>
+                          <div class="storeVsecommercetel">
+                            <input type="tel" id="logintelphone" class="telInput " formControlName="UsernamePhone"
+                              autocomplete="off" tabindex="1" minlength="6" maxlength="14"
+                              (focus)="focusInphone($event)" (focusout)="focusOut()" (keyup)="phoneInput($event)">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <div *ngIf="submitted && loginForm.controls['Username'].errors && usernameEmail" class="invalids-message">
+                <div class="error" *ngIf="loginForm.controls['Username'].errors['required']">Email or PhoneNumber is required</div>
+                <div class="error" *ngIf="loginForm.controls['Username'].errors['email']">Please enter a valid email or phoneNumber
+                  address</div>
+              </div>
+              <div
+                *ngIf="(submitted && loginForm.controls['UsernamePhone'].errors && usernamePhoneNo) || (submitted && phoneValidationError && usernamePhoneNo)"
+                class="invalids-message">
+                <div class="error"
+                  *ngIf="loginForm.controls['UsernamePhone'].errors && loginForm.controls['UsernamePhone'].errors['minlength']">
+                  Minimum 6 Numbers</div>
+                <div class="error"
+                  *ngIf="loginForm.controls['UsernamePhone'].errors && loginForm.controls['UsernamePhone'].errors['maxlength']">
+                  Maximum 14 Numbers</div>
+                <div class="error" *ngIf="loginForm.controls['UsernamePhone'].dirty && phoneValidationError">
+                  {{phoneValidationError}}</div>
+              </div>
+          </div>
+          <div class="input-section-div">
+            <div class="input-div">
+              <mat-icon class="material-icons icon-form">
+                lock</mat-icon>
+              <div class="storeVsecommerceSpan">
+                <input matInput type="password" class="input" placeholder="Password" id="newPassword"
+                  formControlName="Password" autocomplete="new-password"
+                  [ngClass]="{ 'is-invalid': submitted && loginForm.controls['Password'].errors }" tabindex="5">
+                <span class="input-group-addon1 cursor_p custom-pr-10" style="padding-left: 0px;" (click)="visible()">
+                  <img *ngIf="showVisibleIcon" src="assets/images/register/eye-icon-hide.png">
+                  <img *ngIf="!showVisibleIcon" src="assets/images/register/eye-icon-show.png">
+                </span>
+              </div>
+            </div>
+            <div *ngIf="submitted && loginForm.controls['Password'].errors" class="invalids-message">
+              <div class="error" *ngIf="loginForm.controls['Password'].errors['required']">Password is required</div>
+              <div class="error" *ngIf="loginForm.controls['Password'].errors['minlength']">Password must be at least 6
+                characters</div>
+            </div>
+          </div>
+          <div *ngIf="submitted && flagError" class="invalid-message">
+            <div class="error">Email or Mobile Number invalid. Please try again</div>
+          </div>
+          <!-- <div class="linkButtonAlign ">
+            <span class="troubleSigning"> <a [routerLink]="['/forgot-password']" href="#" class="re-signin">Forgot
+                Password?</a></span>
+          </div> -->
+          <div>
+            <button type="submit" class="btn reg-button" style="padding: 10px 15px !important;"
+              tabindex="8">Login</button>
+          </div>
+          <br>
+          <!-- <div class="agreeDiv">
+            <span class="agree-Text"> Don’t Have a VSAccount ? <a class="register" [routerLink]="['/register']"
+                href="#">
+                Register Now</a></span>
+          </div> -->
+          </form>
+        </div>
+      </div>
+      <div class="appstoreIconsdivMobile">
+        <h5 class="downloadText">Download vsEcom Mobile App!</h5>
+        <div class="available-devices">
+          <div class="appstoreIconsdiv" fxLayout="row">
+            <a href="https://play.google.com/store/apps/details?id=com.vsonlineservices.vsecommerce" target="_blank">
+              <img class="storeIcons img-responsive"
+                src="https://static.wixstatic.com/media/56b215_e2d14d0e68a8412ba41ba71812d3b109~mv2.png/v1/crop/x_53,y_14,w_652,h_269/fill/w_153,h_50,al_c,q_85,usm_0.66_1.00_0.01/Android_BUTTON.webp"></a>
+            <a href="https://apps.apple.com/app/id1608689547" target="_blank">
+              <img class="storeIcons img-responsive"
+                src="https://static.wixstatic.com/media/56b215_163583472ce5439aa32919ca9df3e21e~mv2.png/v1/crop/x_53,y_14,w_666,h_269/fill/w_160,h_50,al_c,q_85,usm_0.66_1.00_0.01/Apple_BUTTON.webp"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mobil-image-ipad vs-mobile-image-dn col-md-12">
+      <img src="assets/images/Group-mob.png" class="mobil-ipad">
+    </div>
+  </div>
+</div>
+<footer id="footerLogin" class="footer-section tab-footer">
+  <div class="vsFooterTextColor footercentermrg vsecom_dFlex vsecom_justify_between">
+    <a href="mailto:support@vsonlineservices.com" class="vsFooterTextColor footer-left"><i class="fa fa-envelope"
+        aria-hidden="true"></i>
+      support@vsonlineservices.com
+    </a>
+    <div class="">
+      <span><a class="vsFooterTextColor footer-right" href="https://www.vsecommerce.com/about.html" target="_blank">
+          About Us</a>&nbsp;&nbsp;
+        <a class="vsFooterTextColor footer-right" href="https://www.vsecommerce.com/terms.html" target="_blank">Terms
+          of
+          Service</a>&nbsp;&nbsp;
+        <a class="vsFooterTextColor footer-right" href="https://www.vsecommerce.com/privacypolicy.html" target="_blank">
+          Privacy
+          Policy </a></span>
+    </div>
+  </div>
+  <div class="vsFooterTextColor vsecom_dFlex vsecom_footerBottom vsecom_justify_between ">
+    <a href="tel:+917305991401" class="vsFooterTextColor footer-left"><i class="fa fa-phone" aria-hidden="true"></i>
+      +917305991401
+    </a>
+    <div class="footerLeft footer-right">
+      Copyrights &copy; All Rights Reserved - VS Online Services pvt ltd
+    </div>
+  </div>
+</footer>
+<footer id="footerLogin" class="footer-section  mobile-footer">
+  <div>
+    <a href="mailto:support@vsonlineservices.com" class="footer-size"><i class="fa fa-envelope" aria-hidden="true"></i>
+      support@vsonlineservices.com
+    </a>
+    <a class="footer-size" href="tel:+917305991401"><i class="fa fa-phone" aria-hidden="true"></i>
+      +917305991401
+    </a>
+    <span class="footer-size"><a class="footer-size" href="https://www.vsecommerce.com/about.html" target="_blank">
+        About Us</a>&nbsp;&nbsp;
+      <a class="footer-size" href="https://www.vsecommerce.com/terms.html" target="_blank">Terms
+        of
+        Service</a>&nbsp;&nbsp;
+      <a class="footer-size" href="https://www.vsecommerce.com/privacypolicy.html" target="_blank">
+        Privacy
+        Policy </a></span>
+  </div>
+
+
+  <div class="footer-size">
+    Copyrights &copy; All Rights Reserved - VS Online Services pvt ltd
+  </div>
+</footer>
+</div>
+<div class="LoaderDiv center-loader" *ngIf="loader">
+  <div class="spinLoaderHide">
+    <p class="spinLoaderV">V</p>
+  </div>
+</div>

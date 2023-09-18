@@ -1,0 +1,65 @@
+<div class="mainContent">
+    <div class="titleHeadet">
+        <h3 class="vsecom_pageHeader">Shipping & Pickup</h3>
+        <button>
+          <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+      </button>
+      </div>
+
+    <div class="shippingPickup">
+        <div class="carrierList" *ngFor="let list of carrierDetails">
+            <mat-card>
+                <div>
+                <h3 class="carrierName">{{list}}</h3>
+                </div>
+                <div>
+                    <div class="matForm btncls">
+                        <button mat-raised-button class="saveBtn" (click)="setUp()">
+                            Set Up
+                        </button>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+        <div class="addParcel">
+            <mat-card>
+                <form [formGroup]="carrierForm" (ngSubmit)="addCarrier()">
+                    <div>
+                        <div class="addParcelHeader">
+                            <h4 class="addParcelHeading">ADD NEW PARCEL SERVICE</h4>
+                        </div>
+                        <div class="shippingIcon">
+                            <mat-icon class="material-icons-sharp">local_shipping</mat-icon>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="serviceProviderText">Enter the name of the Service Provider you would like </p>
+                    </div>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between ">
+                        <div fxFlex="49"> 
+                            <mat-form-field class="mainContent" appearance="outline">
+                                <mat-label>Carrier Name</mat-label>
+                                <input matInput formControlName="CarrierName">
+                                <mat-error>
+                                    <span *ngIf="submitted && carrierForm?.controls['CarrierName'].errors && carrierForm?.controls['CarrierName'].errors['required']">
+                                        Carrier name is required</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                 
+
+
+                    <div>
+                        <div class="matForm btncls">
+                            <button mat-raised-button class="saveBtn">
+                                ADD CARRIER
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+
+    </div>

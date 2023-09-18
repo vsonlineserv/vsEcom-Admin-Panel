@@ -1,0 +1,16 @@
+<div class="dialogDiv">
+    <i class="material-icons cancelIcon" mat-dialog-close>close</i>
+    <h3 class="headerHeading">Confirmation</h3>
+    <hr class="headerLine">
+    <div>
+        <mat-dialog-content>
+            <div>
+                <h4>This user already exists, do you want to add this user to your store?</h4>
+            </div>
+            <mat-dialog-actions align="end">
+                <button class="mat-raised-button vsAdminCLientBtn" (click)="close()">No</button>
+                <button class="mat-raised-button vsAdminCLientBtn" (click)="addExistingUser()">Yes</button>
+            </mat-dialog-actions>
+        </mat-dialog-content>
+    </div>
+</div>

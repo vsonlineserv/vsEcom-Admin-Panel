@@ -1,0 +1,131 @@
+<div class="mainContent">
+  <div class="titleHeadet">
+    <h3 class="vsecom_pageHeader">Pricing</h3>
+    <button>
+      <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+  </button>
+  </div>
+  <div class="tableTop_header marginBottom40">
+    <div class="padding1" *ngIf="!catergoryValue" fxLayout="row" fxLayout.xs="column">
+      <div fxFlex="30%">
+          <!-- <div class="subCategory">
+              <span class="labelCategory">Category </span>
+          </div> 
+          <div class="matSelect"> -->
+            <mat-form-field class="selectLabelDiv">
+              <mat-label>Category</mat-label>
+            <mat-select #singleSelect [(value)]="category" class="matSelectAlign" disableOptionCentering 
+            panelClass="testClass" (selectionChange)="getSubCategory($event)">
+              <!-- <mat-option value="All" selected="true">All</mat-option> -->
+              <mat-option *ngFor="let mainCategory of catergoryList" selected="true" [value]="mainCategory.id">
+                {{mainCategory.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- </div> -->
+      </div>
+      <div fxFlex="30%" *ngIf="subCategoryId">
+        <!-- <div class="subCategory">
+            <span class="labelCategory">Sub Category </span>
+        </div> 
+        <div class="matSelect"> -->
+          <mat-form-field class="selectLabelDiv">
+            <mat-label>Sub Category</mat-label>
+             
+          <mat-select #singleSelect class="matSelectAlign" [(value)]="subCategoryId.value" disableOptionCentering panelClass="testClass"
+          (selectionChange)="getProductsBasedOnCategory($event)">
+            <mat-option *ngFor="let subCat of subCatergoryList" selected="true" [value]="subCat.CategoryId">
+              {{subCat.Name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- </div> -->
+      </div>
+      <div fxFlex="40%">
+        <div class="searchInputSearch">
+          <mat-form-field class="searchInput">
+            <input matInput placeholder="Search By Product Name">
+          </mat-form-field>
+        </div>
+        <div class="searchbarIcon">
+          <i class="material-icons">search</i>
+         </div>
+      </div>
+      <!-- <div class="searchbarIcon">
+       <i class="material-icons">search</i>
+      </div> -->
+      <div fxFlex="20%">
+        <div >
+            <button mat-raised-button class="mat-raised-button addProdBtn"
+            [routerLink]="['/home/add-product']"><b>Add New Product</b> <i class="material-icons addIcon">add_circle_outline</i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="tableContainer">
+      <table mat-table [dataSource]="dataSource" matSort style="height: auto;">
+        <ng-container matColumnDef="ProductName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            <div class="maxContent">Name</div>
+             </th>
+          <td mat-cell *matCellDef="let row"> {{row.ProductName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="NewPrice">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            <div class="maxContent"> Old Price</div>
+            </th>
+          <td mat-cell *matCellDef="let row"> {{row.OldPrice}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 
+            <div class="maxContent">Store Price</div>
+             </th>
+          <td mat-cell *matCellDef="let row"> {{row.Price}} </td>
+        </ng-container>
+        <ng-container matColumnDef="NewSpecialPrice">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 
+            <div class="maxContent">Deal Price</div>
+             </th>
+          <td mat-cell *matCellDef="let row"> {{row.SpecialPrice}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Actions">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 
+            <div class="maxContent">Actions</div>
+           </th>
+          <td mat-cell *matCellDef="let row" class="">
+            <div class="actionButtonsContainer">
+              <i class="material-icons cursor_p vsecom_primary_color" matTooltip="Edit" matTooltipPosition="above"
+              (click)="openEdit(row.ProductId,row.ProductName,row.BranchId,row.Store,row.Price,row.SpecialPrice,row.SpecialPriceDescription)">edit</i>
+
+              <button *ngIf="!row.IsDeleted" mat-raised-button color="warn" class="mat-raised-button actionButton"
+                (click)="suspendProduct(row.BranchId,row.Store,row.ProductId)">Suspend</button>
+              <button *ngIf="row.IsDeleted" mat-raised-button color="warn" class="mat-raised-button actionButton"
+                (click)="resumeProduct(row.BranchId,row.Store,row.ProductId)">Resume</button>
+            </div>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <div class="noRecordsTable" *ngIf="dataSource && dataSource.data.length === 0">
+        No Records Found!
+      </div>
+    </div>
+    <div>
+      <mat-paginator [pageSizeOptions]="[25,50, 100, 500]" (page)="getPageNumber($event)"></mat-paginator>
+    </div>
+  </div>
+  <!-- <div style="margin-top: 5px;">
+    <button mat-raised-button class="mat-raised-button vsAdminCLientBtn addProdBtn"
+    [routerLink]="['/home/add-product']">Add Product</button>
+  </div> -->
+</div>
+
+<div class="spinnerDialog" *ngIf="spinner">
+  <div class="spinLoaderHide">
+    <p class="spinLoaderV">V</p>
+</div>
+</div>

@@ -1,0 +1,71 @@
+<div class="mainContent">
+    <div class="titleHeadet">
+        <h3 class="vsecom_pageHeader">Shipping & Delivery</h3>
+        <button>
+          <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+      </button>
+      </div>
+    <div>
+        <!-- <h5 class="shippingHeading">Add a new shipping & delivery</h5> -->
+    </div>
+    <mat-card class="shippingDetails">
+        <div>
+            <h5 class="shippingDetailsMenu">
+                <mat-icon class="material-icons-sharp favoriteIconColor truck_icon">local_shipping</mat-icon>
+            </h5>
+        </div>
+        <div>
+            <h5 class="shippingDetailsHeading">Shipping</h5>
+        </div>
+        <div>
+            <h5 class="shippingDetailsDescription">Setup Shipping Fees, using various custom options like flat
+                rate or by weight or by order value.</h5>
+        </div>
+
+        <div class="mainContent btncls">
+            <button mat-raised-button class="saveBtn" (click)="addShipping()">
+                <mat-icon class="material-icons-outlined addicons">add</mat-icon> Add Shipping
+            </button>
+        </div>
+    </mat-card>
+    <!-- <mat-card class="shippingDetails">
+        <div>
+            <h5 class="shippingDetailsMenu">
+                <mat-icon class="material-icons-sharp favoriteIconColor">delivery_dining</mat-icon>
+            </h5>
+        </div>
+        <div>
+            <h5 class="shippingDetailsHeading">Delivery</h5>
+        </div>
+        <div>
+            <h5 class="shippingDetailsDescription">Setup Delivery Options on how you ship your goods or
+                integrate with other delivery partners
+                rates from</h5>
+        </div>
+
+        <div class="mainContent btncls">
+            <button mat-raised-button class="saveBtn" (click)="addDelivery()">
+                <mat-icon class="material-icons-outlined addicons">add</mat-icon> Add Delivery
+            </button>
+        </div>
+    </mat-card> -->
+    <mat-card class="shippingDetails">
+        <div>
+            <div class="shiprocket">
+                <img src="assets/images/shiprocket.png" alt="shiprocket">
+            </div>
+        </div>
+        <div>
+            <h5 class="shippingDetailsHeading">Shiprocket</h5>
+        </div>
+        <div>
+            <h5 class="shippingDetailsDescription">Add your shiprocket api user name and password to setup shiprocket</h5>
+        </div>
+
+        <div class="mainContent btncls">
+            <button mat-raised-button class="saveBtn" (click)="addShiprocket()">
+                <mat-icon class="material-icons-outlined addicons">add</mat-icon>Add Shiprocket
+            </button>
+        </div>
+    </mat-card>
+</div>

@@ -1,0 +1,102 @@
+.matForm {
+    display: block;
+    margin: auto;
+    width: 70%;
+}
+
+.addicons {
+    margin: 5px;
+}
+
+.rowItem {
+    width: 100%;
+}
+
+.addRow {
+    -webkit-box-pack: center;
+    display: flex;
+    align-items: center;
+    color: var(--vs-color-primary) !important;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.rowItemRate {
+    text-align: center;
+    width: 100%;
+}
+
+
+.saveBtn {
+    margin: 3px !important;
+    background: var(--vs-color-primary);
+    color: white;
+    padding: 1px 15px;
+    border: none;
+    font-size: 15px;
+    cursor: pointer !important;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.saveBtn:focus {
+    box-shadow: 0 0 6px var(--vs-color-primary);
+    outline: none !important;
+}
+
+.saveBtn:hover {
+    background: white;
+    color: var(--vs-color-primary);
+}
+
+.btncls {
+    text-align: end;
+}
+
+.rangeStart {
+    width: 20%;
+    float: left;
+    display: inline-block;
+    margin-right: 30px;
+}
+
+.rangeEnd {
+    width: 20%;
+    display: inline-block;
+    float: left;
+    margin-right: 30px;
+}
+
+.rate {
+    width: 20%;
+    margin-left: 27px;
+    display: inline-block;
+}
+
+.rateHeading{
+    width: 40%;
+    float: left;
+}
+.priceRangeHeading{
+    width: 50%;
+    margin-right: 15px;
+    float: left;
+}
+.addPriceHeading{
+    width: 100%;
+    height: 75px;
+}
+
+.entireOrder{
+    font-size: 14px;
+}
+
+.currency{
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+}
+
+.rangevalue{
+    display: inline-block;
+    width: 80%;}

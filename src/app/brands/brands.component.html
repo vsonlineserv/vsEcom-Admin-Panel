@@ -1,0 +1,94 @@
+<div class="mainContent">
+    <div class="">
+        <div class="titleHeadet">
+            <h3 class="vsecom_pageHeader">Brands</h3>
+            <button>
+                <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+            </button>
+        </div>
+        <div class="productsHeader marginBottom40">
+            <div class="productsHeaderBar">
+                <div fxLayout fxLayoutAlign="space-between " fxLayout.xs="column" class="padding1 header">
+                    <div class="searchBar" fxFlex="40%">
+                        <div class="searchInputSearch searchAlign">
+                            <mat-form-field class="searchInput" appearance="outline">
+                                <mat-label>Search By Brand Name</mat-label>
+                                <input matInput (keyup)="searchBrands($event)">
+                            </mat-form-field>
+                            <div class="searchIcon">
+                                <span><i class="material-icons">search</i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="salesHeader-section searchbutton-mobile mt10">
+                        <div class="vsecom_dFlex vsecom_alignItems_center" fxLayoutGap="20px">
+                            <button  mat-raised-button
+                            class="mat-focus-indicator vsecom_Btn mat-raised-button mat-button-base" [routerLink]="['/home/add-brands']">
+                            <span class="mat-button-wrapper"> <mat-icon class="material-icons-outlined addicons">add</mat-icon>
+                              <b>Add New brand</b> 
+                            </span>
+                          </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="tableContainer">
+            <table mat-table [dataSource]="dataSource" matSort style="height: auto;">
+                <ng-container matColumnDef="BrandImage">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>IMAGE</th>
+                    <td mat-cell *matCellDef="let row">
+                        <div class="brandimageDiv" *ngIf="!row.isDeleted">
+                            <img *ngIf="row.manufacturerImage" class="brandimage" src="{{row.manufacturerImage}}">
+                            <img *ngIf="!row.manufacturerImage" class="brandimage" src="assets/images/no-image.png"
+                                (error)="onImgError($event)">
+                        </div>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="BrandName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        <div class="maxContent">BrandName</div>
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <div>{{row.name}}</div>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="slogan">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        <div class="maxContent">slogan</div>
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <div>
+                            {{row.description}}</div>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="Action">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        <div class="maxContent">ACTION</div>
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <div *ngIf="!row.isDeleted">
+                            <div class="vsecom_dFlex vsecom_alignItems_center">
+                                <i class="material-icons-outlined cursor_p editIcon spaces-right" matTooltip="Edit"
+                                    matTooltipPosition="above" (click)="editBrand(row.manufacturerId)">edit</i>
+                                <i class="material-icons-outlined cursor_p editIcon deleteIcon spaces-right"
+                                    matTooltip="Delete" matTooltipPosition="above"
+                                    (click)="deleteBrand(row.manufacturerId)">delete</i>
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <div class="noRecordsTable" *ngIf="dataSource && dataSource.data.length === 0">
+                No Records Found!
+            </div>
+        </div>
+    </div>
+    <div>
+        <mat-paginator [pageSizeOptions]="[25,50, 100, 500]" (page)="getPageNumber($event)"></mat-paginator>
+    </div>
+</div>

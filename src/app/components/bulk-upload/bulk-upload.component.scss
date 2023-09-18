@@ -1,0 +1,31 @@
+.listIcon {
+    color: var(--vs-color-primary);
+    height: 40px;
+    width: 40px;
+    font-size: 40px;
+}
+
+.importFile{
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.p10{
+  padding-right: 10px;
+}
+
+input::file-selector-button {
+  cursor: pointer;
+}
+
+.dwldExcel{
+  display: flex;
+  align-items: center;
+}
+
+.instructionContent{
+  background-color: #d7eafb;
+  padding: 5px 0px 0px 5px;
+  border: 1px solid #97c1e6;
+}

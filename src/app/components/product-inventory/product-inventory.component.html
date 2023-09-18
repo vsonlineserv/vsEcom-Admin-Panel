@@ -1,0 +1,65 @@
+<div class="dialogDiv">
+    <i class="material-icons cancelIcon" mat-dialog-close>close</i>
+    <h3 class="headerHeading">Inventory</h3>
+    <hr class="headerLine">
+
+    <!-- <div class="dialogDiv vsecom_customScroll mat-dialog-contentVsecom"> -->
+        <mat-dialog-content>    
+        <form [formGroup]="inventoryForm" (ngSubmit)="addInventory()">
+            <div>
+                <h5 class="productNameHeading">{{this.ProductName}}</h5>
+            </div>
+            <!-- <div>
+                <h5 class="subHeading">Inventory</h5>
+            </div> -->
+            <div class="inputRow">
+                <mat-form-field class="rowItem leftinput" appearance="outline">
+                    <mat-label>
+                        SKU (Stock Keeping Unit)
+                    </mat-label>
+                    <input type="text" matInput formControlName="SKU">
+                </mat-form-field>
+
+                <mat-form-field class="rowItem rightinput" appearance="outline">
+                    <mat-label>
+                        BarCode (ISBN,UPC,GTIN,etc.)
+                    </mat-label>
+                    <input type="text" matInput formControlName="ProductCode">
+                </mat-form-field>
+            </div>
+            <div class="checkboxLable">
+                <mat-checkbox class="example-margin" [checked]="this.IsTrackQuantity" (change)="IsTrackQuantityChangeEvent($event)"> Track quantity</mat-checkbox>
+            </div>
+            <div class="checkboxLable">
+                <mat-checkbox class="example-margin" [checked]="this.OutOfStock" (change)="IsOutOfStockChangeEvent($event)"> Allow Out of Stock Sales
+                </mat-checkbox>
+            </div>
+            <div class="borderQuantity"></div>
+            <div>
+                <h5 class="subHeading">QUANTITY</h5>
+            </div>
+            <div class="inputRow">
+                <mat-form-field class="rowItem leftinput" appearance="outline">
+                    <mat-label>
+                        Available
+                    </mat-label>
+                    <input type="number" matInput min="0" formControlName="AvailableQuantity">
+                    <mat-error>
+                        <span *ngIf="submitted && inventoryForm?.controls['AvailableQuantity'].errors && inventoryForm?.controls['AvailableQuantity'].errors['required']">
+                            Please enter Available</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <mat-dialog-actions class="btncls" align="end">
+                <button class="vsAdminCLientBtn mat-raised-button" mat-dialog-close>Close</button>
+                <button class="vsAdminCLientBtn mat-raised-button" type="submit">Save</button>
+            </mat-dialog-actions>
+        </form>
+        </mat-dialog-content>
+        <div class="spinnerDialog" *ngIf="spinner">
+            <div class="spinLoaderHide">
+              <p class="spinLoaderV">V</p>
+            </div>
+        </div>
+    <!-- </div> -->
+</div>

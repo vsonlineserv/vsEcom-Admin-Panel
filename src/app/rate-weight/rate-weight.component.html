@@ -1,0 +1,137 @@
+<div class="mainContent">
+
+    <div class="titleHeadet">
+        <h3 class="vsecom_pageHeader">Rate by Weight</h3>
+        <button>
+            <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+        </button>
+    </div>
+
+    <mat-card>
+        <form [formGroup]="weighRangeForm" (ngSubmit)="onSubmit()">
+            <div formArrayName="weighRange">
+                <div *ngFor="let employee of weighRange().controls; let weightIndex=index">
+                    <div [formGroupName]="weightIndex">
+
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between ">
+                            <div fxFlex="49">
+                                <mat-form-field class="rowItem" appearance="outline">
+                                    <mat-label>
+                                        Delivery Option Name
+                                    </mat-label>
+                                    <input type="text" matInput formControlName="DisplayName" [(ngModel)]="displayName">
+                                    <mat-error>
+                                        <span *ngIf="submitted && weighRange().invalid">
+                                            Please enter delivery option name</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="49">
+
+                                <mat-form-field class="rowItem" appearance="outline">
+                                    <mat-label>
+                                        Est.Delivery Time (optional)
+                                    </mat-label>
+                                    <input type="text" matInput formControlName="DeliveryTime"
+                                        [(ngModel)]="displayTime">
+                                    <mat-error>
+                                        <span *ngIf="submitted && weighRange().invalid">
+                                            Please enter delivery time</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="addPriceHeading">
+                            <div class="priceRangeHeading">
+                                <h4>Price Range</h4>
+                                <p class="entireOrder">Of entire order</p>
+                            </div>
+                            <div class="rateHeading">
+                                <h4>Rate</h4>
+                            </div>
+                        </div>
+                        <div formArrayName="RatebyWeight">
+                            <div
+                                *ngFor="let weightinfo of ratebyWeightDetails(weightIndex).controls; let weightRangeIndex=index">
+                                <div [formGroupName]="weightRangeIndex">
+                                    <div>
+                                        <div class="rangeStart">
+                                            <div class="rangevalue">
+                                                <mat-form-field class="rowItem">
+                                                    <input type="text" matInput [(ngModel)]="rangeStart"
+                                                        formControlName="RangeStart">
+                                                    <mat-error>
+                                                        <span
+                                                            *ngIf="submitted && weighRangeForm?.controls['RangeStart'].errors && weighRangeForm?.controls['RangeStart'].errors['required']">
+                                                            Please enter stating price</span>
+                                                    </mat-error>
+                                                </mat-form-field>
+
+                                            </div>
+                                            <div class="currency">
+                                                kg
+                                            </div>
+                                        </div>
+                                        <div class="rangeEnd">
+                                            <div class="rangevalue">
+                                                <mat-form-field class="rowItem">
+                                                    <input type="text" matInput [(ngModel)]="rangeEnd"
+                                                        formControlName="RangeEnd">
+                                                    <mat-error>
+                                                        <span
+                                                            *ngIf="submitted && weighRangeForm?.controls['RangeEnd'].errors && weighRangeForm?.controls['RangeEnd'].errors['required']">
+                                                            Please enter ending price</span>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div class="currency">
+                                                kg
+                                            </div>
+                                        </div>
+                                        <div class="rate">
+                                            <div class="currency">
+                                                {{currency}}
+                                            </div>
+                                            <div class="rangevalue">
+                                                <mat-form-field class="rowItem">
+                                                    <input type="text" matInput [(ngModel)]="rate"
+                                                        formControlName="Rate">
+                                                    <mat-error>
+                                                        <span
+                                                            *ngIf="submitted && weighRangeForm?.controls['Rate'].errors && weighRangeForm?.controls['Rate'].errors['required']">
+                                                            Please enter rate</span>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="addRow">
+                                <span (click)="addRow(weightIndex)">
+                                    <mat-icon class="material-icons-outlined addicons">add_circle_outline</mat-icon>
+                                </span>
+                                <span (click)="addRow(weightIndex)">
+                                    Add Row
+                                </span>
+
+                            </div>
+                        </div>
+                        <div class="mainContent btncls">
+                            <button mat-raised-button class="saveBtn" type="submit">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-card>
+</div>

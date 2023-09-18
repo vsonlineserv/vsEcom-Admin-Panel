@@ -1,0 +1,110 @@
+::ng-deep.mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: var(--vs-color-primary) !important;
+}
+
+.mat-select-arrow {
+  color: var(--vs-color-primary) !important;
+}
+
+/* Change label color on focused */
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: var(--vs-color-primary) !important;
+}
+
+// overwrite the checkbox background
+::ng-deep .mat-checkbox-checked .mat-checkbox-background,
+.mat-checkbox-indeterminate .mat-checkbox-background {
+  background-color: var(--vs-color-primary) !important;
+}
+
+// overwrite the ripple overlay on hover and click
+::ng-deep .mat-checkbox:not(.mat-checkbox-disabled) .mat-checkbox-ripple .mat-ripple-element {
+  background-color: var(--vs-color-primary) !important;
+}
+
+.categoryImage {
+  display: inherit;
+}
+
+.multiSelectImage {
+  width: 125px;
+  height: 125px;
+  display: inline-block;
+  background-color: #ffffff;
+  margin: 15px;
+  box-shadow: 0 0 6px;
+  padding: 10px;
+  position: relative;
+  border-radius: 5px;
+}
+
+.plusIconLabel {
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+.addButton {
+  border: 2px dashed;
+  color: var(--vs-color-primary);
+  border-radius: 5px;
+  box-sizing: border-box;
+  height: 100%;
+  cursor: pointer;
+}
+
+.addButtonIcon {
+  font-size: 70px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+
+.singelSelectImage {
+  width: 125px;
+  height: 125px;
+  display: inline-block;
+  background-color: #ffffff;
+  margin: 15px;
+  box-shadow: 0 0 6px;
+  padding: 10px;
+  position: relative;
+  border-radius: 5px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cancelImage {
+  position: absolute;
+  top: 0px;
+  color: #505050;
+  right: 0px;
+  cursor: pointer;
+}
+
+.categoryImage {
+  justify-content: center;
+  display: flex;
+}
+
+.singelSelectImage {
+  width: 125px;
+  height: 125px;
+  display: inline-block;
+  background-color: #ffffff;
+  margin: 15px;
+  box-shadow: 0 0 6px;
+  padding: 10px;
+  position: relative;
+  border-radius: 5px;
+}
+
+.LoaderDiv1 {
+  background-color: transparent !important;
+}

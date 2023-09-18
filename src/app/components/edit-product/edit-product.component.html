@@ -1,0 +1,26 @@
+<div class="dialogDiv">
+    <i class="material-icons cancelIcon" mat-dialog-close>close</i>
+    <h3 class="headerHeading">Update Product</h3>
+    <hr class="headerLine">
+    <div>
+        <mat-dialog-content>
+            <mat-form-field appearance="outline">
+                <mat-label>Store Price</mat-label>
+                <input matInput [(ngModel)]="data.Price">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Deal Price</mat-label>
+                <input matInput [(ngModel)]="data.SpecialPrice">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Deal Description</mat-label>
+                <input matInput [(ngModel)]="data.SpecialPriceDescription">
+            </mat-form-field>
+
+            <mat-dialog-actions align="end">
+                <button class="mat-raised-button vsAdminCLientBtn" (click)="close()">Close</button>
+                <button class="mat-raised-button vsAdminCLientBtn" (click)="updatePrice(data)">Update</button>
+            </mat-dialog-actions>
+        </mat-dialog-content>
+    </div>
+</div>

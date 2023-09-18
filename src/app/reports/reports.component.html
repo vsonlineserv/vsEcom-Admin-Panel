@@ -1,0 +1,467 @@
+<div class="mainContent">
+        <div class="titleHeadet">
+                <h3 class="vsecom_pageHeader">Reports</h3>
+                <button>
+                        <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+                </button>
+        </div>
+
+        <!-- <div>
+                <div fxLayout="row wrap" fxLayoutGap="32px" fxLayoutAlign="end center" class="statusSelect">
+                        <div class="vsecom_dFlex vsecom_alignItems_center" fxLayoutGap="20px" *ngIf="showStartEndDate">
+                                <mat-form-field class="searchInput">
+                                        <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" matInput
+                                                placeholder="Start Date" [(ngModel)]="startDateFilter"
+                                                (ngModelChange)="dateFilter()">
+                                        <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                                </mat-form-field>
+
+                                <mat-form-field class="searchInput">
+                                        <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" matInput
+                                                placeholder="End Date" [(ngModel)]="enddateFilter"
+                                                (ngModelChange)="dateFilter()">
+                                        <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                                </mat-form-field>
+                        </div>
+
+                        <mat-form-field class="selectLabelDiv">
+                                <mat-label>Status</mat-label>
+                                <mat-select #singleSelect [(value)]="selected" class="matSelectAlign"
+                                        disableOptionCentering panelClass="testClass" [(ngModel)]="selectedOption"
+                                        (selectionChange)="reportsFilter($event.value)">
+                                        <mat-option value="all">All</mat-option>
+                                        <mat-option value="week"> 7 days</mat-option>
+                                        <mat-option value="custom">Custom</mat-option>
+                                </mat-select>
+                        </mat-form-field>
+
+
+                </div>
+
+        </div> -->
+        <div class="marginBottom40">
+                <div fxLayout="row wrap" class="flexLayoutIntialgap" fxLayoutAlign="flex-center">
+
+                        <div fxFlex="0 1 calc(33% - 32px)" fxFlex.md="0 1 calc(50% - 32px)" class="flexLayoutgap">
+                                <div class="card vsecom_tableCard">
+                                        <div class="vsecom_tableCardBody">
+                                                <div class="vsecom_tableCardHeader">
+                                                        Sales Summary
+                                                </div>
+                                                <table>
+                                                        <tr>
+                                                                <td class="vsecom_tableCardTtitle">Days</td>
+                                                                <td class="vsecom_tableCardTtitle">QTY</td>
+                                                                <td class="vsecom_tableCardTtitle">Sales</td>
+                                                        </tr>
+                                                        <tr *ngFor="let i of ordersumList let j =index"
+                                                                class="vsecom_tableCardRow">
+                                                                <td>
+                                                                        <div class="vsecom_tableCardContent">
+                                                                                <div class="fancyColumn"
+                                                                                        [ngClass]="'fancyColumnDay' +j">
+                                                                                        {{i.days}}
+                                                                                </div>
+                                                                                
+                                                                        </div>
+                                                                </td>
+                                                                <td>
+                                                                        <div class="vsecom_tableCardContent" *ngIf="i.quantity">
+                                                                                {{i.quantity}}
+                                                                        </div>
+                                                                        <div class="vsecom_tableCardContent" *ngIf="i.quantity == null">
+                                                                                0
+                                                                        </div>
+                                                                </td>
+                                                                <td>
+                                                                        <div class="vsecom_tableCardContent" *ngIf="i.salesValue">
+                                                                                {{this.global.currency}} {{i.salesValue
+                                                                                | number}}
+                                                                        </div>
+                                                                        <div class="vsecom_tableCardContent" *ngIf="i.salesValue == null">
+                                                                                {{this.global.currency}} 0
+                                                                        </div>
+                                                                </td>
+                                                        </tr>
+                                                </table>
+                                        </div>
+                                </div>
+                        </div>
+                        <div fxFlex="0 1 calc(33% - 32px)" fxFlex.md="0 1 calc(50% - 32px)" class="flexLayoutgap">
+                                <div class="card vsecom_tableCard">
+                                        <div class="vsecom_tableCardBody">
+                                                <div class="vsecom_tableCardHeader" *ngIf="!filterTabTopCategories">
+                                                        <span>Top Categories</span><span
+                                                                (click)="filterViewTopCategories()"><i
+                                                                        class="material-icons filterMenuButton">filter_alt</i></span>
+                                                </div>
+                                                <div class="vsecom_tableCardHeader" *ngIf="filterTabTopCategories">
+                                                        <span class="dataHeading">Top Categories</span>
+                                                        <span>
+                                                                <div class="filterMenu">
+                                                                        <mat-button-toggle-group class=" filters"
+                                                                                (change)="filterValChangeTopCategories($event.value)"
+                                                                                name="fontStyle"
+                                                                                aria-label="Font Style">
+                                                                                <mat-button-toggle value="day">D
+                                                                                </mat-button-toggle>
+                                                                                <mat-button-toggle value="week">W
+                                                                                </mat-button-toggle>
+                                                                                <mat-button-toggle value="month">M
+                                                                                </mat-button-toggle>
+                                                                        </mat-button-toggle-group>
+                                                                        <span (click)="filterViewTopCategories()"> <i
+                                                                                        class="material-icons filterMenuButton">refresh</i></span>
+                                                                </div>
+                                                        </span>
+                                                </div>
+
+                                                <table>
+                                                        <tr>
+                                                                <td class="vsecom_tableCardTtitle">Category</td>
+                                                                <td class="vsecom_tableCardTtitle">QTY</td>
+                                                                <td class="vsecom_tableCardTtitle">Sales</td>
+                                                        </tr>
+                                                        <tr class="vsecom_tableCardRow"
+                                                                *ngFor="let i of ordersumCategoryList let j =index">
+                                                                <td>
+                                                                        <div class="vsecom_tableCardContent">
+                                                                                <div class="fancyColumn"
+                                                                                        [ngClass]="'fancyColumn' +j">
+                                                                                        {{i.categoryName}}</div>
+                                                                        </div>
+                                                                </td>
+                                                                <td>
+                                                                        <div class="vsecom_tableCardContent">
+                                                                                {{i.quantity}}
+                                                                        </div>
+                                                                </td>
+                                                                <td>
+                                                                        <div class="vsecom_tableCardContent">
+                                                                                {{this.global.currency}} {{i.total |
+                                                                                number}}
+                                                                        </div>
+                                                                </td>
+                                                        </tr>
+                                                </table>
+                                        </div>
+                                </div>
+                        </div>
+                        <div fxFlex="0 1 calc(34% - 32px)" fxFlex.md="0 1 calc(100% - 32px)" class="flexLayoutgap">
+                                <div class="card vsecom_tableCard">
+                                        <div class="vsecom_tableCardBody">
+
+                                                <div class="vsecom_tableCardHeader" *ngIf="!filterTab">
+                                                        <span>Most Selling Products</span><span
+                                                                (click)="filterTabView()"><i
+                                                                        class="material-icons filterMenuButton">filter_alt</i></span>
+                                                </div>
+                                                <div class="vsecom_tableCardHeader" *ngIf="filterTab">
+                                                        <span class="dataHeading">Most Selling Products</span>
+                                                        <span>
+                                                                <div class="filterMenu">
+                                                                        <mat-button-toggle-group name="fontStyle"
+                                                                                (change)="filterGetSellingProducts($event.value)"
+                                                                                aria-label="Font Style">
+                                                                                <mat-button-toggle value="day">D
+                                                                                </mat-button-toggle>
+                                                                                <mat-button-toggle value="week">W
+                                                                                </mat-button-toggle>
+                                                                                <mat-button-toggle value="month">M
+                                                                                </mat-button-toggle>
+                                                                        </mat-button-toggle-group>
+                                                                        <span (click)="filterTabView()"> <i
+                                                                                        class="material-icons filterMenuButton">refresh</i></span>
+                                                                </div>
+                                                        </span>
+                                                </div>
+                                                <div *ngFor="let i of sellingList let j =index" class="topSelling">
+
+                                                        <div class="vsecom_top5ProgressBars">
+                                                                <div class="vsecom_ProgessContent">
+                                                                        <span class="vsecom_ProgessName">
+                                                                                {{i.productName}}
+                                                                        </span>
+                                                                        <span id="quantityCount"
+                                                                                [ngClass]="'quantityCountColor' +j">
+                                                                                {{i.quantity}}
+                                                                        </span>
+                                                                </div>
+                                                                <mat-progress-bar id="progress-Bar"
+                                                                        [ngClass]="'progressBarColor' +j"
+                                                                        mode="determinate"
+                                                                        [value]="i.quantity*100/sellingProductsMax">
+                                                                </mat-progress-bar>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+                <br>
+                <div fxLayout="row wrap" class="flexLayoutIntialgap" fxLayoutAlign="flex-center">
+                        <div fxFlex="0 1 calc(50% - 32px)" fxFlex.md="0 1 calc(50% - 32px)" class="flexLayoutgap">
+                                <div class="card dashboardCardRight">
+                                        <div class="vsecom_tableCardBody">
+                                                <div class="vsecom_tableCardHeader" *ngIf="!filterLastDays1">
+                                                        <span>Last 30 Days</span><span (click)="filterViewLastDays1()"><i
+                                                                        class="material-icons filterMenuButton">filter_alt</i></span>
+                                                </div>
+                                                <div class="vsecom_tableCardHeader" *ngIf="filterLastDays1">
+                                                        <span class="dataHeading">{{filterHeading1}}</span>
+                                                        <span>
+                                                                <div class="filterMenu">
+                                                                        <mat-button-toggle-group name="fontStyle"
+                                                                                (change)="filterValChangeLastDays1($event.value)"
+                                                                                aria-label="Font Style">
+                                                                                <mat-button-toggle value="day">Day
+                                                                                </mat-button-toggle>
+                                                                                <mat-button-toggle value="week">Week
+                                                                                </mat-button-toggle>
+                                                                                <mat-button-toggle value="month">Month
+                                                                                </mat-button-toggle>
+                                                                        </mat-button-toggle-group>
+                                                                        <span (click)="filterViewLastDays1()"> <i
+                                                                                        class="material-icons filterMenuButton">refresh</i></span>
+                                                                </div>
+                                                        </span>
+                                                </div>
+                                                <table class="tableBodyContent">
+                                                        <tr>
+                                                                <th class="layoutcol-3">
+                                                                        <div class="tableNumbers">
+                                                                                {{TotalUserCount}}
+                                                                        </div>
+                                                                </th>
+                                                                <th class="layoutcol-3">
+                                                                        <div class="tableNumbers">
+                                                                                {{enquiryCount}}
+                                                                        </div>
+                                                                </th>
+                                                                <th class="layoutcol-3">
+                                                                        <div class="tableNumbers totalNumbers">
+                                                                                {{this.global.currency}} {{revenueAmount
+                                                                                | number}}
+                                                                        </div>
+                                                                </th>
+                                                        </tr>
+                                                        <tr class="tableTitle alignCenter">
+                                                                <td class="layoutcol-3">
+                                                                        Customers
+                                                                </td>
+                                                                <td class="layoutcol-3">Queries
+                                                                </td>
+                                                                <td class="layoutcol-3">Revenue
+                                                                </td>
+                                                        </tr>
+                                                </table>
+                                        </div>
+                                </div>
+                        </div>
+                        <div fxFlex="0 1 calc(50% - 32px)" fxFlex.md="0 1 calc(50% - 32px)" class="flexLayoutgap">
+                                <div class="card dashboardCardRight">
+                                        <div class="vsecom_tableCardBody">
+                                                <div class="vsecom_tableCardHeader" *ngIf="!filterLastDays2">
+                                                        <span>Last 30 Days</span><span (click)="filterViewLastDays2()"><i
+                                                                        class="material-icons filterMenuButton">filter_alt</i></span>
+                                                </div>
+                                                <div class="vsecom_tableCardHeader" *ngIf="filterLastDays2">
+                                                        <span class="dataHeading">{{filterHeading2}}</span>
+                                                        <span>
+                                                                <div class="filterMenu">
+                                                                        <mat-button-toggle-group name="fontStyle"
+                                                                                (change)="filterValChangeLastDays2($event.value)"
+                                                                                aria-label="Font Style">
+                                                                                <mat-button-toggle value="day">Day
+                                                                                </mat-button-toggle>
+                                                                                <mat-button-toggle value="week">Week
+                                                                                </mat-button-toggle>
+                                                                                <mat-button-toggle value="month">Month
+                                                                                </mat-button-toggle>
+                                                                        </mat-button-toggle-group>
+                                                                        <span (click)="filterViewLastDays2()"> <i
+                                                                                        class="material-icons filterMenuButton">refresh</i></span>
+                                                                </div>
+                                                        </span>
+                                                </div>
+                                                <table class="tableBodyContent">
+                                                        <tr>
+                                                                <th class="layoutcol-3">
+                                                                        <div class="tableNumbers">
+                                                                                {{ordersCount}}
+                                                                        </div>
+                                                                </th>
+                                                                <th class="layoutcol-3">
+                                                                        <div class="tableNumbers">
+                                                                                {{productCount}}
+                                                                        </div>
+                                                                </th>
+                                                        </tr>
+                                                        <tr class="tableTitle alignCenter">
+                                                                <td class="layoutcol-3">Orders 
+                                                                </td>
+                                                                <td class="layoutcol-3">New Products
+                                                                </td>
+                                                        </tr>
+                                                </table>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+                <br>
+                <div fxLayout="row wrap" class="flexLayoutIntialgap" fxLayoutAlign="flex-center">
+                        <div fxFlex="0 1 calc(50% - 32px)" fxFlex.md="0 1 calc(50% - 32px)" class="flexLayoutgap">
+                                <div class="card vsecom_tableCard">
+                                        <div class="vsecom_tableCardBody">
+                                                <div class="vsecom_tableCardHeader" *ngIf="!filterTabSales">
+                                                        <span>Order Summary</span><span
+                                                                (click)="filterViewOrderSummary()"><i
+                                                                        class="material-icons filterMenuButton">filter_alt</i></span>
+                                                </div>
+                                                <div class="vsecom_tableCardHeader" *ngIf="filterTabSales">
+                                                        <span class="dataHeading">Order Summary</span>
+                                                        <span>
+                                                                <div class="filterMenu">
+                                                                        <mat-button-toggle-group name="fontStyle"
+                                                                                (change)="filterValChangeOrderSummary($event.value)"
+                                                                                aria-label="Font Style">
+                                                                                <mat-button-toggle value="day">Day
+                                                                                </mat-button-toggle>
+                                                                                <mat-button-toggle value="week">Week
+                                                                                </mat-button-toggle>
+                                                                                <mat-button-toggle value="month">Month
+                                                                                </mat-button-toggle>
+                                                                        </mat-button-toggle-group>
+                                                                        <span (click)="filterViewOrderSummary()"> <i
+                                                                                        class="material-icons filterMenuButton">refresh</i></span>
+                                                                </div>
+                                                        </span>
+                                                </div>
+                                                <table>
+                                                        <tr>
+                                                                <td class="vsecom_tableCardTtitle">Status</td>
+                                                                <td class="vsecom_tableCardTtitle">Payment Status</td>
+                                                                <td class="vsecom_tableCardTtitle">Transaction</td>
+                                                                <td class="vsecom_tableCardTtitle">Count</td>
+                                                        </tr>
+                                                        <tr *ngFor="let i of orderStatusList let j =index"
+                                                                class="vsecom_tableCardRow">
+                                                                <td>
+                                                                        <div class="vsecom_tableCardContent">
+                                                                                <div class="OrderStatus" *ngIf="i.orderStatus == 'Order Created'">
+                                                                                        <!-- <div class="fancyColumnStatus fancyColumnStatus0"><div class="fancyColumnStatusR fancyColumnStatusR0"></div> -->
+                                                                                        <i class="fa fa-dot-circle-o fancyColumnStatusR0"></i>
+                                                                                {{i.orderStatus}}
+                                                                                </div>
+                                                                                <div class="OrderStatus" *ngIf="i.orderStatus == 'Shipping in Progress'">
+                                                                                        <!-- <div class="fancyColumnStatus fancyColumnStatus4"><div class="fancyColumnStatusR fancyColumnStatusR4"></div> -->
+                                                                                        <i class="fa fa-dot-circle-o fancyColumnStatusR4"></i>
+                                                                                {{i.orderStatus}}
+                                                                                </div>
+                                                                                <div class="OrderStatus" *ngIf="i.orderStatus == 'Others'">
+                                                                                        <!-- <div class="fancyColumnStatus fancyColumnStatus3"><div class="fancyColumnStatusR fancyColumnStatusR3"></div> -->
+                                                                                        <i class="fa fa-dot-circle-o fancyColumnStatusR3"></i>
+                                                                                {{i.orderStatus}}
+                                                                                </div>
+                                                                                <div class="OrderStatus" *ngIf="i.orderStatus == 'Cancelled'">
+                                                                                        <!-- <div class="fancyColumnStatus fancyColumnStatus1"><div class="fancyColumnStatusR fancyColumnStatusR1"></div> -->
+                                                                                        <i class="fa fa-dot-circle-o fancyColumnStatusR1"></i>
+                                                                                {{i.orderStatus}}
+                                                                                </div>
+                                                                                <div class="OrderStatus" *ngIf="i.orderStatus == 'Under Verification'">
+                                                                                        <i class="fa fa-dot-circle-o fancyColumnStatusR2"></i>
+                                                                                {{i.orderStatus}}
+                                                                                </div>
+                                                                                <div class="OrderStatus" *ngIf="i.orderStatus == 'Verified'">
+                                                                                        <i class="fa fa-dot-circle-o fancyColumnStatusR5"></i>
+                                                                                {{i.orderStatus}}
+                                                                                </div>
+                                                                                <div class="OrderStatus" *ngIf="i.orderStatus == 'Processing'">
+                                                                                        <i class="fa fa-dot-circle-o fancyColumnStatusR6"></i>
+                                                                                {{i.orderStatus}}
+                                                                                </div>
+                                                                                <div class="OrderStatus" *ngIf="i.orderStatus == 'Delivered'">
+                                                                                        <i class="fa fa-dot-circle-o fancyColumnStatusR7"></i>
+                                                                                {{i.orderStatus}}
+                                                                                </div>
+                                                                                <div class="OrderStatus" *ngIf="i.orderStatus == 'Refund'">
+                                                                                        <i class="fa fa-dot-circle-o fancyColumnStatusR8"></i>
+                                                                                {{i.orderStatus}}
+                                                                                </div>
+                                                                                <div class="OrderStatus" *ngIf="i.orderStatus == 'Returned'">
+                                                                                        <i class="fa fa-dot-circle-o fancyColumnStatusR9"></i>
+                                                                                {{i.orderStatus}}
+                                                                                </div>
+                                                                        </div>
+                                                                </td>
+                                                                <td>
+
+                                                                        <div class="vsecom_tableCardContent">
+                                                                                <div *ngIf="i.paymentStatusId == 2"
+                                                                                        class="paymentStatus quantityCountColor1">
+                                                                                        {{i.paymentStatus}}
+                                                                                </div>
+                                                                                <div *ngIf="i.paymentStatusId == 3"
+                                                                                        class="paymentStatus quantityCountColor3">
+                                                                                        {{i.paymentStatus}}
+                                                                                </div>
+                                                                                <div *ngIf="i.paymentStatusId == 20"
+                                                                                        class="paymentStatus quantityCountColor2">
+                                                                                        {{i.paymentStatus}}
+                                                                                </div>
+                                                                                <div *ngIf="i.paymentStatusId == 30"
+                                                                                        class="paymentStatus quantityCountColor4">
+                                                                                        {{i.paymentStatus}}
+                                                                                </div>
+                                                                                <div *ngIf="i.paymentStatusId == 40"
+                                                                                        class="paymentStatus quantityCountColor0">
+                                                                                        {{i.paymentStatus}}
+                                                                                </div>
+                                                                        </div>
+                                                                </td>
+                                                                <td>
+                                                                        <div class="vsecom_tableCardContent" style="text-align: center;">
+                                                                                <div
+                                                                                        *ngIf="i.paymentMethodString == 'Cash On Delivery'">
+                                                                                        COD
+                                                                                </div>
+                                                                                <div
+                                                                                        *ngIf="i.paymentMethodString == 'Card On Delivery'">
+                                                                                        Card
+                                                                                </div>
+                                                                                 <div *ngIf="i.paymentMethodString != 'Cash On Delivery' && i.paymentMethodString != 'Card On Delivery'">
+                                                                                        {{i.paymentMethodString}}
+                                                                                </div>
+                                                                        </div>
+                                                                </td>
+                                                                <td>
+                                                                        <div class="vsecom_tableCardContent"
+                                                                                style="text-align: center;">
+                                                                                {{i.orderCount}}
+                                                                        </div>
+                                                                </td>
+                                                        </tr>
+                                                </table>
+                                        </div>
+                                </div>
+                        </div>
+                        <div fxFlex="0 1 calc(50% - 32px)" fxFlex.md="0 1 calc(50% - 32px)" class="flexLayoutgap">
+                                <div class="card vsecom_tableCard">
+                                        <div class="vsecom_tableCardBody canvasImageCard">
+                                                <div class="vsecom_tableCardHeader">
+                                                        Payment Transaction
+                                                </div>
+                                                <div class="canvasImage">
+                                                <canvas #doughnutCanvas></canvas>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+</div>
+<div class="LoaderDiv" *ngIf="loader">
+        <div class="spinLoaderHide">
+                <p class="spinLoaderV">V</p>
+        </div>
+</div>

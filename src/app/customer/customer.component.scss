@@ -1,0 +1,33 @@
+.flex_align{
+    display: flex;
+    justify-content: end;
+    padding-bottom: 15px;
+}
+.searchBar{
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 40%;
+}
+.searchIcon{
+    display: flex;
+    margin-left: 10px;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    right: 6px;
+}
+.searchAlign{
+    position: relative;
+}
+.header{
+    
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: stretch space-between;
+    align-items: stretch;
+    
+}
+.spaces-right{
+    padding-right:10px;
+}

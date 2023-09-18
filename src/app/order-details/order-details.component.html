@@ -1,0 +1,228 @@
+<div class="mainContent">
+    <div class="titleHeadet">
+        <h3 class="vsecom_pageHeader">Order Details</h3>
+        <button>
+            <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+        </button>
+    </div>
+    <div *ngIf="orderDetails">
+        <mat-card>
+            <div fxFlex="100" *ngIf="orderDetails.length>0">
+                <div fxLayoutAlign="space-between" class="mb10">
+                    <div fxFlex="30" fxLayout="row wrap" fxLayoutAlign="left" fxLayoutGap="10px">
+                        <div>
+                            <div class="summary-title b">
+                                #{{orderDetails[0].branchOrderIdWithPrefix}}
+                            </div>
+                            <div class="summary-date pt8">
+                                {{findOrderDate(orderDetails[0].orderDateUtc)}}
+                            </div>
+                        </div>
+                        <div fxFlex="100">
+                            <div class="customer_details">
+                                <div>
+                                    <div class="order_Details_GrandTotal">
+                                        {{orderDetails[0].firstName}}
+                                    </div>
+                                </div>
+                                <div>{{orderDetails[0].address1}}</div>
+                                <div>{{orderDetails[0].address2}}</div>
+                                <div>{{orderDetails[0].city}}</div>
+                                <div>{{orderDetails[0].state}} - {{orderDetails[0].postalCode}}</div>
+                                <div>{{orderDetails[0].email}}</div>
+                                <div>{{orderDetails[0].phoneNumber}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxFlex="70" fxLayout="row wrap" fxLayoutAlign="end start" fxLayoutGap="10px">
+                        <div fxFlex="100" class="mar0">
+                            <div class="order_Details_Icons" fxLayoutAlign="end">
+                                <button mat-raised-button class="vsecom_Btn" [hidden]="flagOrderConfirmed"
+                                    (click)="orderConfirmationPopup()">
+                                    <span>
+                                        Confirm Order
+                                    </span>
+                                </button>
+                                <button mat-raised-button class="vsecom_Btn" [hidden]="!shiprocketEnabled"
+                                    (click)="createShippingOrder()">
+                                    <div class="shiprocket_container">
+                                        <div class="shiprocket_logo">
+                                            <img class="shiprocket_img" src="assets/images/shiprocket.png" alt="">
+                                        </div>
+                                        <span *ngIf="!isShipmentDetailsFounded">
+                                            Create order with Shiprocket
+                                        </span>
+                                        <span *ngIf="isShipmentDetailsFounded">
+                                            Order already created
+                                        </span>
+                                    </div>
+                                </button>
+                            </div>
+                            <div class="order_Status" fxLayoutAlign="end">
+                                <select
+                                    class="selectPicker" placeholder="Select Status"
+                                    [(ngModel)]="orderDetails[0].orderStatusId"
+                                    (change)="OpenUpdateOrderStatusPopup(orderDetails[0].orderId, orderDetails[0].orderStatus, orderDetails[0].branchOrderIdWithPrefix, $event)">
+                                    <option *ngFor="let orderStatus of OrderStatusList" [value]="orderStatus.id">
+                                        {{orderStatus.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="summary-subtitle b" fxLayoutAlign="end">
+                                <div class="order_Details_ItemCount">
+                                    Item Count: {{itemCount}}
+                                    <a href="/print-order?id={{orderDetails[0].orderId}}" class="pl35"
+                                        target="_blank"><i class="material-icons Icon">local_print_shop</i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div fxLayout="row wrap">
+                    <mat-card id="content" *ngFor="let eachOrderDetails of orderDetails">
+                        <div fxLayout="row wrap" fxFlex="100" class="card dashboardCardLeft">
+                            <div fxFlex="10" fxLayoutAlign="center center" fxLayoutGap="10px">
+                                <div class="productimageDiv">
+                                    <img *ngIf="eachOrderDetails.pictureName" class="productimage"
+                                        src="{{eachOrderDetails.pictureName}}">
+                                    <img *ngIf="!eachOrderDetails.pictureName" class="productimage"
+                                        src="assets/images/no-image.png" (error)="onImgError($event)">
+                                </div>
+                            </div>
+                            <div fxFlex="70" fxLayoutGap="10px" class="product_Details1">
+                                <div>
+                                    <div class="product_Name">
+                                        {{eachOrderDetails.name}}
+                                    </div>
+                                    <div class="mt15">
+                                        <div
+                                            *ngIf="eachOrderDetails.selectedSize != null || eachOrderDetails.selectedSize != ''">
+                                            {{eachOrderDetails.selectedSize}}
+                                        </div>
+                                        <div class="summary-subtitle">
+                                            <label class="quantity_Box">
+                                                {{eachOrderDetails.quantity}}
+                                            </label>
+                                            <span class="pl5"> x {{global.currency}}{{eachOrderDetails.unitPriceInclTax
+                                                | number}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxFlex="20" fxLayoutAlign="center center" fxLayoutGap="10px" class="product_Details">
+                                <div>
+                                    <div class="summary-subtitle">
+                                        {{global.currency}}{{eachOrderDetails.priceInclTax | number}}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </mat-card>
+                    <div fxFlex="100" fxLayoutAlign="end center" class="mb10">
+                        <div fxFlex="80" class="summary-subtitle" fxLayoutAlign="end center">
+                            Shipping Charges:
+                        </div>
+                        <div fxFlex="20" class="order_Details_GrandTotal" fxLayoutAlign="end center">
+                            <span class="b">{{global.currency}}{{orderDetails[0].orderShippingTotal | number}}</span>
+                        </div>
+                    </div>
+                    <div fxFlex="100" fxLayoutAlign="end center" class="mb10">
+                        <div fxFlex="80" class="summary-subtitle" fxLayoutAlign="end center">
+                            Taxes:
+                        </div>
+                        <div fxFlex="20" class="order_Details_GrandTotal" fxLayoutAlign="end center">
+                            <span class="b">{{global.currency}}{{orderDetails[0].orderTaxTotal | number}}</span>
+                        </div>
+                    </div>
+                    <div fxFlex="100" fxLayoutAlign="end center" class="mb10">
+                        <div fxFlex="80" class="summary-subtitle" fxLayoutAlign="end center">
+                            Coupon Discount:
+                        </div>
+                        <div fxFlex="20" class="order_Details_GrandTotal" fxLayoutAlign="end center">
+                            <span class="b">{{global.currency}}{{orderDetails[0].orderDiscount | number}}</span>
+                        </div>
+                    </div>
+                    <div fxFlex="100" fxLayoutAlign="end center" class="mb10">
+                        <div fxFlex="80" class="summary-subtitle" fxLayoutAlign="end center">
+                            Grand Total:
+                        </div>
+                        <div fxFlex="20" class="order_Details_GrandTotal" fxLayoutAlign="end center">
+                            <span class="b">{{global.currency}}{{orderDetails[0].orderTotal | number}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </mat-card>
+</div>
+<div class="mt15">
+    <mat-tab-group [selectedIndex]="usersCurrentTab">
+        <mat-tab label="Payment">
+            <mat-card class="example-card">
+                <div class="tableContainer1 content_center">
+                    <div class="alignCenter">
+                        <div class="alignCenter mt15">
+                            Click Mark as Paid when you've received your payment.
+                        </div>
+                        <div class="mt15">
+                            <button mat-raised-button class="vsecom_Btn" [disabled]="paidStatus"
+                                (click)="openPaymentStatusPopup()">
+                                Mark as Paid
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </mat-tab>
+        <mat-tab label="Shiprocket" *ngIf="shiprocketEnabled">
+            <mat-card class="example-card">
+                <div class="grid">
+                    <div class="tableContainer tableContainer1">
+                        <table mat-table [dataSource]="dataSource" matSort style="height: auto;">
+                            <ng-container matColumnDef="ORDERID">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    <div class="maxContent">ORDER ID</div>
+                                </th>
+                                <td mat-cell *matCellDef="let row"> {{row.orderId}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="SHIPMENTID">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    <div class="maxContent">SHIPMENT ID</div>
+                                </th>
+                                <td mat-cell *matCellDef="let row"> {{row.shipmentId}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="ACTION">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    <div class="maxContent">ACTION</div>
+                                </th>
+                                <td mat-cell *matCellDef="let row">
+                                    <div class="vsecom_dFlex alignCenter additional">
+                                        <i class="material-icons-outlined cursor_p editIcon"
+                                            (click)="viewTrackingDetails(row.shipmentId)"
+                                            matTooltip="View Tracking Order Details"
+                                            matTooltipPosition="above">list_alt</i>
+                                        <i class="material-icons-outlined cursor_p editIcon"
+                                            (click)="openDeliveredStatusPopup()" matTooltip="Mark as Delivered"
+                                            matTooltipPosition="above">check</i>
+                                    </div>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                        <div class="noRecordsTable"
+                            *ngIf="(dataSource && dataSource.data.length === 0) || !isShipmentDetailsFounded">
+                            Your Order has not been created yet
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+<div class="LoaderDiv" *ngIf="loader">
+    <div class="spinLoaderHide">
+        <p class="spinLoaderV">V</p>
+    </div>
+</div>

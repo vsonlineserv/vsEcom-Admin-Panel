@@ -1,0 +1,119 @@
+<div class="alignCenter mainContent">
+
+    <div class="titleHeadet">
+        <h3 class="vsecom_pageHeader">Address</h3>
+        <button>
+            <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+        </button>
+    </div>
+
+    <div>
+        <mat-card class="example-card">
+            <form [formGroup]="addressForm" (ngSubmit)="updateAddress()">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between ">
+                    <div fxFlex="49">
+                        <mat-form-field class="inputContent" appearance="outline">
+                            <mat-label>Address Line 1</mat-label>
+                            <input matInput formControlName="Address1">
+                            <mat-error>
+                                <span
+                                    *ngIf="addressForm?.controls['Address1'].errors && addressForm?.controls['Address1'].errors['required']">Address
+                                    is required</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="49">
+                        <mat-form-field class="inputContent" appearance="outline">
+                            <mat-label>Address Line 2</mat-label>
+                            <input matInput formControlName="Address2">
+                            <!-- <mat-error> 
+                            <span *ngIf="addressForm?.controls.Address2?.errors?.required">Address is required</span>
+                        </mat-error> -->
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="49">
+                        <mat-form-field class="inputContent" appearance="outline">
+                            <mat-label>Postal Code or Zip Code</mat-label>
+                            <input matInput formControlName="Zipcode"
+                                onkeypress='return event.charCode >= 48 && event.charCode <= 57' minlength="5"
+                                maxlength="6">
+                            <mat-error>
+                                <span
+                                    *ngIf="addressForm?.controls['Zipcode'].errors && addressForm?.controls['Zipcode'].errors['required']">Postal Code or Zip Code is required</span>
+                                <span
+                                    *ngIf="addressForm?.controls['Zipcode'].errors && addressForm?.controls['Zipcode'].errors['maxlength']">Postal Code or Zip Code should be less than 6 numbers</span>
+                                <span
+                                    *ngIf="addressForm?.controls['Zipcode'].errors && addressForm?.controls['Zipcode'].errors['pattern']">Postal Code or Zip Code should only contain numbers</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="49">
+                        <mat-form-field class="inputContent" appearance="outline">
+                            <mat-label>City</mat-label>
+                            <input matInput formControlName="City"
+                                onkeypress='return event.charCode > 64 && event.charCode < 91 || event.charCode > 96 && event.charCode < 123'>
+                            <mat-error>
+                                <span
+                                    *ngIf="addressForm?.controls['City'].errors && addressForm?.controls['City'].errors['required']">City
+                                    is required</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="49">
+                        <mat-form-field class="inputContent" appearance="outline">
+                            <mat-label>State</mat-label>
+                            <input matInput formControlName="State">
+                            <mat-error>
+                                <span
+                                    *ngIf="addressForm?.controls['State'].errors && addressForm?.controls['State'].errors['required']">State
+                                    is required</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="49">
+                        <mat-form-field class="inputContent" appearance="outline">
+                            <mat-label>Country</mat-label>
+                            <mat-select formControlName="Country" [(ngModel)]="selected" #singleSelect>
+                                <mat-select-filter [array]="countries" [displayMember]="'name'"
+                                    (filteredReturn)="filteredCountries = $event"></mat-select-filter>
+                                <mat-option value="" disabled selected>Select Country</mat-option>
+                                <mat-option *ngFor="let country of filteredCountries"
+                                    [value]="country.name">{{country.name}}</mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <span
+                                    *ngIf="addressForm?.controls['Country'].errors && addressForm?.controls['Country'].errors['required']">Address
+                                    is required</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="49">
+                        <mat-form-field class="inputContent" appearance="outline">
+                            <mat-label>Phone Number</mat-label>
+                            <input matInput formControlName="Phonenumber"
+                                onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="14">
+                            <mat-error>
+                                <span
+                                    *ngIf="addressForm?.controls['Phonenumber'].errors && addressForm?.controls['Phonenumber'].errors['required']">Phone
+                                    Number is required</span>
+                                <span
+                                    *ngIf="addressForm?.controls['Phonenumber'].errors && addressForm?.controls['Phonenumber'].errors['pattern']">Phone
+                                    Number should only contain numbers</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="inputContent">
+                    <div class="saveBtnCls">
+                        <button mat-raised-button class="saveBtn">Save</button>
+                    </div>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+    <div class="spinnerDialog" *ngIf="spinner">
+        <div class="spinLoaderHide">
+            <p class="spinLoaderV">V</p>
+        </div>
+    </div>
+</div>

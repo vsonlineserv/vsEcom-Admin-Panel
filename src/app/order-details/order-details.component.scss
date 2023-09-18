@@ -1,0 +1,224 @@
+.order_Details_Content {
+    background-color: var(--vs-color-white);
+    height: 400px;
+    width: 400px;
+}
+
+.orderStatusandIcons {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#content {
+    border-radius: 5px;
+    display: flex;
+    flex: none;
+    margin: 10px auto;
+    padding: 0;
+    min-height: 103px;
+    width: 100%;
+}
+
+.card_Content {
+    max-width: 400px;
+}
+
+.productimageDiv {
+    height: 60px;
+    width: 60px;
+    justify-content: center;
+    padding: 5px 0;
+}
+
+.productimageDiv img {
+    width: 100%;
+    height: 100%;
+}
+
+.product_Details {
+    padding: 10px;
+    align-items: center;
+    display: flex;
+    border-inline-start: 1px #d8d8d8 solid;
+    padding: 10px;
+    align-items: center;
+    display: flex;
+}
+
+.product_Details1 {
+    border-inline-start: 1px #d8d8d8 solid;
+    padding-left: 10px;
+}
+
+.summary-subtitle {
+    font-size: 15px;
+    color: var(--vs-color-black);
+    font-weight: 500;
+    line-height: 18px;
+}
+
+.product_Details_Content {
+    font-weight: 400;
+    line-height: 21px;
+    font-size: 14px;
+    font-family: Roboto;
+    color: var(--vs-color-black);
+}
+
+.order_Details_GrandTotal {
+    font-weight: bold;
+    line-height: 21px;
+    font-size: 16px;
+    font-family: Roboto;
+    color: var(--vs-color-black);
+}
+
+.m10 {
+    margin: 10px 0;
+}
+
+.b {
+    font-weight: 700;
+}
+
+.pt8 {
+    padding-top: 8px;
+}
+
+.Icon {
+    font-size: 20px;
+    color: var(--vs-color-icon-gray);
+    display: flex;
+}
+
+.order_Status {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.date {
+    text-transform: none !important;
+}
+
+.summary-title {
+    font-size: 20px;
+    color: var(--vs-color-black);
+    font-weight: 500;
+    line-height: 18px;
+    width: max-content;
+    margin-right: 0;
+    text-transform: uppercase;
+}
+
+.summary-SubHeading {
+    font-size: 12px;
+    color: var(--vs-color-black);
+    font-weight: 500;
+    line-height: 18px;
+    width: max-content;
+    margin-right: 0;
+    text-transform: uppercase;
+}
+
+.mt15 {
+    margin-top: 15px;
+}
+
+.product_Name {
+    font-weight: bold;
+    line-height: 21px;
+    font-size: 16px;
+    font-family: Roboto;
+    color: var(--vs-color-black);
+}
+
+.quantity_Box {
+    border: 2px solid var(--vs-color-primary);
+}
+
+.pl5 {
+    padding-left: 5px;
+}
+
+.customer_details {
+    padding-top: 10px;
+}
+
+.customer_Name {
+    padding: 0;
+    margin: 0;
+}
+
+label {
+    margin: 0;
+}
+
+.order_Card_Date {
+    display: inline-block;
+}
+
+.order_Details_ItemCount {
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+    float: right;
+}
+
+.order_Details_Icons {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    gap: 7px;
+}
+
+.mar0 {
+    margin: 0 !important;
+}
+
+.pl35 {
+    padding-left: 35px;
+}
+
+.tableContainer1 {
+    min-height: 20vh !important;
+}
+
+.labelsInvoice {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pr5 {
+    padding-right: 5px;
+}
+
+.content_center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shiprocket_logo {
+    width: 32px;
+}
+
+.shiprocket_img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.shiprocket_container {
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+}
+
+.additional {
+    align-items: center;
+    gap: 5px;
+}

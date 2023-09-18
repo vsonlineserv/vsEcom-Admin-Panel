@@ -1,0 +1,17 @@
+<div class="dialogDiv">
+    <i class="material-icons cancelIcon" mat-dialog-close>close</i>
+    <h3 class="headerHeading">Confirm Order</h3>
+    <hr class="headerLine">
+    <div>
+        <mat-dialog-content>
+            <div>
+                <h4>Are you sure you want to change the order status created to processing confirm your order?</h4>
+            </div>
+
+            <mat-dialog-actions align="end">
+                <button class="mat-raised-button vsAdminCLientBtn" (click)="close()">No</button>
+                <button class="mat-raised-button vsAdminCLientBtn" (click)="orderConfirmed()">Yes</button>
+            </mat-dialog-actions>
+        </mat-dialog-content>
+    </div>
+</div>

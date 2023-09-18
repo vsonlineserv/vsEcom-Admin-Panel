@@ -1,0 +1,96 @@
+<div class="alignCenter marginBottom40 mainContent">
+    <div class="titleHeadet">
+        <h3 class="vsecom_pageHeader">My Account</h3>
+        <button>
+            <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+        </button>
+    </div>
+    <mat-card>
+        <form [formGroup]="myAccount">
+            <!-- <div class="deleteAcccount">
+                <i class="material-icons-outlined cursor_p editIcon deleteIcon" (click)="deleteAccount()"
+                    matTooltip="Delete" matTooltipPosition="above">delete</i>
+            </div>
+            <div fxLayout fxLayoutAlign="center">
+                <div class="businessImage">
+                    <div class="multiSelectImage" *ngIf="!selectImage">
+                        <label class="plusIconLabel">
+                            <div class="addButton">
+                                <i class="material-icons addButtonIcon" (change)="uploadImage($event)">add</i>
+                            </div>
+                            <input type="file" accept="image/*" onclick="this.value = null" style="display:none;"
+                                (change)="uploadImage($event)" multiple>
+                        </label>
+                    </div>
+                    <div *ngIf="selectImage" class="singelSelectImage">
+                        <img src="{{this.myAccountImage}}">
+                        <i class="material-icons cancelImage" (click)="removeImage($event)">cancel</i>
+                    </div>
+                </div>
+            </div> -->
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between ">
+                <div fxFlex="48">
+                    <mat-form-field class="inputContent" appearance="outline">
+                        <mat-label>First Name</mat-label>
+                        <input matInput formControlName="FirstName">
+                        <mat-error >
+                            <span *ngIf="myAccount['controls']['FirstName']['errors'] && myAccount['controls']['FirstName']['errors']['required']">First Name is
+                                required</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="48">
+                    <mat-form-field class="inputContent" appearance="outline">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput formControlName="LastName">
+                    </mat-form-field>
+                </div>
+                <div fxFlex="48">
+                    <mat-form-field class="inputContent" appearance="outline">
+                        <mat-label>Phone Number</mat-label>
+                        <input matInput formControlName="PhoneNumber">
+                        <mat-error>
+                            <span *ngIf="myAccount['controls']['PhoneNumber']['errors'] && myAccount['controls']['PhoneNumber']['errors']['required']">PhoneNumber is
+                                required</span>
+                        </mat-error>
+                        <mat-error>
+                            <span *ngIf="myAccount['controls']['PhoneNumber']['errors'] && myAccount['controls']['PhoneNumber']['errors']['minlength']">Minimum 6 characters
+                                required</span>
+                        </mat-error>
+                        <mat-error>
+                            <span *ngIf="myAccount['controls']['PhoneNumber']['errors'] && myAccount['controls']['PhoneNumber']['errors']['maxlength']">Maximum 14 characters
+                                allowed</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="48">
+                    <mat-form-field class="inputContent" appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="Email">
+                        <mat-error>
+                            <span *ngIf="myAccount.controls['Email']['errors'] && myAccount.controls['Email']['errors']['required']">Email is required</span>
+                        </mat-error>
+                        <mat-error>
+                            <span *ngIf="myAccount.controls['Email']['errors'] && myAccount.controls['Email']['errors']['email']">Please enter a valid email
+                                address</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- <div class="inputContent" appearance="outline">
+                <div class="changePasswordBtn">
+                    <button mat-raised-button class="myAccountBtn" (click)="changePassword()">Change Password</button>
+                </div>
+                <div class="saveBtnCls">
+                    <button mat-raised-button class="myAccountBtn" (click)="updateMyAccount()">Update</button>
+                </div>
+            </div> -->
+        </form>
+    </mat-card>
+    <div class="spinnerDialog" *ngIf="spinner">
+        <div class="spinLoaderHide">
+            <p class="spinLoaderV">V</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,132 @@
+<div class="mainContent">
+
+    <div class="titleHeadet">
+        <h3 class="vsecom_pageHeader" *ngIf="!showUpdate">Add Discount</h3>
+        <h3 class="vsecom_pageHeader" *ngIf="showUpdate">Update Discount</h3>
+        <button>
+          <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+      </button>
+      </div>
+ 
+    <mat-card class="example-card">
+        <form [formGroup]="couponForm" autocomplete="off" #f="ngForm">
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between ">
+                <div fxFlex="33"> 
+                    <mat-form-field class="inputContent"  appearance="outline">
+                        <mat-label>Name </mat-label>
+                        <input matInput formControlName="Name">
+                        <mat-error >
+                            <span *ngIf="submitted && couponForm?.controls['Name'].errors && couponForm?.controls['Name'].errors['required']">Name is required</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33"> 
+                    <mat-form-field class="inputContent"  appearance="outline">
+                        <mat-label>DiscountTypeId </mat-label>
+                        <input matInput formControlName="DiscountTypeId">
+                        <mat-error>
+                            <span *ngIf="submitted && couponForm?.controls['DiscountTypeId'].errors && couponForm?.controls['DiscountTypeId'].errors['required']">DiscountTypeId is required</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33"> 
+                    <mat-form-field class="inputContent"  appearance="outline">
+                        <mat-label>DiscountPercentage </mat-label>
+                        <input matInput formControlName="DiscountPercentage">
+                        <mat-error>
+                            <span *ngIf="submitted && couponForm?.controls['DiscountPercentage'].errors && couponForm?.controls['DiscountPercentage'].errors['required']">DiscountPercentage is required</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="24"> 
+                    <mat-form-field class="inputContent"  appearance="outline">
+                        <mat-label>DiscountAmount </mat-label>
+                        <input matInput formControlName="DiscountAmount">
+                        <mat-error>
+                            <span *ngIf="submitted && couponForm?.controls['DiscountAmount'].errors && couponForm?.controls['DiscountAmount'].errors['required']">DiscountAmount is required</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="24"> 
+                    <mat-form-field class="inputContent"  appearance="outline">
+                        <mat-label>CouponCode </mat-label>
+                        <input matInput formControlName="CouponCode">
+                        <mat-error>
+                            <span *ngIf="submitted && couponForm?.controls['CouponCode'].errors && couponForm?.controls['CouponCode'].errors['required']">CouponCode is required</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="24"> 
+                    <mat-form-field class="inputContent"  appearance="outline">
+                        <mat-label>MinOrderValue </mat-label>
+                        <input matInput formControlName="MinOrderValue">
+                        <mat-error>
+                            <span *ngIf="submitted && couponForm?.controls['MinOrderValue'].errors && couponForm?.controls['MinOrderValue'].errors['required']">MinOrderValue is required</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="24"> 
+                    <mat-form-field class="inputContent"  appearance="outline">
+                        <mat-label>MaxDiscountAmount </mat-label>
+                        <input matInput formControlName="MaxDiscountAmount">
+                        <mat-error>
+                            <span *ngIf="submitted && couponForm?.controls['MaxDiscountAmount'].errors && couponForm?.controls['MaxDiscountAmount'].errors['required']">MaxDiscountAmount is required</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="24"> 
+                    <mat-form-field class="inputContent"  appearance="outline">
+                        <mat-label>UsePercentage </mat-label>
+                        <mat-select formControlName="UsePercentage">
+                            <mat-option value="1">true</mat-option>
+                            <mat-option value="0">false</mat-option>
+                          </mat-select>
+                        <mat-error>
+                            <span *ngIf="submitted && couponForm?.controls['UsePercentage'].errors && couponForm?.controls['UsePercentage'].errors['required']">UsePercentage is required</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="24"> 
+                    <mat-form-field class="inputContent"  appearance="outline">
+                        <mat-label>RequiresCouponCode </mat-label>
+                        <mat-select formControlName="RequiresCouponCode">
+                            <mat-option value="1">true</mat-option>
+                            <mat-option value="0">false</mat-option>
+                          </mat-select>
+                        <mat-error>
+                            <span *ngIf="submitted && couponForm?.controls['RequiresCouponCode'].errors && couponForm?.controls['RequiresCouponCode'].errors['required']">RequiresCouponCode is required</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="24"> 
+                    <mat-form-field class="inputContent"  appearance="outline">
+                        <mat-label>StartDateUtc </mat-label>
+                        <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" formControlName="StartDateUtc" matInput>
+                        <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                        <mat-error>
+                            <span *ngIf="submitted && couponForm?.controls['StartDateUtc'].errors && couponForm?.controls['StartDateUtc'].errors['required']">StartDateUtc is required</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="24"> 
+                    <mat-form-field class="inputContent"  appearance="outline">
+                        <mat-label>EndDateUtc </mat-label>
+                        <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" formControlName="EndDateUtc" matInput>
+                        <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                        <mat-error>
+                            <span *ngIf="submitted && couponForm?.controls['EndDateUtc'].errors && couponForm?.controls['EndDateUtc'].errors['required']">EndDateUtc is required</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+        <div class="btncls">
+            <!-- <button *ngIf="!showUpdate" mat-raised-button class="vsAdminCLientButn" (click)="addCoupon()">Save</button>
+            <button *ngIf="showUpdate" mat-raised-button class="vsAdminCLientButn" (click)="updateCoupon()">Update</button> -->
+          </div>
+    </form>
+    </mat-card>
+</div>

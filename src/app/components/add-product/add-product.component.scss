@@ -1,0 +1,341 @@
+.addProduct {
+  display: block;
+  margin: auto;
+  width: 100%;
+}
+
+::ng-deep.mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: var(--vs-color-primary) !important;
+}
+
+.mat-select-arrow {
+  color: var(--vs-color-primary) !important;
+}
+.inputclass{
+  width:60%;
+
+}
+
+/* Change label color on focused */
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: var(--vs-color-primary) !important;
+}
+
+.btncls {
+  text-align: end;
+}
+
+.businessImage {
+  height: 150px;
+  width: 150px;
+  margin: auto;
+  position: relative;
+  display: inline-block;
+  background-color: #cecece;
+  padding: 10px
+}
+
+.formmobileview {
+  width: 50%;
+}
+
+.leftinput {
+  padding-right: 10px;
+}
+
+.rightinput {
+  padding-left: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+
+  .formmobileview {
+    width: 100%;
+  }
+
+  .leftinput {
+    padding-right: 0px;
+  }
+
+  .rightinput {
+    padding-left: 0px;
+  }
+}
+
+img {
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+
+.plusCircle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.multiSelectImage {
+  min-width: 125px;
+  max-width: 125px;
+  height: 125px;
+  display: inline-block;
+  background-color: #ffffff;
+  margin: 15px;
+  box-shadow: 0 0 6px;
+  padding: 10px;
+  position: relative;
+  border-radius: 5px;
+}
+
+.titleHeadet {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inventoryButton {
+  text-align: right;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cancelImage {
+  position: absolute;
+  top: 0px;
+  color: #505050;
+  right: 0px;
+  cursor: pointer;
+}
+
+.deleteImage {
+  position: absolute;
+  bottom: 0px;
+  color: red;
+  right: 0px;
+  cursor: pointer;
+}
+
+.cancelImage:hover {
+  color: var(--vs-color-primary)
+}
+
+.cancelImage:active {
+  color: var(--vs-color-primary);
+  box-shadow: 0 0 6px var(--vs-color-primary);
+}
+
+.imagerCenter {
+  text-align: center;
+}
+
+.addButton {
+  border: 2px dashed;
+  color: var(--vs-color-primary);
+  border-radius: 5px;
+  box-sizing: border-box;
+  height: 100%;
+  cursor: pointer;
+}
+
+.addButtonIcon {
+  font-size: 70px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.plusIconLabel {
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+.mat-error {
+  padding: 0px 5px;
+}
+
+
+.uploader-status ::ng-deep .mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: var(--vs-color-primary) !important;
+}
+
+.uploader-status {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  width: 50px !important;
+  height: 50px !important;
+}
+
+.uploader-status ::ng-deep.mat-progress-spinner svg {
+  width: 50px !important;
+  height: 50px !important;
+}
+
+.spinnerDialog {
+  position: absolute;
+  right: 48%;
+  top: 48%;
+}
+
+.mat-icon {
+  margin-right: 10px;
+}
+
+.mat-expansion-panel-add {
+  padding: 12px;
+}
+
+.addProductTextArea {
+  display: block;
+  margin: auto;
+  width: 100%;
+  padding: 5px 5px 15px 5px;
+  border: 1px solid #d9d4d4;
+  border-radius: 0.25rem;
+  // transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.maxchar {
+  font-size: 10px;
+  float: right;
+}
+
+.line {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border: 0;
+  border-top: 1px solid #eee;
+}
+
+.addProduct_img_slider {
+  overflow-x: scroll;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.addProduct_img_slider::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+
+.addProduct_img_slider::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 40px;
+}
+
+
+.styVariant{
+  box-shadow: 0 0 3px;
+  border-radius: 5px;
+  margin-right: 20px;
+}
+
+.styVariantData{
+  box-shadow: 0 0 3px;
+  border-radius: 5px;
+}
+
+.headVariant{
+  padding: 13px;
+}
+.headOptions{
+  margin-bottom: 18px;
+  font-weight: 900;
+  font-size: 17px;
+}
+
+.bodyVariant{
+  padding: 13px;
+  border-top: 1px solid #cecece;
+}
+
+.addVariant{
+  padding: 13px;
+  border-top: 1px solid #cecece;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 10px;
+}
+
+.selectDiv{
+  align-items: center;
+  display: flex;
+}
+
+.dragIcon{
+  padding: 5px 10px;
+  width: 45px;
+}
+.inputSelect{
+  width: 100%;
+}
+.deleteIcon{
+  padding: 5px 10px;
+  width: 45px;
+}
+
+.inputDiv{
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #cecece;
+  padding: 2px 5px;
+}
+
+.iconsVariant{
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.subHeading{
+  margin-bottom: -8px;
+}
+
+.DoneBut{
+  padding: 2px 6px;
+  border: 1px solid #cecece;
+  border-radius: 5px;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  color: var(--vs-color-primary);
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.PriceInput{
+  width: 110px;
+}
+
+.errormes{
+  margin-top: -18px;
+    color: red;
+    font-size: 10px;
+}

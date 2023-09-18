@@ -1,0 +1,94 @@
+<div class="mainContent">
+    <div class="titleHeadet">
+        <h3 class="vsecom_pageHeader">Shipping Calculations</h3>
+        <button>
+          <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+      </button>
+      </div>
+
+    <mat-card class="shippingCalculations">
+        <mat-radio-group value='freeShipping' onIonChange=''>
+            <div (click)="freeShipping()">
+                <div class="radioGroupItem">
+                    <div class="radioButton">
+                            <mat-radio-button value="freeShipping" class="radioBtn" [checked]="this.freeShippingChecked">
+                            </mat-radio-button>
+                    </div>
+                    <div class="radioButtonText">
+                            <h4 class="shippingCalculationsHeading">Free Shipping</h4>
+                            <p class="shippingCalculationsSubHeading">Offer free shipping to your customers</p>
+                    </div>
+                    </div>
+                    <div>
+                        <div>
+
+                        </div>
+                    </div>
+            </div>
+            <div (click)="flatRate()">
+                <div class="radioGroupItem">
+                    <div>
+                        <div>
+                            <mat-radio-button value="flatRate" class="radioBtn" [checked]="this.flatRateChecked"></mat-radio-button>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <h4 class="shippingCalculationsHeading">Flat Rate</h4>
+                            <p class="shippingCalculationsSubHeading">Apply same rate to a customer's entire order</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div (click)="rateWeight()">
+                <div class="radioGroupItem">
+                    <div>
+                        <div>
+                            <mat-radio-button value="rateWeight" class="radioBtn" [checked]="this.rateWeightChecked">
+                            </mat-radio-button>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <h4 class="shippingCalculationsHeading">Rate by Weight</h4>
+                            <p class="shippingCalculationsSubHeading">Calculate rate based on total weight of a
+                                customer's order</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div (click)="rateOrderPrice()">
+                <div class="radioGroupItem">
+                    <div>
+                        <div>
+                            <mat-radio-button value="rateOrderPrice" class="radioBtn" [checked]="this.rateOrderPriceChecked">
+                            </mat-radio-button>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <h4 class="shippingCalculationsHeading">Rate by Order Price</h4>
+                            <p class="shippingCalculationsSubHeading">Calculate rate based on total price of a
+                                customer's order</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </mat-radio-group>
+    </mat-card>
+</div>

@@ -1,0 +1,55 @@
+
+
+::ng-deep.mat-dialog-container {
+  border: 1px solid var(--vs-color-primary) !important;
+  border-radius: 5px !important;
+  padding: 0px 0px 0px !important;
+  overflow: hidden;
+}
+
+.eachShareItem {
+  display: inline-block;
+  padding: 8px;
+  margin: 0 12px 10px;
+  text-align: center;
+}
+
+.eachShareItem .eachShareItemtext {
+  font-size: 13px;
+  white-space: nowrap;
+  text-align: center;
+  display: block;
+  margin-top: 10px;
+}
+
+.copyIcon {
+  cursor: pointer;
+}
+
+.green-color {
+  color: green;
+}
+
+.whatsappIcon {
+  font-size: 60px;
+  white-space: nowrap;
+  text-align: center;
+  display: block;
+  margin-top: 4px;
+}
+
+.icons {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.otpPopup {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px 0px;
+}
+
+.discountHeaderMessage{
+  padding: 0 10px;
+}

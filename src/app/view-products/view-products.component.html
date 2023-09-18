@@ -1,0 +1,343 @@
+<div class="matForm">
+  <div class="">
+    <div class="titleHeadet">
+      <h3 class="vsecom_pageHeader">Products</h3>
+      <button>
+        <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+      </button>
+    </div>
+    <!-- <div class="importAreaBodyContent2">
+      <h5><a href="assets/sampleTemplate/LAVA_PRODUCT.xls">Download a template (<span>.xls</span>): <i class="fa fa-download"
+                  aria-hidden="true"></i></a></h5>
+  </div> -->
+    <div class="productsHeader marginBottom40" *ngIf="noProductShowHide > 0">
+      <div class="productsHeaderBar">
+        <div fxLayout fxLayoutAlign="space-between " fxLayout.xs="column" class="padding1">
+          <div class="" fxFlex="30%">
+            <div>
+              <!-- <label class="selectLabel">Status</label>
+              <select class="dropdown" [(ngModel)]="selectedOption" (change)="filterPublishedStatus($event)">
+                <option value="all" selected>All</option>
+                <option value="published">Published</option>
+                <option value="unpublished">Un Published</option>
+              </select> -->
+              <!-- <div class="selectLabelDiv">
+                <span class="selectLabel">Status </span>
+              </div> 
+              <div class="matSelect"> -->
+              <mat-form-field class="selectLabelDiv"  appearance="outline">
+                <mat-label>Status</mat-label>
+                <mat-select #singleSelect [(value)]="selected" class="matSelectAlign" disableOptionCentering
+                  panelClass="testClass" [(ngModel)]="selectedOption"
+                  (selectionChange)="filterPublishedStatus($event.value)">
+                  <mat-option value="all">All</mat-option>
+                  <mat-option value="published">Published</mat-option>
+                  <mat-option value="unpublished">Un Published</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <!-- </div> -->
+            </div>
+          </div>
+          <div class="" fxFlex="40%">
+            <div class="searchInputSearch">
+              <mat-form-field class="searchInput" appearance="outline">
+                <mat-label>Search By Product Name</mat-label>
+                <input matInput (keyup)="searchProducts($event)">
+              </mat-form-field>
+              <div class="searchbarIcon">
+                <span><i class="material-icons">search</i></span>
+              </div>
+            </div>
+          </div>
+          <div class="salesHeader-section searchbutton-mobile mt10">
+            <div class="vsecom_dFlex vsecom_alignItems_center" fxLayoutGap="20px">
+              <mat-icon class="material-icons-outlined materialIconMenu cursor_p listIcon red" title="Delete All Sample Products"
+                (click)="deleteAllSampleProducts()" *ngIf="showDeleteProducts">
+                delete
+              </mat-icon>
+              <span
+                class="material-icons-outlined cursor_p listIcon" (click)="openBulkUploadPopup()"
+                title="Bulk Upload">file_upload</span>
+              <span
+                class="material-icons-outlined cursor_p disableIcon" title="Bulk Upload">file_upload</span>
+              <mat-icon class="material-icons-outlined materialIconMenu cursor_p listIcon" *ngIf="!productViewList" title="Grid View"
+                (click)="productView()">
+                grid_view
+              </mat-icon>
+              <mat-icon class="material-icons-outlined materialIconMenu cursor_p listIcon" *ngIf="productViewList" title="List View"
+                (click)="productView()">
+                view_list
+              </mat-icon>
+              <button mat-raised-button
+                class="vsecom_Btn" [routerLink]="['/home/add-product']">
+                <mat-icon class="material-icons-outlined addicons">add</mat-icon>
+                <b>Add New Product</b>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div [hidden]="!(noProductShowHide > 0)">
+    <div class="grid" [hidden]="productViewList">
+      <div class="tableContainer">
+        <table mat-table [dataSource]="dataSource" matSort style="height: auto;" fixedLayout="true">
+          <ng-container matColumnDef="Image">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>IMAGE</th>
+            <td mat-cell *matCellDef="let row">
+              <div class="productimageDiv" *ngIf="!row.isDeleted">
+                <img *ngIf="row.pictureName" class="productimage"
+                  src="{{row.pictureName}}">
+                <img *ngIf="!row.pictureName" class="productimage" src="assets/images/no-image.png"
+                  (error)="onImgError($event)">
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Name">
+            <th class="tableNameHeading" mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">PRODUCT NAME</div>
+            </th>
+            <td mat-cell *matCellDef="let row"> 
+              <div *ngIf="!row.isDeleted">
+                {{row.name}} 
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="PRICE">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <b>PRICE</b>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <div *ngIf="!row.isDeleted">
+                <div *ngIf="row.specialPrice <= row.price && row.specialPrice!=''">
+                  <span class="vsecom_strikeOut">{{global.currency}} {{row.price}}</span> {{global.currency}}
+                  {{row.specialPrice}}
+                </div>
+                <div *ngIf="row.specialPrice =='' || row.specialPrice == null">
+                  {{global.currency}} {{row.price}}
+                </div>
+                <div *ngIf="row.price =='' || row.price == null">
+                  -
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="QTY">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent"><b>STOCK</b></div>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <!-- <div [class.outoffStock_text]="row.availableQuantity == 0"
+              [class.lowStcock_text]="row.availableQuantity <5 && row.availableQuantity > 0"
+              [class.stockAvailable_text]="row.availableQuantity >= 5">
+              {{row.availableQuantity}}
+            </div> -->
+              <div *ngIf="!row.isDeleted">
+                <div *ngIf="row.availableQuantity == 0 && row.flagTrackQuantity" class="outoffStock_text">
+                  <div class="stockQty">{{row.availableQuantity}}</div>
+                  <div class="smallFont">Out Of Stock</div>
+                </div>
+                <div *ngIf="row.availableQuantity <5 && row.availableQuantity > 0 && row.flagTrackQuantity"
+                  class="lowStcock_text">
+                  <div class="stockQty">{{row.availableQuantity}}</div>
+                  <div class="smallFont">Low Stock</div>
+                </div>
+                <div *ngIf="row.availableQuantity >= 5 && row.flagTrackQuantity" class="stockAvailable_text">
+                  <div>{{row.availableQuantity}}</div>
+                </div>
+                <div *ngIf="!row.flagTrackQuantity && row.availableQuantity>0" class="outoffStock_text">
+                  <div class="stockQty">{{row.availableQuantity}}</div>
+                  <div class="smallFont">Not Tracked</div>
+                </div>
+                <span *ngIf="!row.flagTrackQuantity && !(row.availableQuantity)">
+                  <div>NA</div>
+                </span>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Publish Status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">PUBLISHED</div>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <div *ngIf="!row.isDeleted">
+                <mat-slide-toggle *ngIf="!row.published" class="vs-toggle-button-slide-toggle" [checked]="row.published"
+                (change)="setPublish(row.productId)"></mat-slide-toggle>
+
+                <mat-slide-toggle *ngIf="row.published" class="vs-toggle-button-slide-toggle" [checked]="row.published"
+                (change)="setunPublish(row.productId)"></mat-slide-toggle>
+              </div>
+
+              <!-- <button *ngIf="!row.published" mat-raised-button class="vsProductBtn"
+                (click)="setPublish(row.productId)"><b>Publish</b></button>
+              <button *ngIf="row.published" mat-raised-button class="vsProductBtn"
+                (click)="setunPublish(row.productId)"><b>Un Publish</b></button> -->
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Inventory">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">Inventory</div>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <div *ngIf="!row.isDeleted">
+                <button mat-raised-button class="vsProductBtn" (click)="addInventory()"><b>Inventory</b></button>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ShowAsFeature">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">FEATURED</div>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <div *ngIf="!row.isDeleted">
+                <mat-slide-toggle class="vs-toggle-button-slide-toggle" [checked]="row.showOnHomePage"
+                (change)="updateFeatureStatusProduct($event,row.productId)"></mat-slide-toggle>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">ACTION</div>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <div *ngIf="!row.isDeleted">
+                <div class="vsecom_dFlex vsecom_alignItems_center">
+                  <i class="material-icons-outlined cursor_p editIcon" (click)="editProduct(row.productId)"
+                    matTooltip="Edit" matTooltipPosition="above">edit</i>
+                  <button mat-icon-button (click)="shareProducts(row.permaLink, row.name, row.productId)"
+                    aria-label="Example icon-button with a menu">
+                    <i class="material-icons-outlined cursor_p editIcon" (click)="shareProducts(row.permaLink, row.name, row.productId)"
+                      matTooltip="Share" matTooltipPosition="above">share</i>
+                  </button>
+                  <i class="material-icons-outlined cursor_p editIcon deleteIcon" (click)="deleteProduct(row.productId)"
+                    matTooltip="Delete" matTooltipPosition="above">delete</i>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;let even = even;"></tr>
+        </table>
+        <div class="noRecordsTable" *ngIf="dataSource && dataSource.data.length === 0">
+          No Products Found!
+        </div>
+      </div>
+      <div>
+        <mat-paginator [pageSizeOptions]="[20,50, 100]"></mat-paginator>
+      </div>
+    </div>
+    <div class="grid" [hidden]="!(productViewList && this.productList.length > 0)">
+      <div class="property-details">
+        <div class="paginationList">
+          <pagination-controls (pageChange)="page = $event" [maxSize]='5' previousLabel="" nextLabel="">
+          </pagination-controls>
+        </div>
+        <div class="dataCol">
+          <div class="dataGride"
+            *ngFor="let data of productList | paginate: { itemsPerPage: 9, currentPage: page } ; let i=index">
+            <div class="ListingDiv" *ngIf="!data.isDeleted">
+              <div class="ListingBorder">
+                <div class="ListingHeader">
+                  <div class="ListingHeaderText spsMediumFont">
+                    <div><label class="productNameText"><b>{{data.name}}</b></label></div>
+                  </div>
+                  <div class="ListingHeaderPrice spsLargeFont">
+                    <label class="productPricThrough">{{global.currency}}{{data.specialPrice}}</label>
+                    <label>{{global.currency}}{{data.price}}</label>
+
+                  </div>
+                </div>
+                <div class="ListingBodyText">
+                  <div class="summeryImage">
+                    <img class="reportImage" *ngIf="!data.pictureName" src='assets/images/no-image.png'
+                      (error)="onImgError($event)">
+                    <img class="reportImage" *ngIf="data.pictureName"
+                      src="{{data.pictureName}}" alt="img">
+                  </div>
+                  <div class="summeryValue">
+                    <div class="subHeadingText"><label class="subText"><b>PUBLISHED:</b></label>
+                      <mat-slide-toggle *ngIf="!data.published" class="vs-toggle-button-slide-toggle"
+                        [checked]="data.published" (change)="setPublish(data.productId)"></mat-slide-toggle>
+
+                      <mat-slide-toggle *ngIf="data.published" class="vs-toggle-button-slide-toggle"
+                        [checked]="data.published" (change)="setunPublish(data.productId)"></mat-slide-toggle>
+                    </div>
+
+                    <div class="subHeadingText"><label class="subText"><b>FEATURED:</b></label>
+                      <mat-slide-toggle class="vs-toggle-button-slide-toggle" [checked]="data.showOnHomePage"
+                        (change)="updateFeatureStatusProduct($event,data.productId)"></mat-slide-toggle>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="footerData">
+                  <div class="stockCount">
+                    <label><b>QTY:</b></label>
+                    <!-- <label [class.outoffStock_text]="data.AvailableQuantity == 0"
+                    [class.lowStcock_text]="data.AvailableQuantity <5 && data.AvailableQuantity > 0"
+                    [class.stockAvailable_text]="data.AvailableQuantity >= 5">
+                    <b>{{data.AvailableQuantity}}</b></label> -->
+                    <label *ngIf="data.availableQuantity == 0 && data.flagTrackQuantity" class="outoffStock_text">
+                      <span>{{data.availableQuantity}}</span>
+                      <span class="smallFont"> (out of stock)</span>
+                    </label>
+                    <label *ngIf="data.availableQuantity <5 && data.availableQuantity > 0 && data.flagTrackQuantity"
+                      class="lowStcock_text">
+                      <span>{{data.availableQuantity}}</span>
+                      <span class="smallFont"> (Low Stock)</span>
+                    </label>
+                    <label *ngIf="data.availableQuantity >= 5 && data.flagTrackQuantity" class="stockAvailable_text">
+                      <span>{{data.availableQuantity}}</span>
+                    </label>
+                    <label *ngIf="!data.flagTrackQuantity && data.availableQuantity>0" class="outoffStock_text">
+                      <span>{{data.availableQuantity}}</span>
+                      <span class="smallFont"> (Not Tracked)</span>
+                    </label>
+                    <label *ngIf="!data.flagTrackQuantity && !(data.availableQuantity)">NA</label>
+                  </div>
+                  <div class="shareIcon">
+                    <label>
+                      <i class="material-icons-outlined cursor_p editIcon" (click)="editProduct(data.productId)"
+                        matTooltip="Edit" matTooltipPosition="above">edit</i>
+                      <i class="material-icons-outlined cursor_p editIcon"
+                        (click)="shareProducts(data.permaLink, data.name, data.productId)" matTooltip="Share"
+                        matTooltipPosition="above">share</i>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="noRecordsTable" *ngIf="productList.length === 0">
+            No Products Found!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="noProductShowHide <= 0" class="alignCenter noProductCard">
+    <div class="noproductImgDiv mb10">
+      <img class="noproductImgDivimg" src="/assets/images/noProduct.png" alt="No Orders Available">
+    </div>
+    <button mat-raised-button
+      class="vsecom_Btn" [routerLink]="['/home/add-product']">
+      <mat-icon class="material-icons-outlined addicons">add</mat-icon>
+      <b>Add New Product</b>
+    </button>
+  </div>
+
+
+</div>
+<div class="spinnerDialog" *ngIf="spinner">
+  <div class="spinLoaderHide">
+    <p class="spinLoaderV">V</p>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="dialogDiv">
+    <i class="material-icons cancelIcon" mat-dialog-close>close</i>
+    <h3 class="headerHeading">Are you sure?</h3>
+    <hr class="headerLine">
+    <div>
+        <mat-dialog-content>
+                <div *ngIf="emailShow && phoneNumberShow" class="subHeading">
+                    <h4>Confirm your new Email & Phone Number</h4>
+                </div>
+            <div *ngIf="emailShow">
+                <div class="subHeading" *ngIf="emailShow && !phoneNumberShow">
+                    <h4>Confirm your new Email</h4>
+                </div>
+                <div class="">
+                    <span>Old Mail - </span> {{oldMail}}
+                </div>
+                <div class="">
+                    <span>New Mail - </span> {{newMail}}
+                </div>
+            </div>
+            <div *ngIf="phoneNumberShow">
+                <div class="subHeading" *ngIf="phoneNumberShow && !emailShow">
+                    <h4>Confirm new Phone Number</h4>
+                </div>
+                <div class="">
+                    <span>Old Phone Number - </span> {{oldPhoneNumber}}
+                </div>
+                <div class="">
+                    <span>New PhoneNumber - </span> {{newPhoneNumber}}
+                </div>
+            </div>
+            <mat-dialog-actions align="end">
+                <button class="mat-raised-button vsAdminCLientBtn" (click)="close()">No</button>
+                <button class="mat-raised-button vsAdminCLientBtn" (click)="update()">Yes</button>
+            </mat-dialog-actions>
+        </mat-dialog-content>
+    </div>
+</div>

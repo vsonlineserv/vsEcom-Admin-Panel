@@ -1,0 +1,207 @@
+<div class="mainContent">
+  <div class="titleHeadet">
+    <h3 class="vsecom_pageHeader">Discount</h3>
+    <button>
+      <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+    </button>
+  </div>
+  <div class="tableTop_header marginBottom40" *ngIf="viewCouponShowHide > 0">
+    <div fxLayou fxLayoutAlign="space-between center" fxLayout.xs="column" class="padding1">
+      <div fxFlex="20" fxFlex.lg="20" fxFlex.md="100" fxLayoutAlign=" center" fxLayoutGap="10px" class="filterBox">
+        <mat-form-field class="selectLabelDiv" appearance="outline">
+          <mat-label>Filter</mat-label>
+          <mat-select #singleSelect [(value)]="selected" class="matSelectAlign" disableOptionCentering
+            panelClass="testClass" [(ngModel)]="selectedOption" (selectionChange)="couponsFilterDay($event.value)">
+            <mat-option value="all">All</mat-option>
+            <mat-option value="week"> 7 days</mat-option>
+            <mat-option value="month">Month</mat-option>
+            <mat-option value="custom">Custom</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex="25" fxFlex.lg="25" fxFlex.md="100" fxLayoutGap="10px" fxLayoutAlign=" center">
+        <div class="searchInputSearch">
+          <mat-form-field class="searchInput" appearance="outline">
+            <mat-label>Search By Name or Coupon Code</mat-label>
+            <input matInput (keyup)="searchCoupons($event)">
+          </mat-form-field>
+          <div class="searchbarIcon">
+            <i class="material-icons">search</i>
+          </div>
+        </div>
+      </div>
+      <div fxFlex="25" fxFlex.lg="25" fxFlex.md="100" fxLayoutGap="10px" fxLayoutAlign="end center">
+        <div class="matCheckBox mb10">
+          <mat-checkbox (change)="activeDiscountFilter($event)">
+          </mat-checkbox>
+          <div class="showActiveCoupon">Show only Active Coupons
+          </div>
+        </div>
+      </div>
+      <div fxFlex="30" fxFlex.lg="30" fxFlex.md="100" fxLayoutGap="10px" fxLayoutAlign="end center">
+        <div class="mb10">
+          <button mat-raised-button class="vsecom_Btn addNewDiscountButton" (click)="openAddDiscountPopup()">
+            <mat-icon class="material-icons-outlined  addicons">add</mat-icon>
+            <b> ADD NEW DISCOUNT COUPON</b>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div fxLayoutAlign="space-between center" fxLayout.xs="column" class="customDateRow">
+      <div class="vsecom_dFlex vsecom_alignItems_center" fxLayoutGap="20px" *ngIf="showStartEndDate">
+        <mat-form-field class="searchInput" appearance="outline">
+          <mat-label>Start Date</mat-label>
+          <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" matInput placeholder="" [(ngModel)]="startDateFilter"
+            (ngModelChange)="dateFilter()">
+          <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+          <i class="fa fa-calendar toprightCorner" aria-hidden="false" [owlDateTimeTrigger]="dt1"></i>
+        </mat-form-field>
+
+        <mat-form-field class="searchInput" appearance="outline">
+          <mat-label>End Date</mat-label>
+          <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" matInput placeholder="" [(ngModel)]="enddateFilter"
+            (ngModelChange)="dateFilter()">
+          <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+          <i class="fa fa-calendar toprightCorner" aria-hidden="false" [owlDateTimeTrigger]="dt2"></i>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="grid" *ngIf="viewCouponShowHide > 0">
+    <div class="property-details">
+      <div class="paginationList">
+        <pagination-controls (pageChange)="page = $event" [maxSize]='5' previousLabel="" nextLabel="">
+        </pagination-controls>
+      </div>
+      <div class="dataCol">
+        <div class="dataGride"
+          *ngFor="let data of userCouponList | paginate: { itemsPerPage: 9, currentPage: page } ; let i=index">
+          <div class="ListingDiv">
+            <div class="ListingBorder">
+              <div *ngIf="data.isDeleted"class="ListingHeaderDeleted">
+                <div class="ListingHeaderText vsecom_dFlex d_Flex">
+                  <div class="iconDiv" *ngIf="data.usePercentage">
+                    <img class="iconSize" src="/assets/images/addbuy.png">
+                  </div>  
+                  <div class="iconDiv" *ngIf="!data.usePercentage">
+                    <img class="iconSize" src="/assets/images/flatsale.png">
+                  </div>
+                  <label class="productNameText">{{data.name}}</label>
+                </div>
+                <div class="ListingHeaderText vsecom_dFlex jus_End">
+                  <div class="offerDisplayContainer" *ngIf="data.usePercentage">
+                    <label class="productNameText">
+                      {{data.discountPercentage}} %
+                    </label>
+                  </div>
+                  <div class="offerDisplayContainer" *ngIf="!data.usePercentage">
+                    <div>
+                      <label class="outoffStock_text" class="outoffStock_text">
+                       {{global.currency}}{{data.discountAmount}}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="!data.isDeleted"class="ListingHeader">
+                <div class="ListingHeaderText vsecom_dFlex d_Flex">
+                  <div class="iconDiv" *ngIf="data.usePercentage">
+                    <img class="iconSize" src="/assets/images/addbuy.png">
+                  </div>  
+                  <div class="iconDiv" *ngIf="!data.usePercentage">
+                    <img class="iconSize" src="/assets/images/flatsale.png">
+                  </div>
+                  <label class="productNameText">{{data.name}}</label>
+                </div>
+                <div class="ListingHeaderText vsecom_dFlex jus_End">
+                  <div class="offerDisplayContainer" *ngIf="data.usePercentage">
+                    <label class="productNameText">
+                      {{data.discountPercentage}} %
+                    </label>
+                  </div>
+                  <div class="offerDisplayContainer" *ngIf="!data.usePercentage">
+                    <div>
+                      <label class="outoffStock_text" class="outoffStock_text">
+                       {{global.currency}}{{data.discountAmount}}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="ListingBodyText">
+                <div class="summeryValue">
+                  <div class="discountHeader">
+                    <div class="subheadingText" *ngIf="data.startDateUtc != null">
+                      <span>{{findDate(data.startDateUtc)}}</span>
+                    </div>
+                    <div class="subheadingText" *ngIf="data.endDateUtc != null">
+                      <span [class.endDiscountColor]="findErrorEndDate(data.endDateUtc)">{{findEndDate(data.endDateUtc)}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="summary-value">
+                <div class="leftData">
+                  <div class="summary-value">
+                    {{global.currency}}{{data.minOrderValue | number}}
+                  </div>
+                  <div class="summary-subtitle text-coupon">
+                    Min Order Value
+                  </div>
+                </div>
+                <div class="rightData">
+                  <div class="summary-value">
+                    {{global.currency}}{{data.maxDiscountAmount | number}}
+                  </div>
+                  <div class="summary-subtitle text-coupon">
+                    Max Discount Amount
+                  </div>
+                </div>
+              </div>
+              <div class="footerData">
+                <div class="stockCount">
+                  <button class="vsecom_red outofStockBtn" *ngIf="data.usePercentage">
+                    {{data.couponCode}}
+                   </button>
+                </div>
+                <div class="stockCount">
+                  <button class="vsecom_red outofStockBtn_Sec" *ngIf="!data.usePercentage">
+                    {{data.couponCode}}
+                   </button>
+                </div>
+                <div class="deletedDiscountDiv" *ngIf="data.isDeleted">
+                  <img class="deletedDiscountImage" src="/assets/images/deleted-stamp.jpg" alt="Deleted Discount">
+                </div>
+                <div class="shareIcon">
+                  <i class="material-icons-outlined cursor_p editIcon" (click)="editDiscountCouponPopup(data.id, data.usePercentage)"
+                    matTooltip="Edit" matTooltipPosition="above">edit</i>
+                    <i class="material-icons-outlined cursor_p editIcon" matTooltip="Share"
+                    (click)="shareProducts(data.name, data.couponCode, data.discountPercentage, data.discountAmount, data.usePercentage, data.endDateUtc)" matTooltipPosition="above">share</i>
+                  <i *ngIf="!data.isDeleted" class="material-icons-outlined cursor_p editIcon deleteIcon" (click)="deleteDiscount(data.id)"
+                  matTooltip="Delete" matTooltipPosition="above">delete</i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="noRecordsTable" *ngIf="userCouponList && userCouponList.length === 0">
+        No Discount Found!
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="viewCouponShowHide <= 0" class="alignCenter noProductCard">
+  <div class="noproductImgDiv mb10">
+    <img class="noproductImgDivimg" src="/assets/images/noDiscount.png" alt="No Discount Available">
+  </div>
+
+  <div class="noDiscountContent">
+    <b>You haven't created any Discount Coupons yet. Create your Discount Coupons to get more Sales.</b>
+    Create flat discount or % based Discount based on Order Value, Category, or for Products
+  </div>
+
+  <button mat-raised-button
+    class="vsecom_Btn" (click)="openAddDiscountPopup()">
+    <mat-icon class="material-icons-outlined addicons">add</mat-icon>
+    <b>Add New Discount Coupon</b>
+  </button>
+</div>

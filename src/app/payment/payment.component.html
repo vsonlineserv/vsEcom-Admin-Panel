@@ -1,0 +1,313 @@
+<div class="alignCenter mainContent">
+    <div class="titleHeadet">
+        <h3 class="vsecom_pageHeader">Payment and Taxes</h3>
+        <button>
+            <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+        </button>
+    </div>
+
+    <div class="marginBottom40" fxLayout="row wrap" fxLayoutAlign="space-between">
+        <mat-card class="example-card" fxFlex="49">
+            <form [formGroup]="currencyForm">
+                <h5>Currency</h5>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between ">
+                    <div fxFlex="100">
+                        <mat-form-field class="matForm" appearance="outline">
+                            <mat-label>Select Currency</mat-label>
+                            <mat-select formControlName="selectedCurrency" #singleSelect class="vsecom_custom_arrow">
+                                <mat-option>
+                                    <!-- <ngx-mat-select-search placeholderLabel="Search" noEntriesFoundLabel="No Currency Found" 
+                                    [formControl]="currencyCtrl"></ngx-mat-select-search> -->
+                                    <ngx-mat-select-search noEntriesFoundLabel="No country found" ngModel
+                                        [ngModelOptions]="{standalone: true}" (ngModelChange)="filterMyOptions($event)"
+                                        placeholderLabel="Search"></ngx-mat-select-search>
+                                </mat-option>
+                                <mat-option *ngFor="let curr of filteredCurrency | async" [value]="curr">
+                                    {{curr.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <span
+                                    *ngIf="currencyForm?.controls['selectedCurrency'].errors && currencyForm?.controls['selectedCurrency'].errors['required']">Currency
+                                    is
+                                    required</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="matForm btncls">
+                    <button mat-raised-button class="saveBtn" (click)="updateCurrencyDetails()">Save</button>
+                </div>
+            </form>
+        </mat-card>
+        <mat-card class="example-card" fxFlex="49">
+            <form [formGroup]="paymentForm">
+                <h5>Taxes</h5>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between ">
+                    <div fxFlex="49">
+                        <mat-form-field class="matForm" appearance="outline" onkeypress='return event.charCode>= 48 && event.charCode <= 57 || event.charCode === 46' >
+                            <mat-label>Tax</mat-label>
+                            <input matInput type='text' ngModel formControlName="tax" placeholder="Ex: GST/VAT"  (blur)="onBlur($event)">
+                            <mat-error>
+                                <span *ngIf="paymentForm?.controls['tax'].errors && paymentForm?.controls['tax'].errors['pattern']">Tax is required</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="49">
+                        <mat-form-field class="matForm" appearance="outline">
+                            <mat-label>Value</mat-label>
+                            <mat-select #singleSelect ngModel formControlName="taxValue" class="vsecom_custom_arrow">
+                                <mat-option *ngFor="let perc of percentage" [value]="perc.value">
+                                    {{perc.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <span
+                                    *ngIf="paymentForm?.controls['taxValue'].errors && paymentForm?.controls['taxValue'].errors['required']">Value
+                                    is required</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="matForm btncls">
+                    <button mat-raised-button class="saveBtn" (click)="updatePaymentDetails()">Save</button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+    <br>
+    <!-- <p>
+        Note: Currently, payment related functionalities below are diabled until official launch with payment modules
+        integrated. Now, only free version
+        supported for launching.
+    </p> -->
+    <!-- <div class="disabled" [class.isDisabled]="isDisabled"> -->
+    <div class="marginBottom40">
+        <mat-card class="example-card">
+            <form [formGroup]="payPalForm">
+                <h5>PayPal</h5>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between ">
+                    <div fxFlex="49">
+                        <mat-form-field class="matForm" appearance="outline">
+                            <mat-label>Client Id</mat-label>
+                            <input matInput formControlName="PayPalSecretId">
+                            <mat-error>
+                                <span
+                                    *ngIf="payPalForm?.controls['PayPalSecretId'].errors && payPalForm?.controls['PayPalSecretId'].errors['required']">Client
+                                    Id is
+                                    required</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="49">
+                        <mat-form-field class="matForm" appearance="outline">
+                            <mat-label>Secret Key</mat-label>
+                            <input matInput formControlName="PayPalSecretKey">
+                            <mat-error>
+                                <span
+                                    *ngIf="payPalForm?.controls['PayPalSecretKey'].errors && payPalForm?.controls['PayPalSecretKey'].errors['required']">Secret
+                                    Key is
+                                    required</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+                <div class="matForm btncls">
+                    <mat-checkbox class="example-margin" formControlName="PayPalFlagEnabled" [labelPosition]="'after'">
+                        Enable</mat-checkbox>
+                    <button mat-raised-button class="saveBtn" (click)="updatePayPalDetails()">Save</button>
+                </div>
+
+            </form>
+        </mat-card>
+    </div>
+    <br>
+    <!-- <div class="marginBottom40">
+            <mat-card class="example-card">
+                <form [formGroup]="appleForm">
+                    <h5>Apple</h5>
+                    <mat-form-field class="matForm">
+                        <mat-label>Secret Key</mat-label>
+                        <input matInput formControlName="AppleSecretKey">
+                        <mat-error>
+                            <span *ngIf="appleForm?.controls.AppleSecretKey?.errors?.required">Secret Key is
+                                required</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="matForm">
+                        <mat-label>Secret Id</mat-label>
+                        <input matInput formControlName="AppleSecretId">
+                        <mat-error>
+                            <span *ngIf="appleForm?.controls.AppleSecretId?.errors?.required">Secret Id is
+                                required</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="matForm btncls">
+                         <mat-checkbox class="example-margin" formControlName="AppleFlagEnabled" [labelPosition]="'after'"> Enable</mat-checkbox>
+                        <button mat-raised-button class="saveBtn" (click)="updateAppleDetails()">Save</button>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+        <br>
+        <div class="marginBottom40">
+            <mat-card class="example-card">
+                <form [formGroup]="googleForm">
+                    <h5>Google</h5>
+                    <mat-form-field class="matForm">
+                        <mat-label>Secret Key</mat-label>
+                        <input matInput formControlName="GoogleSecretKey">
+                        <mat-error>
+                            <span *ngIf="googleForm?.controls.GoogleSecretKey?.errors?.required">Secret key is
+                                required</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="matForm">
+                        <mat-label>Secret Id</mat-label>
+                        <input matInput formControlName="GoogleSecretId">
+                        <mat-error>
+                            <span *ngIf="googleForm?.controls.GoogleSecretId?.errors?.required">Secret Id is
+                                required</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="matForm btncls">
+                           <mat-checkbox class="example-margin" formControlName="GoogleFlagEnabled" [labelPosition]="'after'"> Enable</mat-checkbox>
+                        <button mat-raised-button class="saveBtn" (click)="updateGoogleDetails()">Save</button>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+        <br> -->
+    <div class="marginBottom40">
+        <mat-card class="example-card">
+            <form [formGroup]="razorForm">
+                <h5>Razor</h5>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between ">
+                    <div fxFlex="48">
+                        <mat-form-field class="matForm" appearance="outline">
+                            <mat-label>Client Id</mat-label>
+                            <input matInput formControlName="RazorSecretId">
+                            <mat-error>
+                                <span
+                                    *ngIf="razorForm?.controls['RazorSecretId'].errors && razorForm?.controls['RazorSecretId'].errors['required']">Client
+                                    Id is
+                                    required</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="48">
+                        <mat-form-field class="matForm" appearance="outline">
+                            <mat-label>Secret Key</mat-label>
+                            <input matInput formControlName="RazorSecretKey">
+                            <mat-error>
+                                <span
+                                    *ngIf="razorForm?.controls['RazorSecretKey'].errors && razorForm?.controls['RazorSecretKey'].errors['required']">Secret
+                                    Key is
+                                    required</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+
+                <div class="matForm btncls">
+                    <mat-checkbox class="example-margin" formControlName="RazorFlagEnabled" [labelPosition]="'after'">
+                        Enable</mat-checkbox>
+                    <button mat-raised-button class="saveBtn" (click)="updateRazorDetails()">Save</button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+    <br>
+    <div class="marginBottom40">
+        <mat-card class="example-card">
+            <form [formGroup]="cashOptions">
+                <h5>Additional Options</h5>
+                <div style="text-align:left">
+                    <mat-checkbox class="example-margin" formControlName="CashOnDeliveryEnabled"
+                        [labelPosition]="'after'">Cash On Delivery</mat-checkbox>
+                </div>
+
+                <div style="text-align:left">
+                    <mat-checkbox class="example-margin" formControlName="CardOnDeliveryEnbled"
+                        [labelPosition]="'after'"> Card On Delivery</mat-checkbox>
+                </div>
+
+                <div class="matForm btncls">
+                    <button mat-raised-button class="saveBtn" (click)="updateCashOptionDetails()">Save</button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+    <br>
+    <div class="marginBottom40">
+        <mat-expansion-panel expanded='false' hideToggle="true" (click)="click()">
+            <mat-expansion-panel-header fxLayout="row" class="mat-expansion-panel-add">
+                <mat-panel-title>
+                    <mat-icon>{{icon ? 'remove' : 'add' }}</mat-icon>
+                    Other Provider
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="marginBottom40">
+                <mat-card class="example-card">
+                    <form [formGroup]="otherForm">
+                        <h5>Others</h5>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between ">
+                            <div fxFlex="49">
+                                <mat-form-field class="matForm" appearance="outline">
+                                    <mat-label>Provider</mat-label>
+                                    <input matInput formControlName="Provider">
+                                    <mat-error>
+                                        <span
+                                            *ngIf="otherForm?.controls['Provider'].errors && otherForm?.controls['Provider'].errors['required']">Provider
+                                            Name is
+                                            required</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="49">
+                                <mat-form-field class="matForm" appearance="outline">
+                                    <mat-label>Client Id</mat-label>
+                                    <input matInput formControlName="OtherSecretId">
+                                    <mat-error>
+                                        <span
+                                            *ngIf="otherForm?.controls['OtherSecretId'].errors && otherForm?.controls['OtherSecretId'].errors['required']">Client
+                                            Id is
+                                            required</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxFlex="49">
+                            <mat-form-field class="matForm" appearance="outline">
+                                <mat-label>Secret Key</mat-label>
+                                <input matInput formControlName="OtherSecretKey">
+                                <mat-error>
+                                    <span
+                                        *ngIf="otherForm?.controls['OtherSecretKey'].errors && otherForm?.controls['OtherSecretKey'].errors['required']">Secret
+                                        Key is
+                                        required</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+
+                        <div class="matForm btncls">
+                            <mat-checkbox class="example-margin" formControlName="OtherFlagEnabled"
+                                [labelPosition]="'after'"> Enable</mat-checkbox>
+                            <button mat-raised-button class="saveBtn" (click)="updateOtherDetails()">Save</button>
+                        </div>
+                    </form>
+                </mat-card>
+            </div>
+        </mat-expansion-panel>
+    </div>
+</div>
+<div class="LoaderDiv" *ngIf="loader">
+    <div class="spinLoaderHide">
+        <p class="spinLoaderV">V</p>
+    </div>
+</div>

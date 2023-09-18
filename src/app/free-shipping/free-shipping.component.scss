@@ -1,0 +1,32 @@
+.matForm {
+    display: block;
+    margin: auto;
+    width: 80%;
+}
+
+.rowItem{
+    width: 100%;
+}
+.saveBtn{
+    margin: 3px !important;
+    background: var(--vs-color-primary);
+    color: white;
+    padding: 1px 15px;
+    border: none;
+    font-size: 15px;
+    cursor: pointer !important;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  .saveBtn:focus {
+    box-shadow: 0 0 6px var(--vs-color-primary);
+    outline: none !important;
+  }
+  .saveBtn:hover {
+    background: white;
+    color: var(--vs-color-primary);
+  }
+  .btncls{
+    text-align: end;
+  }

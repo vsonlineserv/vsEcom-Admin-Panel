@@ -1,0 +1,61 @@
+<div class="dialogDiv">
+    <i class="material-icons cancelIcon" mat-dialog-close>close</i>
+    <h3 class="headerHeading">Add Category</h3>
+    <hr class="headerLine">
+    <div style="position: relative;">
+        <mat-dialog-content>
+            <form [formGroup]="addCategoryForm">
+                <div class="categoryImage">
+                    <div *ngIf="!selectImage" class="multiSelectImage">
+                        <label class="plusIconLabel">
+                            <div class="addButton">
+                                <i class="material-icons addButtonIcon" (change)="uploadImage($event)">add</i>
+                            </div>
+                            <input type="file" accept="image/*" style="display:none;" onclick="this.value = null"
+                                (change)="uploadImage($event)" multiple cdkFocusInitial>
+                        </label>
+                    </div>
+                    <div *ngIf="selectImage" class="singelSelectImage">
+                        <img src="{{this.categoryImage}}">
+                        <i class="material-icons cancelImage" (click)="removeImage($event)">cancel</i>
+                    </div>
+                </div>
+                <mat-form-field class="mainContent fullWidth" appearance="outline">
+                    <mat-label>Parent Category</mat-label>
+                    <mat-select formControlName="selectedCategory" #singleSelect>
+                        <mat-option [value]="parentCategoryId">*Parent Category*</mat-option>
+                        <mat-option *ngFor="let mainCategory of parentCategoryList" [value]="mainCategory.categoryId">
+                            {{mainCategory.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <span *ngIf="addCategoryForm?.controls['selectedCategory'].errors && addCategoryForm?.controls['selectedCategory'].errors['required']">Parent Category is
+                            required</span>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="mainContent fullWidth" appearance="outline">
+                    <mat-label>Category</mat-label>
+                    <input matInput formControlName="Name">
+                    <mat-error>
+                        <span *ngIf="addCategoryForm?.controls['Name'].errors && addCategoryForm?.controls['Name'].errors['required']">Category Name is required</span>
+                    </mat-error>
+                </mat-form-field>
+                <section class="mainContent fullWidth">
+                    <mat-checkbox class="example-margin" [ngModel]="FlagShowBuy" formControlName="FlagShowBuy"
+                        [labelPosition]="'after'">
+                        Show Buy in Listing page</mat-checkbox>
+                </section>
+                <mat-dialog-actions align="end">
+                    <button class="mat-raised-button vsAdminCLientBtn" (click)="close()">Close</button>
+                    <button class="mat-raised-button vsAdminCLientBtn" (click)="addCategory()">Update</button>
+                </mat-dialog-actions>
+            </form>
+         
+        </mat-dialog-content>
+        <div class="LoaderDiv LoaderDiv1" *ngIf="loader">
+            <div class="spinLoaderHide">
+                <p class="spinLoaderV">V</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+<mat-label class="mainContent">
+    <div class="titleHeadet">
+        <h3 class="vsecom_pageHeader">Flat Rate</h3>
+        <button>
+          <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+      </button>
+      </div>
+    <mat-card>
+        <form [formGroup]="FlatRateForm" (ngSubmit)="flatRateSave()">
+
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between ">
+                <div fxFlex="49"> 
+                    <mat-form-field class="rowItem" appearance="outline">
+                        <mat-label>
+                            Delivery Option Name
+                        </mat-label>
+                        <input type="text" matInput formControlName="DisplayName">
+                        <mat-error>
+                            <span *ngIf="submitted && FlatRateForm?.controls['DisplayName'].errors && FlatRateForm?.controls['DisplayName'].errors['required']">
+                                Please enter delivery option name</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="49"> 
+                    <mat-form-field class="rowItem" appearance="outline">
+                        <mat-label>
+                            Est.Delivery Time (optional)
+                        </mat-label>
+                        <input type="text" matInput formControlName="DeliveryTime">
+                        <mat-error>
+                            <span *ngIf="submitted && FlatRateForm?.controls['DeliveryTime'].errors && FlatRateForm?.controls['DeliveryTime'].errors['required']">
+                                Please enter delivery option name</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="49"> 
+                    <mat-form-field class="rowItem" appearance="outline">
+                        <mat-label>
+                            Rate
+                        </mat-label>
+                        <input type="text" matInput formControlName="Rate">
+                        <mat-error>
+                            <span *ngIf="submitted && FlatRateForm?.controls['Rate'].errors && FlatRateForm?.controls['Rate'].errors['required']">
+                                Please enter rate</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="mainContent btncls">
+                <button mat-raised-button class="saveBtn" type="submit">Save</button>
+            </div>
+        </form>
+    </mat-card>
+</mat-label>

@@ -1,0 +1,191 @@
+.multiSelectImage {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background-color: #ffffff;
+  margin: 15px;
+  box-shadow: 0 0 6px;
+  padding: 10px;
+  position: relative;
+  border-radius: 5px;
+}
+
+.addButton {
+  border: 2px dashed;
+  color: var(--vs-color-primary);
+  border-radius: 5px;
+  box-sizing: border-box;
+  height: 100%;
+  cursor: pointer;
+}
+
+.addButtonIcon {
+  font-size: 27px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.faviconImg {
+  height: 100%;
+  width: 100%;
+}
+
+.cancelImage {
+  position: absolute;
+  top: 0px;
+  color: #505050;
+  right: 0px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.cancelImage:hover {
+  color: var(--vs-color-primary)
+}
+
+.cancelImage:active {
+  color: var(--vs-color-primary);
+  box-shadow: 0 0 6px var(--vs-color-primary);
+}
+
+.font10 {
+  font-size: 10px;
+}
+
+.selectImageLogo {
+  width: 180px;
+  height: 180px;
+  display: flex;
+  background-color: #ffffff;
+  margin: 15px;
+  box-shadow: 0 0 6px;
+  padding: 10px;
+  position: relative;
+  border-radius: 5px;
+  align-items: center;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.logoImage {
+  max-width: 160px;
+}
+
+.addButtonIconLogo {
+  font-size: 70px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.plusIconLabel {
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+.conditonText {
+  margin-top: 15px;
+}
+
+.addbrandTextArea {
+  display: block;
+  margin: auto;
+  width: 100%;
+  padding: 5px 5px 15px 5px;
+  border: 1px solid #d9d4d4;
+  border-radius: 0.25rem;
+  // transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.addbrand {
+  display: block;
+  margin: auto;
+  width: 100%;
+}
+
+.matAlign {
+  justify-content: space-between;
+  display: flex;
+}
+
+.cardBottom {
+  margin-bottom: 10px
+}
+
+.Savestyle {
+  text-align: end;
+  padding-top: 10px
+}
+
+.multiSelectBrandImage {
+  height: 125px;
+  display: inline-block;
+  background-color: #ffffff;
+  margin: 15px;
+  box-shadow: 0 0 6px;
+  padding: 10px;
+  position: relative;
+  border-radius: 5px;
+  max-width: 125px;
+  min-width: 125px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.deleteBrand {
+  display: flex;
+  float: right
+}
+
+.uploadImage {
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  place-content: stretch center;
+  align-items: stretch;
+}
+
+.addBrandButtonIcon {
+  font-size: 70px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.deleteImage {
+  position: absolute;
+  bottom: 0px;
+  color: red;
+  right: 0px;
+  cursor: pointer;
+}
+
+.addProductTextArea {
+  display: block;
+  margin: auto;
+  width: 100%;
+  padding: 5px 5px 15px 5px;
+  border: 1px solid #d9d4d4;
+  border-radius: 0.25rem;
+}
+
+.line {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border: 0;
+  border-top: 1px solid #eee;
+}
+
+.maxchar {
+  font-size: 10px;
+  float: right;
+}

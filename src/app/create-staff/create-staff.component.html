@@ -1,0 +1,180 @@
+<div class="alignCenter mainContent">
+    <div class="titleHeadet">
+        <h3 class="vsecom_pageHeader">Staff Registration</h3>
+        <button>
+            <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+        </button>
+    </div>
+    <div class="marginBottom40">
+        <mat-card class="example-card">
+            <form [formGroup]="staffForm" (ngSubmit)="checkEmailExist()">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between ">
+                    <div fxFlex="49">
+                        <mat-form-field class="inputContent" appearance="outline">
+                            <mat-label>First Name</mat-label>
+                            <input matInput formControlName="FirstName">
+                            <mat-error>
+                                <span
+                                    *ngIf="staffForm.controls['FirstName'].errors && staffForm.controls['FirstName'].errors['required']">First
+                                    Name is
+                                    required</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="49">
+                        <mat-form-field class="inputContent" appearance="outline">
+                            <mat-label>Last Name</mat-label>
+                            <input matInput formControlName="LastName">
+                            <mat-error>
+                                <span
+                                    *ngIf="staffForm?.controls['LastName'].errors && staffForm?.controls['LastName'].errors['required']">Last
+                                    Name is required</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="49">
+                        <mat-form-field class="inputContent" appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="Email">
+                            <mat-error>
+                                <span
+                                    *ngIf="staffForm?.controls['Email'].errors && staffForm?.controls['Email'].errors['required']">Email
+                                    is required</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="49">
+                        <mat-form-field class="inputContent" appearance="outline">
+                            <mat-label>Phone Number</mat-label>
+                            <input matInput formControlName="PhoneNumber">
+                            <mat-error>
+                                <span
+                                    *ngIf="staffForm?.controls['PhoneNumber'].errors && staffForm?.controls['PhoneNumber'].errors['required']">Phone
+                                    Number is required</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="49">
+                        <mat-form-field class="inputContent" appearance="outline">
+                            <mat-label>Password</mat-label>
+                            <input type="password" matInput formControlName="Password">
+                            <mat-error>
+                                <span
+                                    *ngIf="staffForm?.controls['Password'].errors && staffForm?.controls['Password'].errors['required']">Password
+                                    is required</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="49">
+                        <mat-form-field class="inputContent" appearance="outline">
+                            <mat-label>Confirm Password</mat-label>
+                            <input type="password" matInput formControlName="ConfirmPassword">
+                            <mat-error>
+                                <span
+                                    *ngIf="staffForm?.controls['ConfirmPassword'].errors && staffForm?.controls['ConfirmPassword'].errors['required']">ConfirmPassword
+                                    is required</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <hr>
+                <div fxLayout="row wrap" fxLayoutAlign="left" class="text_left">
+                    <div fxFlex="49">
+                        <section class="example-section">
+                            <h4>{{general.name}}</h4>
+                            <div class="pl25" *ngFor="let eachPermission of general.permissions">
+                                <p>
+                                    <mat-checkbox (change)="checkedEvent(eachPermission.id)">{{eachPermission.name}}
+                                    </mat-checkbox>
+                                </p>
+                            </div>
+                        </section>
+                        <section class="example-section">
+                            <h4>{{category.name}}</h4>
+                            <div class="pl25" *ngFor="let eachPermission of category.permissions">
+                                <p>
+                                    <mat-checkbox (change)="checkedEvent(eachPermission.id)">{{eachPermission.name}}
+                                    </mat-checkbox>
+                                </p>
+                            </div>
+                        </section>
+                        <section class="example-section">
+                            <h4>{{products.name}}</h4>
+                            <div class="pl25" *ngFor="let eachPermission of products.permissions">
+                                <p>
+                                    <mat-checkbox (change)="checkedEvent(eachPermission.id)">{{eachPermission.name}}
+                                    </mat-checkbox>
+                                </p>
+                            </div>
+                        </section>
+                        <section class="example-section">
+                            <h4>{{orders.name}}</h4>
+                            <div class="pl25" *ngFor="let eachPermission of orders.permissions">
+                                <p>
+                                    <mat-checkbox (change)="checkedEvent(eachPermission.id)">{{eachPermission.name}}
+                                    </mat-checkbox>
+                                </p>
+                            </div>
+                        </section>
+                        <section class="example-section">
+                            <h4>{{inventory.name}}</h4>
+                            <div class="pl25" *ngFor="let eachPermission of inventory.permissions">
+                                <p>
+                                    <mat-checkbox (change)="checkedEvent(eachPermission.id)">{{eachPermission.name}}
+                                    </mat-checkbox>
+                                </p>
+                            </div>
+                        </section>
+                    </div>
+                    <div fxFlex="49">
+                        <section class="example-section">
+                            <h4>{{discount.name}}</h4>
+                            <div class="pl25" *ngFor="let eachPermission of discount.permissions">
+                                <p>
+                                    <mat-checkbox (change)="checkedEvent(eachPermission.id)">{{eachPermission.name}}
+                                    </mat-checkbox>
+                                </p>
+                            </div>
+                        </section>
+                        <section class="example-section">
+                            <h4>{{enquiry.name}}</h4>
+                            <div class="pl25" *ngFor="let eachPermission of enquiry.permissions">
+                                <p>
+                                    <mat-checkbox (change)="checkedEvent(eachPermission.id)">{{eachPermission.name}}
+                                    </mat-checkbox>
+                                </p>
+                            </div>
+                        </section>
+                        <section class="example-section">
+                            <h4>{{payments.name}}</h4>
+                            <div class="pl25" *ngFor="let eachPermission of payments.permissions">
+                                <p>
+                                    <mat-checkbox (change)="checkedEvent(eachPermission.id)">{{eachPermission.name}}
+                                    </mat-checkbox>
+                                </p>
+                            </div>
+                        </section>
+                        <section class="example-section">
+                            <h4>{{shipping.name}}</h4>
+                            <div class="pl25" *ngFor="let eachPermission of shipping.permissions">
+                                <p>
+                                    <mat-checkbox (change)="checkedEvent(eachPermission.id)">{{eachPermission.name}}
+                                    </mat-checkbox>
+                                </p>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="btncls">
+                    <button mat-raised-button class="vsAdminCLientButn" type="submit" [disabled]="submitted"
+                        (click)="checkEmailExist()">Save</button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+</div>
+<div class="spinnerDialog" *ngIf="spinner">
+    <div class="spinLoaderHide">
+        <p class="spinLoaderV">V</p>
+    </div>
+</div>

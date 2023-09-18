@@ -1,0 +1,73 @@
+::ng-deep.mat-form-field.mat-focused .mat-form-field-ripple{
+  background-color: var(--vs-color-primary) !important;
+}
+
+.mat-select-arrow {
+  color: var(--vs-color-primary) !important;
+}
+
+.storeVsecommerceSpan {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+/* Change label color on focused */
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: var(--vs-color-primary) !important;
+}
+.saveBtn{
+  margin: 3px !important;
+  background: var(--vs-color-primary);
+  color: white;
+  padding: 5px 15px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer !important;
+  border-radius: 4px;
+  font-weight: bold;
+}
+.saveBtn:focus {
+  box-shadow: 0 0 6px var(--vs-color-primary);
+  outline: none !important;
+}
+.saveBtn:hover {
+  background: white;
+  color: var(--vs-color-primary);
+}
+.saveBtnCls{
+  text-align: end;
+}
+
+::ng-deep.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: var(--vs-color-primary) !important;
+}
+
+::ng-deep.mat-form-field.mat-focused .mat-form-field-label {
+  color: var(--vs-color-primary) !important;
+}
+
+::ng-deep.mat-form-field.mat-hover .mat-form-field-label {
+color: var(--vs-color-primary) !important;
+}
+.btnalign{
+  display: flex;
+  justify-content: end;
+}
+.myAccountBtn {
+  margin: 3px !important;
+  background: var(--vs-color-primary);
+  color: white;
+  padding: 5px 15px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer !important;
+  border-radius: 4px;
+  font-weight: bold;
+}
+.changePasswordBtn {
+  text-align: initial;
+}
+.floatbtn{
+  float:right;
+}

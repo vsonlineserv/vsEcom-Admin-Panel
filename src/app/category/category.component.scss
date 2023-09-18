@@ -1,0 +1,49 @@
+.editIcon {
+    vertical-align: bottom !important;
+    font-size: 20px !important;
+    margin-left: 5px !important;
+    cursor: pointer;
+}
+
+.vsCategoryBtn{
+    margin: 3px !important;
+    background: var(--vs-color-primary);
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    font-size: 15px;
+    cursor: pointer !important;
+    border-radius: 4px;
+  }
+  .vsCategoryBtn:focus {
+    box-shadow: 0 0 6px var(--vs-color-primary);
+    outline: none !important;
+  }
+  .vsCategoryBtn:hover {
+    background: white;
+    color: var(--vs-color-primary);
+  }
+  .btncls{
+    text-align: end;
+  }
+
+.categoryImage {
+  height: 50px;
+  width: 50px;
+}
+
+.categoryImage img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  box-shadow: 0 0 3px;
+}
+
+.categoryName {
+  padding-left: 10px;
+}
+
+.treeNodeAlignment {
+  margin-bottom: 10px;
+}

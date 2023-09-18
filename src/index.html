@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title> My Account | vsEcommerce </title>
+  <base href="/">
+  <meta property="og:title" content="My Account | vsEcommerce">
+  <meta name="description" content="Grow your business with vsEcommerce from VS Online Services">
+  <meta property="og:description" content="Grow your business with vsEcommerce from VS Online Services">
+  <meta property="og:image" content="assets/images/SEO-image.jpg">
+  <meta property="og:url" content="https://my.vsecommerce.com/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp&amp;display=block" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <!-- bootstrap added for login and register -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<!-- Google tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-237680795-1">
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-237680795-1');
+</script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&amp;display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1976d2">
+</head>
+
+<script>
+  document.domain = 'vsecommerce.com';
+  window.addEventListener('message', e => {
+    if (e.data.fromEditor) {
+      ReloadIframe(e.data.siteUrl);
+    }
+    else if (e.data.customToggle) {
+      CustomStyles(e.data.customToggleData);
+    }
+  }, false);
+
+  function CustomStyles(select) {
+    localStorage.setItem('selectIframe', select);
+  }
+
+  function ReloadIframe(url) {
+    setTimeout(() => {
+      let rand = Math.floor((Math.random() * 1000000) + 1);
+      let iframe = document.getElementById('myIFrame');
+      let tempUrl = '/' + localStorage.getItem('siteUrl');
+      if(tempUrl == '/null'){
+		    tempUrl = '';
+	    }
+      iframe.src = '';
+      iframe.src = url + tempUrl;
+      iframe.src = iframe.src + '?c=' + Math.random(); 
+    }, 500);
+  }
+</script>
+
+<!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+    j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+    f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NRGTVSP');
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
+<!-- End Google Tag Manager -->
+<body class="mat-typography">
+  <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NRGTVSP"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <app-root></app-root>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
+</body>
+
+</html>

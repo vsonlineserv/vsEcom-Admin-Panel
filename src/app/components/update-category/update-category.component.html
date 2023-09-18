@@ -1,0 +1,59 @@
+<div class="dialogDiv">
+    <i class="material-icons cancelIcon" mat-dialog-close>close</i>
+    <h3 class="headerHeading">Update Category</h3>
+    <hr class="headerLine">
+    <div>
+        <mat-dialog-content>
+            <form [formGroup]="updateCategoryForm">
+                <div class="categoryImage">
+                    <div *ngIf="!selectImage" class="multiSelectImage">
+                        <label class="plusIconLabel">
+                            <div class="addButton">
+                                <i class="material-icons addButtonIcon" onclick="this.value = null"
+                                    (change)="uploadImage($event)">add</i>
+                            </div>
+                            <input type="file" accept="image/*" style="display:none;" (change)="uploadImage($event)"
+                                multiple>
+                        </label>
+                    </div>
+                    <div *ngIf="selectImage && !showImage" class="singelSelectImage">
+                        <img src="{{this.categoryImage}}">
+                        <i class="material-icons cancelImage" (click)="removeImage($event)">cancel</i>
+                    </div>
+                    <div *ngIf="showImage" class="singelSelectImage">
+                        <img src="{{this.categoryImage}}">
+                        <i class="material-icons deleteImage" (click)="deleteImage()">delete</i>
+                    </div>
+                </div>
+                <mat-form-field class="mainContent fullWidth" appearance="outline">
+                    <mat-label>Category Id</mat-label>
+                    <input matInput formControlName="CategoryId" readonly>
+                </mat-form-field>
+                <mat-form-field class="mainContent fullWidth" appearance="outline">
+                    <mat-label>Catergory</mat-label>
+                    <input matInput formControlName="Name">
+                    <mat-error>
+                        <span *ngIf="updateCategoryForm?.controls['Name'].errors && updateCategoryForm?.controls['Name'].errors['required']">Category Name is
+                            required</span>
+                    </mat-error>
+                </mat-form-field>
+                <section class="mainContent fullWidth">
+                    <mat-checkbox class="example-margin" formControlName="Published" [labelPosition]="'after'">
+                        Published</mat-checkbox>
+                </section>
+                <section class="mainContent fullWidth">
+                    <mat-checkbox class="example-margin" formControlName="FlagTopCategory" [labelPosition]="'after'">
+                        Show as Top Category</mat-checkbox>
+                </section>
+                <section class="mainContent fullWidth">
+                    <mat-checkbox class="example-margin" formControlName="FlagShowBuy" [labelPosition]="'after'">
+                        Show Buy in Listing page</mat-checkbox>
+                </section>
+            </form>
+            <mat-dialog-actions align="end">
+                <button class="mat-raised-button vsAdminCLientBtn" (click)="close()">Close</button>
+                <button class="mat-raised-button vsAdminCLientBtn" (click)="updateCategory()">Update</button>
+            </mat-dialog-actions>
+        </mat-dialog-content>
+    </div>
+</div>

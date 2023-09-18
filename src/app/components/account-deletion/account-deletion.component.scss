@@ -1,0 +1,19 @@
+.deleteText {
+    color: red;
+    font-weight: bold;
+    background-color: #fce5ea;
+    padding: 2px 10px;
+    border-radius: 5px;
+}
+
+.input-delete {
+    width: 100%;
+    border: 1px solid red;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+.input-delete:focus {
+    box-shadow: 0 0 3px red;
+}

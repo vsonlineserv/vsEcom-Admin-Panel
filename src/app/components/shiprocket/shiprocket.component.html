@@ -1,0 +1,51 @@
+<div class="dialogDiv">
+    <i class="material-icons cancelIcon" mat-dialog-close>close</i>
+    <h3 class="headerHeading">Enter API User Details</h3>
+    <hr class="headerLine">
+    <div style="position: relative;">
+        <mat-dialog-content>
+            <form [formGroup]="shiprocketForm">
+                <mat-form-field class="mainContent" appearance="outline">
+                    <mat-label>Email Id</mat-label>
+                    <input matInput formControlName="Username">
+                    <mat-error>
+                        <span
+                            *ngIf="shiprocketForm?.controls['Username'].errors && shiprocketForm?.controls['Username'].errors['required']">
+                            Email Id is required</span>
+                        <span
+                            *ngIf="shiprocketForm?.controls['Username'].errors && shiprocketForm?.controls['Username'].errors['email']">
+                            Invalid email id</span>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="mainContent" appearance="outline">
+                    <mat-label>Password</mat-label> 
+                    <div class="storeVsecommerceSpan">
+                    <input matInput  type="password" id="newPassword"   formControlName="Password"> 
+                    <span class="input-group-addon1 cursor_p custom-pr-10" style="padding-left: 0px;" (click)="visible()">
+                        <img *ngIf="showVisibleIcon" src="assets/images/register/eye-icon-hide.png">
+                        <img *ngIf="!showVisibleIcon" src="assets/images/register/eye-icon-show.png">
+                      </span>
+                    </div>
+                    <mat-error>
+                        <span
+                            *ngIf="shiprocketForm?.controls['Password'].errors && shiprocketForm?.controls['Password'].errors['required']">
+                            Password is required</span>
+                        <span
+                            *ngIf="shiprocketForm?.controls['Password'].errors && shiprocketForm?.controls['Password'].errors['minlength']">
+                            Password must be at least 6 characters</span>
+                    </mat-error>
+                </mat-form-field>
+                <mat-dialog-actions align="end">
+                    <button class="mat-raised-button vsAdminCLientBtn" (click)="close()">Close</button>
+                    <button class="mat-raised-button vsAdminCLientBtn" type="submit" [hidden]="updateUser" (click)="addApiUser()">Save</button>
+                    <button class="mat-raised-button vsAdminCLientBtn" type="submit" [hidden]="!updateUser" (click)="updateApiUser()">Update</button>
+                </mat-dialog-actions>
+            </form>
+        </mat-dialog-content>
+        <div class="LoaderDiv LoaderDiv1" *ngIf="loader">
+            <div class="spinLoaderHide">
+                <p class="spinLoaderV">V</p>
+            </div>
+        </div>
+    </div>
+</div>

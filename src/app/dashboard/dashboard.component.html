@@ -1,0 +1,354 @@
+<div class="mainContent">
+    <div class="titleHeadet">
+        <h3 class="vsecom_pageHeader">Home</h3>
+    </div>
+    <div fxLayout fxLayoutAlign="center" fxLayoutGap="20px" fxLayout.xs="column" fxLayout.md="column"
+        fxLayout.sm="column" fxLayout.md="row">
+        <div fxFlex="70%">
+            <br>
+            <div fxLayout="row warp" fxLayoutAlign="space-between center" class="alignCenter m5">
+                <div fxFlex="24" fxFlex.md="49">
+                    <mat-card class="card-summary card-summary-space" fxLayout="row"
+                        fxLayoutAlign="space-between center">
+                        <div class="card-summaryImgDiv">
+                            <img src="/assets/images/icons8-get-cash-50.png" alt="icon">
+                        </div>
+                        <div>
+                            <div class="summary-subtitle">
+                                <div class="summary-value blockContent">
+                                    {{this.global.currency}} {{getTodayOrder | number}}
+                                </div>
+                                <div class="OrdersCountTitle blockContent">
+                                    Today's Revenue
+                                </div>
+                                <div class="summary-subtitle1 blockContent">
+                                    Yesterday {{this.global.currency}} {{getYesterdaysOrder | number}}
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+
+                <div fxFlex="24" fxFlex.md="49">
+                    <mat-card class="card-summary card-summary-space" fxLayout="row"
+                        fxLayoutAlign="space-between center">
+                        <div class="card-summaryImgDiv">
+                            <img src="/assets/images/icons8-buying-48.png" alt="icon">
+
+                        </div>
+                        <div>
+                            <div class="summary-value">
+                                {{TotalOrdersCount}}
+                            </div>
+                            <div class="summary-subtitle">
+                                Orders Received
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+                <div fxFlex="24" fxFlex.md="49">
+                    <mat-card class="card-summary" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div class="card-summaryImgDiv">
+                            <img src="/assets/images/icons8-diamond-48.png" alt="icon">
+                        </div>
+                        <div class="total-sales">
+                            <div class="summary-value">
+                                {{this.global.currency}}
+                                {{TotalSalesCount | number}}
+                            </div>
+                            <div class="summary-subtitle">
+                                Total Sales
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+                <div fxFlex="24" fxFlex.md="49">
+                    <mat-card class="card-summary" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div class="card-summaryImgDiv">
+                            <img src="/assets/images/icons8-customers-64.png" alt="icon">
+                        </div>
+                        <div>
+                            <div class="summary-value">
+                                {{CustomersUserCount}}
+                            </div>
+                            <div class="summary-subtitle">
+                                Total Customers
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+            <br>
+            <div class="setUpSite" fxLayout fxLayoutAlign="center" fxLayoutGap="10px" fxLayout.xs="column"
+                fxLayoutGap.xs="0" fxLayout.md="column" fxLayoutGap.md="0" fxLayout.sm="column" fxLayoutGap.sm="0">
+                <div class="card dashboardCardLeft" fxFlex="100%">
+                    <div fxLayout fxLayoutAlign="center" fxLayout.xs="column" fxLayoutGap.xs="0">
+                        <div class="conatiner" fxFlex="100%">
+                            <div fxLayout.md="row" fxLayoutGap.xs="0" class="mb10">
+                                <span class="siteHeading">Set Up Your Site</span>
+                            </div>
+                            <div fxLayout.md="row" fxLayoutGap.xs="0">
+                                <div fxLayout.md="column" fxLayoutGap.xs="0" style="width:100%">
+                                    <ul>
+                                        <li class="setUpBtn" *ngIf="showBusinessProfile"
+                                            [routerLink]="['/home/business-profile']">
+                                            Update Your Business Info</li>
+                                        <li class="setUpBtn" *ngIf="showPayment" [routerLink]="['/home/payment']">Set Up
+                                            Payment Method</li>
+                                        <li class="setUpBtn" *ngIf="showCurrencyAndTax"
+                                            [routerLink]="['/home/payment']">Set
+                                            Currency & Tax for your site</li>
+                                        <li class="setUpBtn" [routerLink]="['/home/shipping']">Set Shipping & Delivery
+                                        </li>
+                                        <li class="setUpBtn" *ngIf="displayAddProduct"
+                                            [routerLink]="['/home/products']">
+                                            Add First Product</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <div class="setUpSite" fxLayout fxLayoutAlign="center" fxLayoutGap="10px" fxLayout.xs="column"
+                fxLayoutGap.xs="0" fxLayout.md="row" fxLayoutGap.md="0" fxLayout.sm="row" fxLayoutGap.sm="0">
+                <div class="card dashboardCardLeft" fxFlex="100%">
+                    <div fxLayout fxLayoutAlign="center" fxLayout.xs="column" fxLayoutGap.xs="0">
+                        <div class="conatiner mostLeastDiv" fxFlex="100%">
+                            <div class="mostLeastSellingDiv" id="mostSellingProducts"
+                                (window:resize)="onResize($event)">
+                                <div class="siteHeading mb10">Most Selling Products</div>
+                                <div *ngIf="mostSellingProducts.length <= 0">
+                                    No orders to show
+                                </div>
+                                <div *ngIf="mostSellingProducts.length > 0">
+                                    <ngx-charts-bar-horizontal [view]="view" [results]="mostSellingProducts"
+                                        [legend]="false" [showXAxisLabel]="false" [showDataLabel]="true"
+                                        [showYAxisLabel]="false" [xAxis]="false" [yAxis]="true" [gradient]="false"
+                                        [xAxisTickFormatting]="axisFormat">
+                                    </ngx-charts-bar-horizontal>
+                                </div>
+                            </div>
+                            <div class="mostLeastSellingDiv">
+
+                                <div class="siteHeading mb10">Least Selling Products</div>
+                                <div *ngIf="leastSellingProducts.length <= 0">
+                                    No orders to show
+                                </div>
+                                <div *ngIf="leastSellingProducts.length > 0">
+                                    <ngx-charts-bar-horizontal [view]="view" [results]="leastSellingProducts"
+                                        [legend]="false" (window:resize)="onResize($event)" [showXAxisLabel]="false"
+                                        [showDataLabel]="true" [showYAxisLabel]="false" [xAxis]="false" [yAxis]="true"
+                                        [gradient]="false" [xAxisTickFormatting]="axisFormat">
+                                    </ngx-charts-bar-horizontal>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+        <div fxFlex="30%">
+            <div class="analytics" fxLayout fxLayoutAlign="center" fxLayoutGap="10px" fxLayout.xs="row"
+                fxLayoutGap.xs="0" fxLayout.md="row" fxLayout.lg="row" fxLayoutGap.md="0" fxLayout.sm="row"
+                fxLayoutGap.sm="0">
+                <div class="card dashboardCardRight" fxFlex="100%">
+                    <i class="material-icons-outlined floating_icon">inventory</i>
+                    <div fxFlex="100%">
+                        <div class="">
+                            <div class="">
+                                <a [routerLink]="['/home/view-products']">
+                                    <div class="tableHeading">
+                                        Products
+                                    </div>
+                                    <table class="tableBodyContent">
+                                        <tr>
+                                            <th class="layoutcol-3">
+                                                <div class="tableNumbers">
+                                                    {{this.totalActiveProducts}}
+                                                </div>
+
+                                            </th>
+                                            <th class="layoutcol-3">
+                                                <div class="tableNumbers">
+                                                    {{this.totalPendingProducts}}
+                                                </div>
+
+                                            </th>
+                                            <th class="layoutcol-3">
+                                                <div class="tableNumbers outOf_stock_text">
+                                                    {{this.totalInActiveProducts}}
+                                                </div>
+
+                                            </th>
+                                        </tr>
+                                        <tr class="tableTitle alignCenter">
+                                            <td class="layoutcol-3">Published
+                                            </td>
+                                            <td class="layoutcol-3">Unpublished
+                                            </td>
+                                            <td class="layoutcol-3 outOf_stock_text">Out of Stock
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="enquirySection" fxLayout fxLayoutAlign="center" fxLayoutGap="10px" fxLayout.xs="row"
+                fxLayoutGap.xs="0" fxLayout.md="row" fxLayout.lg="row" fxLayoutGap.md="0" fxLayout.sm="row"
+                fxLayoutGap.sm="0">
+                <div class="card dashboardCardRight" fxFlex="100%">
+                    <i class="material-icons-outlined floating_icon">email</i>
+                    <div fxFlex="100%">
+                        <div class="">
+                            <div class="">
+                                <a [routerLink]="['/home/enquiry']">
+                                    <div class="tableHeading">Queries
+                                    </div>
+                                    <table class="tableBodyContent alignCenter">
+
+                                        <tr>
+                                            <th *ngFor="let i of branchEnquiry" class="layoutcol-6">
+                                                <div class="tableNumbers">
+                                                    {{i.enquiryCount}}
+                                                </div>
+                                            </th>
+                                        </tr>
+                                        <tr class="tableTitle">
+                                            <td *ngFor="let i of branchEnquiry" class="layoutcol-6">
+                                                {{i.status}}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="activeCartsSection" fxLayout fxLayoutAlign="center" fxLayoutGap="10px" fxLayout.xs="row"
+                fxLayoutGap.xs="0" fxLayout.md="row" fxLayout.lg="row" fxLayoutGap.md="0" fxLayout.sm="row"
+                fxLayoutGap.sm="0">
+                <div class="card dashboardCardRight" fxFlex="100%">
+                    <i class="material-icons-outlined floating_icon">favorite_outline</i>
+                    <div fxFlex="100%">
+                        <div class="">
+                            <div class="">
+                                <a [routerLink]="['/home/reports']">
+                                    <div class="tableHeading">Engagement
+                                    </div>
+                                    <table class="tableBodyContent alignCenter">
+                                        <tr>
+                                            <th class="layoutcol-6">
+                                                <div class="tableNumbers"> {{TotalCartCount}}</div>
+                                            </th>
+                                            <th class="layoutcol-6">
+                                                <div class="tableNumbers"> {{TotalWishlistCount}}</div>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td class="layoutcol-6">
+                                                <div class="tableTitle">
+                                                    Carts
+                                                </div>
+                                            </td>
+                                            <td class="layoutcol-6">
+                                                <div class="tableTitle">Wishlist</div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="card vsecom_tableCard" *ngIf="recentOrderList.length<=3 && recentProductsList.length>0">
+                <a [routerLink]="['/home/view-products']">
+                    <div class="vsecom_tableCardHeader">
+                        New Products
+                    </div>
+                    <div class="vsecom_tableCardBody">
+                        <table>
+                            <tr>
+
+                                <td class="vsecom_tableCardTtitle">Product</td>
+                                <td class="vsecom_tableCardTtitle">Price</td>
+                            </tr>
+                            <tr *ngFor="let Products of recentProductsList" class="vsecom_tableCardRow">
+                                <td>
+                                    <div fxLayout="row" fxLayoutAlign=" center">
+                                        <div class="productimageDiv">
+                                            <img *ngIf="Products.pictureName" class="productimage"
+                                                src="{{Products.pictureName}}">
+                                            <img *ngIf="!Products.pictureName" class="productimage"
+                                                src="assets/images/no-image.png" (error)="onImgError($event)">
+                                        </div>
+                                        <div class="vsecom_tableCardContent">
+                                            {{Products.name}}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="vsecom_tableCardContent">
+                                        <div *ngIf="Products.specialPrice<Products.price && Products.specialPrice!=''">
+                                            <span class="vsecom_strikeOut">{{global.currency}} {{Products.price}}</span>
+                                            {{global.currency}}
+                                            {{Products.specialPrice}}
+                                        </div>
+                                        <div
+                                            *ngIf="Products.specialPrice>=Products.price || Products.specialPrice =='' || Products.specialPrice == null">
+                                            {{global.currency}} {{Products.price}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </a>
+            </div>
+            <div class="card vsecom_tableCard" *ngIf="recentOrderList.length>3">
+                <a [routerLink]="['/home/sales']">
+                    <div class="vsecom_tableCardHeader">
+                        Recent Orders
+                    </div>
+                    <div class="vsecom_tableCardBody">
+                        <table>
+                            <tr>
+                                <td class="vsecom_tableCardTtitle">Order ID</td>
+                                <td class="vsecom_tableCardTtitle">Sales</td>
+                            </tr>
+                            <tr *ngFor="let Products of recentOrderList" class="vsecom_tableCardRow">
+                                <td>
+                                    <div class="vsecom_tableCardContent">
+                                        {{Products.id}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="vsecom_tableCardContent">
+                                        {{global.currency}} {{Products.orderTotal}}
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="spinnerDialog" *ngIf="spinner">
+    <div class="spinLoaderHide">
+        <p class="spinLoaderV">V</p>
+    </div>
+</div>

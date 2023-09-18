@@ -1,0 +1,36 @@
+<div *ngIf="data.isSuccess" class="dialogDiv">
+    <h3 class="headerHeading">Success!</h3>
+    <hr class="headerLine">
+    <mat-dialog-content class="alignCenter">
+        <div class="success-checkmark">
+            <div class="check-icon">
+              <span class="icon-line line-tip"></span>
+              <span class="icon-line line-long"></span>
+              <div class="icon-circle"></div>
+              <div class="icon-fix"></div>
+            </div>
+          </div>
+        <div>
+            <h3 class="successMessage">{{data.message}}</h3>
+            <mat-dialog-actions align="end">
+                <button class="mat-raised-button closeBtn" (click)="close(data.value)">OK</button>
+            </mat-dialog-actions>
+        </div>
+        
+    </mat-dialog-content>
+</div>
+<div *ngIf="!data.isSuccess" class="dialogDiv">
+    <div class="facePalmImageDiv">
+        <img class="facePalmImage" src="/assets/images/icons8-facepalm-48.png" alt="icon">
+        <h3 class="headerHeading">Uh ho!</h3>
+    </div>
+    <hr class="headerLine">
+    <mat-dialog-content class="alignCenter">
+        <div>
+            <h3 class="ErrorMessage">{{data.message}}</h3>
+            <mat-dialog-actions align="end">
+                <button class="mat-raised-button closeBtn" (click)="close(data.value)">OK</button>
+            </mat-dialog-actions>
+        </div>
+    </mat-dialog-content>
+</div>

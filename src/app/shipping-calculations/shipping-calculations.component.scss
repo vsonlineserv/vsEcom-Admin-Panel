@@ -1,0 +1,53 @@
+.matForm {
+    display: block;
+    margin: auto;
+    width: 80%;
+}
+
+.shippingCalculationsHeading {
+    margin: 3px 0px;
+    font-size: 18px;
+}
+
+.shippingCalculationsSubHeading {
+    color: gray;
+    margin: 0px 0px;
+    font-size: 15px;
+}
+
+.radioGroupItem{
+    width: 100%;
+    border-bottom: 1px solid gray;
+    align-items: center;
+    display: flex;
+    margin: 10px 0px;
+    padding: 10px;
+    
+}
+
+.radioGroupItem:hover {
+    cursor: pointer;
+    background: var(--vs-color-grey-text) !important;
+}
+
+.radioButton{
+    display: inline-block;
+}
+
+.radioButtonText{
+    display: inline-block;
+}
+
+
+.radioGroupItem .radio-icon:after {
+    background: var(--vs-color-primary) !important;
+}
+  
+.radioGroupItem .radio-icon:before {
+    border-color: var(--vs-color-primary) !important;
+}
+
+.shippingCalculations{
+    padding-top: 15px;
+    padding-right: 15px;
+}

@@ -1,0 +1,56 @@
+<div class="alignCenter mainContent">
+<div class="titleHeadet">
+    <h3 class="vsecom_pageHeader">Shiprocket</h3>
+    <button>
+    <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+    </button>
+</div>
+<div class="marginBottom40">
+    <mat-card class="example-card">
+    <div class="textAlignRight">
+        <button mat-raised-button class="vsecom_Btn" [disabled]="!noUsersFound" (click)="addShiprocketUser()">
+        <mat-icon class="material-icons-outlined addicons">add</mat-icon>
+        <b>Add Api User</b>
+        </button>
+    </div>
+    </mat-card>
+</div>
+</div>
+
+<div class="alignCenter mainContent">
+    <div class="grid">
+      <div class="tableContainer">
+        <table mat-table [dataSource]="dataSource" matSort style="height: auto;" fixedLayout="true">
+          <ng-container matColumnDef="Email">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">Email</div>
+            </th>
+            <td class="staffUser" mat-cell *matCellDef="let row"> {{row.email}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">ACTION</div>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <div class="vsecom_dFlex vsecom_alignItems_center">
+                <i class="material-icons-outlined cursor_p editIcon"
+                  (click)="updateShiprocketUser()" matTooltip="Edit"
+                  matTooltipPosition="above">edit</i>
+              </div>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;let even = even;"></tr>
+        </table>
+        <div class="noRecordsTable" *ngIf="(dataSource && dataSource.data.length === 0) || noUsersFound">
+          No Shiprocket Api User Found!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spinnerDialog" *ngIf="spinner">
+    <div class="spinLoaderHide">
+      <p class="spinLoaderV">V</p>
+    </div>
+  </div>

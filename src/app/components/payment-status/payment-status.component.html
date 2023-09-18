@@ -1,0 +1,17 @@
+<div class="dialogDiv">
+    <i class="material-icons cancelIcon" mat-dialog-close>close</i>
+    <h3 class="headerHeading">Payment Status</h3>
+    <hr class="headerLine">
+    <div>
+        <mat-dialog-content>
+            <div>
+                <h4>Change your payment status if you've received your payment.</h4>
+            </div>
+
+            <mat-dialog-actions align="end">
+                <button class="mat-raised-button vsAdminCLientBtn" (click)="close()">Close</button>
+                <button class="mat-raised-button vsAdminCLientBtn" (click)="updatePaymentStatus()">Update</button>
+            </mat-dialog-actions>
+        </mat-dialog-content>
+    </div>
+</div>

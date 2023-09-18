@@ -1,0 +1,133 @@
+::ng-deep.mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: var(--vs-color-primary) !important;
+}
+
+.mat-select-arrow {
+  color: var(--vs-color-primary) !important;
+}
+
+/* Change label color on focused */
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: var(--vs-color-primary) !important;
+}
+
+.changePasswordBtn {
+  text-align: initial;
+}
+
+.myAccountBtn {
+  margin: 3px !important;
+  background: var(--vs-color-primary);
+  color: white;
+  padding: 5px 15px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer !important;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.myAccountBtn:focus {
+  box-shadow: 0 0 6px var(--vs-color-primary);
+  outline: none !important;
+}
+
+.myAccountBtn:hover {
+  background: white;
+  color: var(--vs-color-primary);
+}
+
+.saveBtnCls {
+  margin-top: -49px;
+  float: right;
+}
+
+
+.multiSelectImage {
+  width: 125px;
+  height: 125px;
+  display: inline-block;
+  background-color: #ffffff;
+  margin: 15px;
+  box-shadow: 0 0 6px;
+  padding: 10px;
+  position: relative;
+  border-radius: 5px;
+}
+
+.singelSelectImage {
+  width: 125px;
+  height: 125px;
+  display: inline-block;
+  background-color: #ffffff;
+  margin: 15px;
+  box-shadow: 0 0 6px;
+  padding: 10px;
+  position: relative;
+  border-radius: 5px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cancelImage {
+  position: absolute;
+  top: 0px;
+  color: #505050;
+  right: 0px;
+  cursor: pointer;
+}
+
+.cancelImage:hover {
+  color: var(--vs-color-primary)
+}
+
+.cancelImage:active {
+  color: var(--vs-color-primary);
+  box-shadow: 0 0 6px var(--vs-color-primary);
+}
+
+.imagerCenter {
+  text-align: center;
+}
+
+.businessImage {
+  display: inherit;
+}
+
+.addButton {
+  border: 2px dashed;
+  color: var(--vs-color-primary);
+  border-radius: 5px;
+  box-sizing: border-box;
+  height: 100%;
+  cursor: pointer;
+}
+
+.addButtonIcon {
+  font-size: 70px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.plusIconLabel {
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+.editIcon {
+  vertical-align: bottom !important;
+  margin-left: 5px !important;
+  cursor: pointer;
+}
+
+.deleteAcccount {
+  display: flex;
+  float: right;
+}

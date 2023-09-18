@@ -1,0 +1,556 @@
+<div class="mainContent">
+  <div class="titleHeadet">
+    <h3 class="vsecom_pageHeader">Sales</h3>
+    <button>
+      <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+    </button>
+  </div>
+  <div [hidden]="!(noProductShowHide>0)">
+    <div class="tableTop_header marginBottom40">
+      <div class="padding1" fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px" fxLayout.xs="column">
+        <div fxFlex="25%">
+          <mat-form-field class="selectLabelDiv" appearance="outline">
+            <mat-label>Status</mat-label>
+            <mat-select #singleSelect [(value)]="selectedStatus" class="matSelectAlign" disableOptionCentering
+              panelClass="testClass" [(ngModel)]="order.status" (selectionChange)="filterOrderStatus('Nil')">
+              <mat-option [value]="0" (click)="filterOrderStatus('All')">All</mat-option>
+              <mat-option *ngFor="let orderStatus of OrderStatusList" [value]="orderStatus.id">
+                {{orderStatus.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="30%">
+          <div class="search_Container" fxFlex="90%">
+            <div class="searchInputSearch">
+              <mat-form-field class="searchInput" appearance="outline">
+                <mat-label>Search By Order Number or Customer</mat-label>
+                <input matInput (keyup)="searchOrders($event)">
+              </mat-form-field>
+              <div class="searchbarIcon" fxFlex="10%">
+                <i class="material-icons">search</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxFlex="45%">
+          
+            <div fxFlex="50%">
+              <mat-form-field class="selectLabelDiv" appearance="outline">
+                <mat-label>Filter</mat-label>
+                <mat-select #singleSelect [(value)]="selected" class="matSelectAlign" disableOptionCentering
+                  panelClass="testClass" [(ngModel)]="selectedOption" (selectionChange)="ordersFilter($event.value)">
+                  <mat-option value="all">All</mat-option>
+                  <mat-option value="week"> 7 days</mat-option>
+                  <mat-option value="month">Month</mat-option>
+                  <mat-option value="custom">Custom</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="35%" class="textAlignRight mt10">
+              <mat-icon class="material-icons-outlined materialIconMenu cursor_p listIcon"
+                (click)="changingViews('listView')" *ngIf="listViewIcon">
+                view_list
+              </mat-icon>
+              <mat-icon class="material-icons-outlined materialIconMenu cursor_p listIcon"
+                (click)="changingViews('cardView')" *ngIf="gridViewIcon">
+                grid_view
+              </mat-icon>
+              <!-- <mat-icon class="material-icons-outlined materialIconMenu cursor_p listIcon"
+                (click)="changingViews('detailedView')" matTooltip="SHOW ALL DETAILS HERE">
+                view_headline
+              </mat-icon> -->
+            </div>
+            <div fxFlex="15%" class="textAlignRight mt10">
+              <mat-icon class='material-icons-outlined cursor_p listIcon' (click)="downloadcsvFile()">file_download</mat-icon>
+            </div>
+        </div>
+      </div>
+      <div class="customDate" fxLayout="row" fxLayoutAlign="end">
+        <div class="vsecom_dFlex vsecom_alignItems_center" fxLayoutGap="20px" *ngIf="showStartEndDate">
+          <mat-form-field class="searchInput" appearance="outline">
+            <mat-label>Start Date</mat-label>
+            <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" matInput 
+              [(ngModel)]="startDateFilter" (ngModelChange)="dateFilter()">
+            <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+            <i class="fa fa-calendar toprightcroner" aria-hidden="false" [owlDateTimeTrigger]="dt1"></i>
+          </mat-form-field>
+
+          <mat-form-field class="searchInput" appearance="outline">
+            <mat-label>End Date</mat-label>
+            <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" matInput 
+              [(ngModel)]="enddateFilter" (ngModelChange)="dateFilter()">
+            <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+            <i class="fa fa-calendar toprightcroner" aria-hidden="false" [owlDateTimeTrigger]="dt2"></i>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="grid" *ngIf="showDetailedView">
+      <div class="tableContainer">
+        <table mat-table [dataSource]="dataSource1" matSort>
+
+          <ng-container matColumnDef="Id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">ORDER NUM</div>
+            </th>
+            <td mat-cell *matCellDef="let row"> {{row.id}} / {{row.orderId}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="OrderDateUtc">
+
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">Date</div>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="medium_font">{{findOrderDate(row.orderDateUtc)}}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Name">
+
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">Name</div>
+            </th>
+            <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Quantity">
+
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">QTY</div>
+            </th>
+            <td mat-cell *matCellDef="let row"> {{row.quantity}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="FirstName">
+
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">Customer</div>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{row.firstName}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="UnitPriceInclTax">
+
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">Unit Price</div>
+            </th>
+            <td mat-cell *matCellDef="let row">{{global.currency}}{{row.unitPriceInclTax | number}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="PriceInclTax">
+
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">Price Incl</div>
+            </th>
+            <td mat-cell *matCellDef="let row">{{global.currency}} {{row.priceInclTax | number}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="OrderItemStatus">
+
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">Status</div>
+            </th>
+            <td mat-cell *matCellDef="let row" class="paddingBottom1">
+              <div class="td_Payment_Status">
+                <div *ngIf="row.orderItemStatus == 'Shipping in Progress'" class="fancyColumnStatus fancyColumnStatus1">
+                  {{row.orderItemStatus}}
+                </div>
+                <div *ngIf="row.orderItemStatus == 'Order Created'" class="fancyColumnStatus fancyColumnStatus2">
+                  {{row.orderItemStatus}}
+                </div>
+                <div *ngIf="row.orderItemStatus == 'Others'" class="fancyColumnStatus fancyColumnStatus3">
+                  {{row.orderItemStatus}}
+                </div>
+                <div *ngIf="row.orderItemStatus == 'Cancelled'" class="fancyColumnStatus fancyColumnStatus4">
+                  {{row.orderItemStatus}}
+                </div>
+                <div *ngIf="row.orderItemStatus == 'Processing'" class="fancyColumnStatus fancyColumnStatus5">
+                  {{row.orderItemStatus}}
+                </div>
+                <div *ngIf="row.orderItemStatus == 'Under Verification'"
+                  class="fancyColumnStatus fancyColumnStatus6">
+                  {{row.orderItemStatus}}
+                </div>
+                <div *ngIf="row.orderItemStatus == 'Verified'" class="fancyColumnStatus fancyColumnStatus7">
+                  {{row.orderItemStatus}}
+                </div>
+                <div *ngIf="row.orderItemStatus == 'Refund'" class="fancyColumnStatus fancyColumnStatus8">
+                  {{row.orderItemStatus}}
+                </div>
+                <div *ngIf="row.orderItemStatus == 'Returned'" class="fancyColumnStatus fancyColumnStatus9">
+                  {{row.orderItemStatus}}
+                </div>
+                <div *ngIf="row.orderItemStatus == 'Delivered'" class="fancyColumnStatus fancyColumnStatus10">
+                  {{row.orderItemStatus}}
+                </div>
+              </div>
+              <div class="">
+                <select
+                  class="selectPicker" placeholder="Select Status" [(ngModel)]="row.orderItemStatusId"
+                  (change)="OpenUpdateOrderStatusPopup(row.orderId, row.id, row.branchOrderIdWithPrefix, $event)">
+                  <option *ngFor="let orderStatus of OrderStatusList" [value]="orderStatus.id">{{orderStatus.name}}
+                  </option>
+                </select>
+              </div>
+
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="PaymentMethodString">
+
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">Payment</div>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <div *ngIf="row.paymentMethodString == 'Cash On Delivery'">
+                <div class="fancyColumn fancyColumn1">COD
+                </div>
+              </div>
+              <div *ngIf="row.paymentMethodString == 'Card On Delivery'">
+                <div class="fancyColumn fancyColumn2">Card
+                </div>
+
+              </div>
+              <div *ngIf="row.paymentMethodString == 'PayUMoney'">
+                <div class="fancyColumn fancyColumn3">PayUMoney
+                </div>
+
+              </div>
+              <div *ngIf="row.paymentMethodString == 'RazorPay'">
+                <div class="fancyColumn fancyColumn4">RazorPay
+                </div>
+
+              </div>
+              <div *ngIf="row.paymentMethodString == 'Others'">
+                <div class="fancyColumn fancyColumn5">Others
+                </div>
+              </div>
+              <!-- <div
+                *ngIf="row.PaymentMethodString != 'Cash On Delivery' && row.PaymentMethodString != 'Card On Delivery' != && row.PaymentMethodString != 'PayUMoney' && row.PaymentMethodString != 'RazorPay' && row.PaymentMethodString != 'Others'">
+                <div class="fancyColumn fancyColumn6">{{row.PaymentMethodString}}
+                </div>
+              </div> -->
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns1;sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+        </table>
+        <div class="noRecordsTable" *ngIf="dataSource1 && dataSource1.data.length === 0">
+          No orders found
+        </div>
+      </div>
+      <div>
+        <mat-paginator [pageSizeOptions]="[25,50, 100, 500]" (page)="getPageNumber1($event)"></mat-paginator>
+      </div>
+    </div>
+    <div class="grid" *ngIf="showListView">
+      <div class="tableContainer">
+        <table mat-table [dataSource]="dataSource2" matSort>
+          <ng-container matColumnDef="OrderId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">ORDER #</div>
+            </th>
+            <td mat-cell *matCellDef="let row"><a class="order_Number_Link cursor_p"
+                (click)="navigateOrderDetailsPage(row.orderId)">{{row.branchOrderIdWithPrefix}}</a></td>
+          </ng-container>
+
+          <ng-container matColumnDef="FirstName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">Customer</div>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{row.firstName}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="OrderCount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">Count</div>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{row.orderCount}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="OrderDateUtc">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">Order Date</div>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="medium_font orderDateCell">{{findOrderDate(row.orderDateUtc)}}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="OrderTotal">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">Total</div>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{global.currency}}{{row.orderTotal | number}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="OrderStatus">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">Status</div>
+            </th>
+            <td mat-cell *matCellDef="let row" class="paddingBottom1">
+              <div class="td_Payment_Status">
+                <div *ngIf="row.orderStatus == 'Shipping in Progress'" class="fancyColumnStatus fancyColumnStatus9">
+                  {{row.orderStatus}}
+                </div>
+                <div *ngIf="row.orderStatus == 'Order Created'" class="fancyColumnStatus fancyColumnStatus2">
+                  {{row.orderStatus}}
+                </div>
+                <div *ngIf="row.orderStatus == 'Others'" class="fancyColumnStatus fancyColumnStatus4">
+                  {{row.orderStatus}}
+                </div>
+                <div *ngIf="row.orderStatus == 'Cancelled'" class="fancyColumnStatus fancyColumnStatus1">
+                  {{row.orderStatus}}
+                </div>
+                <div *ngIf="row.orderStatus == 'Processing'" class="fancyColumnStatus fancyColumnStatus5">
+                  {{row.orderStatus}}
+                </div>
+                <div *ngIf="row.orderStatus == 'Under Verification'" class="fancyColumnStatus fancyColumnStatus6">
+                  {{row.orderStatus}}
+                </div>
+                <div *ngIf="row.orderStatus == 'Verified'" class="fancyColumnStatus fancyColumnStatus10">
+                  {{row.orderStatus}}
+                </div>
+                <div *ngIf="row.orderStatus == 'Refund'" class="fancyColumnStatus fancyColumnStatus8">
+                  {{row.orderStatus}}
+                </div>
+                <div *ngIf="row.orderStatus == 'Returned'" class="fancyColumnStatus fancyColumnStatus7">
+                  {{row.orderStatus}}
+                </div>
+                <div *ngIf="row.orderStatus == 'Delivered'" class="fancyColumnStatus fancyColumnStatus3">
+                  {{row.orderStatus}}
+                </div>
+              </div>
+              <div>
+                <select
+                  class="selectPicker" placeholder="Select Status" [(ngModel)]="row.orderStatusId"
+                  (change)="OpenUpdateOrderStatusPopup(row.orderId, row.orderStatus, row.branchOrderIdWithPrefix, $event)">
+                  <option *ngFor="let orderStatus of OrderStatusList" [value]="orderStatus.id">{{orderStatus.name}}
+                  </option>
+                </select>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="PaymentStatus">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">Payment Status</div>
+            </th>
+            <td mat-cell *matCellDef="let row" class="paddingBottom1">
+              <div class="vsecom_tableCardContent">
+                <div *ngIf="row.paymentStatusId == 2" class="paymentStatus quantityCountColor1">
+                  {{row.paymentStatus}}
+                </div>
+                <div *ngIf="row.paymentStatusId == 3" class="paymentStatus quantityCountColor3">
+                  {{row.paymentStatus}}
+                </div>
+                <div *ngIf="row.paymentStatusId == 20" class="paymentStatus quantityCountColor2">
+                  {{row.paymentStatus}}
+                </div>
+                <div *ngIf="row.paymentStatusId == 30" class="paymentStatus quantityCountColor4">
+                  {{row.paymentStatus}}
+                </div>
+                <div *ngIf="row.paymentStatusId == 40" class="paymentStatus quantityCountColor0">
+                  {{row.paymentStatus}}
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="PaymentMethodString">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent transactionHeading">Transaction</div>
+            </th>
+            <td mat-cell *matCellDef="let row" class="paddingBottom1 alignCenter">
+              <div *ngIf="row.paymentMethodString == 'Cash On Delivery'">
+                <div class="fancyColumn fancyColumn2">COD
+                </div>
+              </div>
+              <div *ngIf="row.paymentMethodString == 'Card On Delivery'">
+                <div class="fancyColumn fancyColumn3">Card
+                </div>
+
+              </div>
+              <div *ngIf="row.paymentMethodString == 'Others'">
+                <div class="fancyColumn fancyColumn1">Others
+                </div>
+
+              </div>
+              <div *ngIf="row.paymentMethodString == 'RazorPay'">
+                <div class="fancyColumn fancyColumn5">RazorPay
+                </div>
+
+              </div>
+              <div *ngIf="row.paymentMethodString == 'PayPal'">
+                <div class="fancyColumn fancyColumn4">PayPal
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="maxContent">Action</div>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <div class="vsecom_dFlex ">
+                <i class="material-icons-outlined cursor_p editIcon" (click)="navigateOrderDetailsPage(row.orderId)"
+                  matTooltip="View Order Details" matTooltipPosition="above">list_alt</i>
+                <a href="/print-order?id={{row.orderId}}" target="_blank">
+                  <i class="material-icons-outlined cursor_p editIcon" matTooltip="Print"
+                    matTooltipPosition="above">local_print_shop</i></a>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns2;sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+        </table>
+        <div class="noRecordsTable" *ngIf="dataSource2 && dataSource2.data.length === 0">
+          No orders found
+        </div>
+      </div>
+      <div>
+        <mat-paginator [pageSizeOptions]="[25,50, 100, 500]" (page)="getPageNumber2($event)"></mat-paginator>
+      </div>
+    </div>
+    <div *ngIf="showCardView">
+      <div class="grid">
+        <div class="noRecordsTable ptb-10" *ngIf="dataSource2 && dataSource2.data.length === 0">
+          No orders found
+        </div>
+        <div class="property-details">
+          <div class="paginationList" *ngIf="dataSource2 && dataSource2.data.length != 0">
+            <pagination-controls (pageChange)="page = $event" [maxSize]='5' previousLabel="" nextLabel="">
+            </pagination-controls>
+          </div>
+          <div class="dataCol">
+            <div class="dataGride"
+              *ngFor="let data of pendingOrdersList | paginate: { itemsPerPage: 9, currentPage: page } ; let i=index">
+              <div class="ListingDiv">
+                <div class="ListingBorder">
+                  <div class="ListingHeader">
+                    <div class="ListingHeaderText cursor_p">
+                      <div class="grid_OrderNum cursor_p"(click)="navigateOrderDetailsPage(data.orderId)"><label class="productNameText"><b># {{data.branchOrderIdWithPrefix}}</b></label></div>
+                    </div>
+                    <div class="card_PaymentSection cursor_p" [matMenuTriggerFor]="menu">
+                      {{data.orderStatus}}
+                      <div class="ListingHeaderDotIcon">
+                        <mat-icon>more_horiz</mat-icon>
+                      </div>
+                      <mat-menu #menu="matMenu" class="orderStatus">
+                        <div *ngFor="let orderStatus of OrderStatusList">
+                          <button mat-menu-item (click)="OpenUpdateOrderStatusPopup(data.orderId, data.orderStatus, data.branchOrderIdWithPrefix, orderStatus.id)">
+                            <span>{{orderStatus.name}}</span>
+                          </button>
+                        </div>
+                      </mat-menu>
+                    </div>
+                  </div>
+                  <div class="ListingBodyText">
+                    <div class="summeryValue">
+                      <div class="card_Date_Status">
+                        <div class="textSize">
+                          <div class="grid_Text gridtextSize">{{data.firstName}}</div>
+                          <div class="grid_Date medium_font">{{findOrderDate(data.orderDateUtc)}}</div>
+                        </div>
+                        <div class="stockCount  buttonRes">
+                          <div class="vsecom_tableCardContent fontSize">
+                            <div *ngIf="data.paymentStatusId == 2" class="paymentStatus quantityCountColor1 cardButton">
+                              {{data.paymentStatus}}
+                            </div>
+                            <div *ngIf="data.paymentStatusId == 3" class="paymentStatus quantityCountColor3 cardButton">
+                              {{data.paymentStatus}}
+                            </div>
+                            <div *ngIf="data.paymentStatusId == 20" class="paymentStatus quantityCountColor2 cardButton">
+                              {{data.paymentStatus}}
+                            </div>
+                            <div *ngIf="data.paymentStatusId == 30" class="paymentStatus quantityCountColor4 cardButton">
+                              {{data.paymentStatus}}
+                            </div>
+                            <div *ngIf="data.paymentStatusId == 40" class="paymentStatus quantityCountColor0 cardButton">
+                              {{data.paymentStatus}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="leftData">
+                        <div class="summary-value">
+                          {{data.orderCount}}
+                        </div>
+                        <div class="summary-subtitle">
+                          COUNT
+                        </div>
+                      </div>
+                      <div class="rightData">
+                        <div class="summary-value">
+                          {{global.currency}}{{data.orderTotal | number}}
+                        </div>
+                        <div class="summary-subtitle">
+                          TOTAL
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="footerData">
+                    <div class="stockCount">
+                      <div *ngIf="data.paymentMethodString == 'Cash On Delivery'">
+                        <div class="fancyColumn fancyColumn2">COD
+                        </div>
+                      </div>
+                      <div *ngIf="data.paymentMethodString == 'Card On Delivery'">
+                        <div class="fancyColumn fancyColumn3">Card
+                        </div>
+
+                      </div>
+                      <div *ngIf="data.paymentMethodString == 'Others'">
+                        <div class="fancyColumn fancyColumn1">Others
+                        </div>
+
+                      </div>
+                      <div *ngIf="data.paymentMethodString == 'RazorPay'">
+                        <div class="fancyColumn fancyColumn5">RazorPay
+                        </div>
+
+                      </div>
+                      <div *ngIf="data.paymentMethodString == 'PayPal'">
+                        <div class="fancyColumn fancyColumn4">PayPal
+                        </div>
+                      </div>
+                    </div>
+                    <div class="shareIcon">
+                      <label>
+                        <a href="/print-order?id={{data.orderId}}" target="_blank"><i
+                            class="material-icons printIcon">local_print_shop</i></a>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="noProductShowHide <= 0" class="alignCenter noProductCard">
+    <h3 class=""><b>Orders</b></h3>
+    <div class="noproductImgDiv mb10">
+      <img class="noproductImgDivimg" src="/assets/images/noOrders.jpg" alt="No Orders Available">
+    </div>
+  </div>
+</div>

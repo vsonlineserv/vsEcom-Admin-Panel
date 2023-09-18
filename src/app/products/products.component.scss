@@ -1,0 +1,186 @@
+::ng-deep.mat-form-field.mat-focused .mat-form-field-ripple{
+    background-color: var(--vs-color-primary) !important;
+  }
+  
+  /* Change label color on focused */
+  ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: var(--vs-color-primary) !important;
+  }
+.salesHeader{
+    box-shadow: 0 1px 10px -3px rgb(0 0 0 / 50%);
+}
+
+.salesHeaderTitle {
+    color: var(--vs-color-primary);
+    font-size: 16px;
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    padding: 10px 15px;
+    height: 20px;
+}
+.salesHeaderBar{
+    padding: 15px 0px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    background: var(--color-secondarybackground);
+}
+
+.salesHeader-section {
+    width: 25%;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+}
+
+@media (max-width: 700px){
+    .salesHeaderBar{
+        display: inline-block;
+        width: 100%;
+    }
+    .status-mobile{
+        width: 50%;
+        float: left;
+        margin-bottom: 20px;
+    }
+    .searchbar-mobile{
+        width: 50%;
+        float: left;
+        margin-bottom: 20px;
+    }
+
+    .pagenumber-mobile{
+        width: 50%;
+    }
+    .searchbutton-mobile{
+        width: 50%;
+        float: right;
+        margin-top: -50px;
+    }
+   
+
+}
+.actionButton {
+    margin: 5px;
+    max-width: 85px;
+    width: 85px;
+}
+
+table {
+    width: 100%;
+}
+
+
+
+.actionButtonsContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tableContainer {
+    overflow: auto;
+    height: 45vh;
+    background: var(--color-secondarybackground);
+}
+
+.dropdown {
+    border: none !important;
+    background: none !important;
+    font-size: 15px;
+    padding: 5px 5px;
+}
+
+.dropdown:focus {
+    outline: none;
+    border-radius: 8px;
+    border: 1px solid var(--vs-color-primary);
+    box-shadow: 0 0 5px var(--vs-color-primary);
+}
+
+.grid {
+    margin-top: 5px;
+    box-shadow: 0 1px 10px -3px rgb(0 0 0 / 50%);
+}
+
+.searchPricing {
+    float: none !important;
+    width: 80%;
+}
+
+.searchInput {
+    width: 100%;
+    margin: auto;
+}
+
+.searchInputSearch{
+    width: 80%;
+    display: inline-block;
+}
+
+.searchbarIcon{
+    display: inline-block;
+    width: 20%;
+    vertical-align: middle;
+    text-align: left;
+
+}
+
+.labelCategory{
+    color: #0000008a;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.matSelect{
+    width: 50%;
+    margin: auto;
+    padding: 8px;
+    display: inline-block;
+}
+
+.matSelect:hover {
+    border-radius: 8px;
+    box-shadow: 0 0 5px var(--vs-color-primary);
+}
+
+.matSelect:focus {
+    border-radius: 8px;
+    box-shadow: 0 0 5px var(--vs-color-primary);
+    outline: 0px;
+}
+
+.matSelect:active {
+    border-radius: 8px;
+    box-shadow: 0 0 5px var(--vs-color-primary);
+    outline: 0px;
+}
+
+.matSelectAlign{
+    text-align: left;
+    font-size: 15px;
+    margin-left: 5px;
+}
+
+.cdk-overlay-container .cdk-overlay-pane{
+    margin-top: 7%;
+ }
+ .subCategory{
+    width: 50%;
+    display: inline-block;
+    padding-right: 10px;
+ }
+
+ ::ng-deep .mat-select-panel::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+::ng-deep .mat-select-panel::-webkit-scrollbar:vertical {
+    width: 4px;
+}
+
+::ng-deep .mat-select-panel::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background: #888; 
+}

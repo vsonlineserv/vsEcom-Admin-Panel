@@ -1,0 +1,84 @@
+.matForm {
+    display: block;
+    margin: auto;
+    width: 80%;
+}
+
+.shippingHeading {
+    margin: 0px 0px;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.shippingDetails {
+    background: white;
+    padding: 15px;
+    margin: 20px 0px;
+}
+
+.shippingDetailsMenu {
+    margin: 0px;
+    font-size: 22px;
+}
+
+.shippingDetailsHeading {
+    margin: 5px 0px;
+    font-size: 22px;
+    color: var(--vs-color-primary);
+    font-weight: 600;
+}
+
+.shippingDetailsDescription {
+    margin: 7px 0px;
+    font-size: 15px;
+    color: gray;
+}
+
+.addButton {
+    text-transform: unset;
+}
+
+.addicons {
+    margin-right: 5px;
+}
+
+.saveBtn {
+    margin: 3px !important;
+    background: var(--vs-color-primary);
+    color: white;
+    padding: 1px 15px;
+    border: none;
+    font-size: 15px;
+    cursor: pointer !important;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.saveBtn:focus {
+    box-shadow: 0 0 6px var(--vs-color-primary);
+    outline: none !important;
+}
+
+.saveBtn:hover {
+    background: white;
+    color: var(--vs-color-primary);
+}
+
+.btncls {
+    text-align: end;
+}
+
+.shiprocket {
+    width: 32px;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+.truck_icon {
+    font-size: 30px;
+    height: 30px;
+    width: 30px;
+}

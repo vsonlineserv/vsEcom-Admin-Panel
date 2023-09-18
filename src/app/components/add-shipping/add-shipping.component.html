@@ -1,0 +1,97 @@
+<div class="dialogDiv">
+    <i class="material-icons cancelIcon" mat-dialog-close>close</i>
+    <h3 class="headerHeading">Shipping Details</h3>
+    <hr class="headerLine">
+    <div>
+        <mat-dialog-content>
+            <div class="modal-body addpaddingAndHeight">
+                <form [formGroup]="orderDetailsForm" autocomplete="off" #f="ngForm">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between ">
+                        <div fxFlex="100">
+                            <mat-form-field class="inputContent" appearance="outline">
+                                <mat-label>Pickup Location</mat-label>
+                                <mat-select formControlName="PickupLocation" #singleSelect>
+                                    <mat-option *ngFor="let eachPickupLocation of pickupLocationList"
+                                        [value]="eachPickupLocation.pickup_location">
+                                        {{eachPickupLocation.pickup_location}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <span
+                                        *ngIf="orderDetailsForm?.controls['PickupLocation'].errors && orderDetailsForm?.controls['PickupLocation'].errors['required']">Pickup Location
+                                        is required</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="49">
+                            <mat-form-field class="inputContent" appearance="outline">
+                                <mat-label>Length (in cms)</mat-label>
+                                <input matInput formControlName="Length"
+                                    onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46'>
+                                <mat-error>
+                                    <span
+                                        *ngIf="orderDetailsForm?.controls['Length'].errors && orderDetailsForm?.controls['Length'].errors['required']">Length
+                                        is required</span>
+                                    <span
+                                        *ngIf="orderDetailsForm?.controls['Length'].errors && orderDetailsForm?.controls['Length'].errors['min']">Length
+                                        must be greater than 0.5</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="49">
+                            <mat-form-field class="inputContent" appearance="outline">
+                                <mat-label>Breadth (in cms)</mat-label>
+                                <input matInput formControlName="Breadth"
+                                    onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46'>
+                                <mat-error>
+                                    <span
+                                        *ngIf="orderDetailsForm?.controls['Breadth'].errors && orderDetailsForm?.controls['Breadth'].errors['required']">Breadth
+                                        is required</span>
+                                    <span
+                                        *ngIf="orderDetailsForm?.controls['Breadth'].errors && orderDetailsForm?.controls['Breadth'].errors['min']">Breadth
+                                        must be greater than 0.5</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="49">
+                            <mat-form-field class="inputContent" appearance="outline">
+                                <mat-label>Height (in cms)</mat-label>
+                                <input matInput formControlName="Height"
+                                    onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46'>
+                                <mat-error>
+                                    <span
+                                        *ngIf="orderDetailsForm?.controls['Height'].errors && orderDetailsForm?.controls['Height'].errors['required']">Height
+                                        is required</span>
+                                    <span
+                                        *ngIf="orderDetailsForm?.controls['Height'].errors && orderDetailsForm?.controls['Height'].errors['min']">Height
+                                        must be greater than 0.5</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="49">
+                            <mat-form-field class="inputContent" appearance="outline">
+                                <mat-label>Weight (in kgs)</mat-label>
+                                <input matInput formControlName="Weight"
+                                    onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46'>
+                                <mat-error>
+                                    <span
+                                        *ngIf="orderDetailsForm?.controls['Weight'].errors && orderDetailsForm?.controls['Weight'].errors['required']">Weight
+                                        is required</span>
+                                    <span
+                                        *ngIf="orderDetailsForm?.controls['Weight'].errors && orderDetailsForm?.controls['Weight'].errors['min']">Weight
+                                        must be greater than 0</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="btncls" fxFlex="100" fxLayoutAlign="space-between">
+                            <button mat-raised-button class="vsAdminCLientButn closeButton"
+                                (click)="close()">Cancel</button>
+                            <button mat-raised-button class="vsAdminCLientButn" (click)="createShiprocketOrder()">Create
+                                Order</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </mat-dialog-content>
+    </div>
+</div>

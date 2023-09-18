@@ -1,0 +1,98 @@
+<div class="mainContent">
+    <div class="titleHeadet">
+        <h3 class="vsecom_pageHeader">View Tracking</h3>
+        <button>
+            <i class="material-icons cursor_p" (click)="goback()">arrow_back</i>
+        </button>
+    </div>
+    <div>
+        <mat-card>
+            <div fxLayout="row" fxLayoutAlign="center">
+                <div class="statusTracking">
+                    <div class="heading">
+                        Tracking Status
+                    </div>
+                    <div class="valueData">
+                        <div fxLayout="row" fxLayoutAlign="flex-center">
+                            <div fxFlex="0 1 calc(50%)">
+                                <div>
+                                    <span class="subHeading">AWB Code</span> :
+                                    <span>{{TrackingViewStatus.shipment_track[0].awb_code}}</span>
+                                </div>
+                                <div>
+                                    <span class="subHeading">Shipment Id</span> :
+                                    <span>{{TrackingViewStatus.shipment_track[0].shipment_id}}</span>
+                                </div>
+                                <div>
+                                    <span class="subHeading">Order Id</span> :
+                                    <span>{{TrackingViewStatus.shipment_track[0].awb_code}}</span>
+                                </div>
+                                <div>
+                                    <span class="subHeading">Weight</span> : <span>{{TrackingViewStatus.shipment_track[0].weight}}</span>
+                                </div>
+                            </div>
+                            <div fxFlex="0 1 calc(50%)">
+                                <div>
+                                    <span class="subHeading">Status</span> :
+                                    <span class="statusValue">{{TrackingViewStatus.shipment_track[0].current_status}}</span>
+                                </div>
+                                <div>
+                                    <span class="subHeading">Pickup Date</span> :
+                                    <span>{{TrackingViewStatus.shipment_track[0].pickup_date | date:'medium'}}</span>
+                                </div>
+                                <div>
+                                    <span class="subHeading">Delivered To</span> :
+                                    <span>{{TrackingViewStatus.shipment_track[0].delivered_to}}</span>
+                                </div>
+                                <div>
+                                    <span class="subHeading">Delivered To</span> :
+                                    <span>{{TrackingViewStatus.shipment_track[0].delivered_to}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="TrackURL">
+                            <span class="subHeading">Track URL</span> : <span><a class="track_url" href={{TrackingViewStatus.track_url}} target="_blank">{{TrackingViewStatus.track_url}}</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </mat-card>
+        <br>
+        <mat-card>
+
+            <div class="grid">
+                <div class="tableContainer">
+                    <table mat-table [dataSource]="dataSource" matSort style="height: auto;">
+                        <ng-container matColumnDef="Activity">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                <div>ACTIVITY</div>
+                            </th>
+                            <td mat-cell *matCellDef="let row">{{row.activity}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="Date">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                <div>DATE</div>
+                            </th>
+                            <td mat-cell *matCellDef="let row">{{row.date | date:'MMM dd, yyyy'}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="Time">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                <div>TIME</div>
+                            </th>
+                            <td mat-cell *matCellDef="let row">{{row.date | date:'h:mm a'}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="Location">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                <div>LOCATION</div>
+                            </th>
+                            <td mat-cell *matCellDef="let row">{{row.location}}</td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>

@@ -1,0 +1,126 @@
+<div class="dialogDiv">
+  <i class="material-icons cancelIcon" mat-dialog-close>close</i>
+  <h3 class="headerHeading" *ngIf="sharingProduct">{{productName}}</h3>
+  <h3 class="headerHeading" *ngIf="sharingSiteLink">Your Site URL</h3>
+  <h3 class="headerHeading" *ngIf="sharingDiscount">{{name}}</h3>
+  <hr class="headerLine">
+  <h6 class="headerMessage" *ngIf="sharingSiteLink">
+    {{this.link}}
+  </h6>
+  <!-- <h6 class="headerMessage discountHeaderMessage" *ngIf="sharingDiscount">
+    <span *ngIf="sharingDiscountFlate">Use Coupon Code {{couponCode}} to get {{discountPercentage}}% of Discount <span *ngIf="showEndDate"> till {{findDate(endDateUtc)}}.</span></span> 
+    <span *ngIf="!sharingDiscountFlate">Use Coupon Code {{couponCode}} to get {{global.currency}} {{discountAmount}}  of Discount <span *ngIf="showEndDate">till {{findDate(endDateUtc)}}.</span></span> 
+  </h6> -->
+  <div style="position: relative;">
+    <mat-dialog-content>
+      <div class="shareItems" *ngIf="sharingProduct">
+        <div class="eachShareItem">
+          <a (click)="dialogClose()"
+            href="http://www.facebook.com/sharer/sharer.php?u={{link}}&t=Hi,%0D%0A Please visit the link {{link}} for ordering {{productName}}, Thanks for your Support, NJOY Shopping. You can contact us in{{this.global.currentUserInfo.phoneNumber}} for any queries."
+            target="_blank">
+            <img src="/assets/images/fb.png" alt="Facebook" class="icons">
+          </a>
+          <span class="eachShareItemtext">FACEBOOK</span>
+        </div>
+        <div class="eachShareItem">
+          <a target="_blank" (click)="dialogClose()"
+            href="https://web.whatsapp.com/send?text=Hi,%0D%0A Please visit the link {{link}} for ordering {{productName}}, Thanks for your Support, NJOY Shopping. You can contact us in{{this.global.currentUserInfo.phoneNumber}} for any queries."
+            data-action="share/whatsapp/share">
+            <img src="/assets/images/whatsapp.png" alt="Whatsapp" class="icons"></a>
+          <span class="eachShareItemtext">WHATSAPP</span>
+        </div>
+        <div class="eachShareItem">
+          <a target="_blank" (click)="dialogClose()"
+            href="mailto:?subject=Buy {{productName}} from {{this.global.storeName}}&body=Hi,%0D%0A Please visit the link {{link}} for ordering {{productName}}, Thanks for your Support, NJOY Shopping. You can contact us in{{this.global.currentUserInfo.phoneNumber}} for any queries.">
+            <img src="/assets/images/mail.png" alt="Gmail" class="icons">
+          </a>
+          <span class="eachShareItemtext">MAIL</span>
+        </div>
+        <div class="eachShareItem">
+          <img (click)="copyProductLink()" src="/assets/images/copy.png" alt="Copy" class="icons">
+          <span class="eachShareItemtext">COPY</span>
+        </div>
+      </div>
+      <div class="shareItems" *ngIf="sharingSiteLink">
+        <div class="eachShareItem">
+          <a (click)="dialogClose()"
+            href="http://www.facebook.com/sharer/sharer.php?u={{link}}&t=Hi,%0D%0A You can now visit our online store in this link {{link}} and order your favourite products. You can contact us in{{this.global.currentUserInfo.phoneNumber}} for any queries. Thanks for your Support. NJOY Shopping!"
+            target="_blank">
+            <img src="/assets/images/fb.png" alt="Facebook" class="icons">
+          </a>
+          <span class="eachShareItemtext">FACEBOOK</span>
+        </div>
+        <div class="eachShareItem">
+          <a target="_blank" (click)="dialogClose()"
+            href="https://web.whatsapp.com/send?text=Hi,%0D%0A You can now visit our online store in this link {{link}} and order your favourite products. You can contact us in{{this.global.currentUserInfo.phoneNumber}} for any queries. Thanks for your Support. NJOY Shopping!"
+            data-action="share/whatsapp/share">
+            <img src="/assets/images/whatsapp.png" alt="Whatsapp" class="icons"></a>
+          <span class="eachShareItemtext">WHATSAPP</span>
+        </div>
+        <div class="eachShareItem">
+          <a target="_blank" (click)="dialogClose()"
+            href="mailto:?subject=Order your favourite products from our {{this.global.storeName}} &body=Hi,%0D%0A You can now visit our online store in this link {{link}} and order your favourite products. You can contact us in {{this.global.currentUserInfo.phoneNumber}} for any queries. Thanks for your Support. NJOY Shopping!">
+            <img src="/assets/images/mail.png" alt="Gmail" class="icons">
+          </a>
+          <span class="eachShareItemtext">MAIL</span>
+        </div>
+        <div class="eachShareItem">
+          <img (click)="copySiteLink()" src="/assets/images/copy.png" alt="Copy" class="icons">
+          <span class="eachShareItemtext">COPY</span>
+        </div>
+      </div>
+      <div class="shareItems" *ngIf="sharingDiscount">
+        <div *ngIf="sharingDiscountFlate" class="eachShareItem">
+          <a (click)="dialogClose()"
+            href="http://www.facebook.com/sharer/sharer.php?u={{link}}&t=Hi,%0D%0A Get Exciting offer by visiting our online store in this link {{link}} and Use Coupon Code {{couponCode}} to get {{discountPercentage}} % off of Discount till {{findDate(endDateUtc)}}."
+            target="_blank">
+            <img src="/assets/images/fb.png" alt="Facebook" class="icons">
+          </a>
+          <span class="eachShareItemtext">FACEBOOK</span>
+        </div>
+        <div *ngIf="!sharingDiscountFlate" class="eachShareItem">
+          <a (click)="dialogClose()"
+            href="http://www.facebook.com/sharer/sharer.php?u={{link}}&t=Hi,%0D%0A You can now visit our online store in this link {{link}} and use Coupon code {{couponCode}} to get {{global.currency}}{{discountAmount}} off of Discount till {{findDate(endDateUtc)}}."
+            target="_blank">
+            <img src="/assets/images/fb.png" alt="Facebook" class="icons">
+          </a>
+          
+          <span class="eachShareItemtext">FACEBOOK</span>
+        </div>
+        <div *ngIf="sharingDiscountFlate" class="eachShareItem">
+          <a  target="_blank" (click)="dialogClose()"
+            href="https://web.whatsapp.com/send?text=Hi,%0D%0A Get Exciting offer by visiting our online store in this link {{link}} and Use Coupon Code {{couponCode}} to get {{discountPercentage}} % off of Discount till {{findDate(endDateUtc)}}."
+            data-action="share/whatsapp/share">
+            <img src="/assets/images/whatsapp.png" alt="Whatsapp" class="icons"></a>
+          <span class="eachShareItemtext">WHATSAPP</span>
+        </div>
+        <div *ngIf="!sharingDiscountFlate" class="eachShareItem">
+          <a target="_blank" (click)="dialogClose()"
+            href="https://web.whatsapp.com/send?text=Hi,%0D%0A You can now visit our online store in this link {{link}} and use Coupon code {{couponCode}} to get {{global.currency}}{{discountAmount}} off of Discount till {{findDate(endDateUtc)}}."
+            data-action="share/whatsapp/share">
+            <img src="/assets/images/whatsapp.png" alt="Whatsapp" class="icons"></a>
+          
+          <span class="eachShareItemtext">WHATSAPP</span>
+        </div>
+        <div *ngIf="sharingDiscountFlate" class="eachShareItem">
+          <a target="_blank" (click)="dialogClose()"
+            href="mailto:?subject=Get {{discountPercentage}} % off using Code {{couponCode}}&body=Hi,%0D%0A Get Exciting offer by visiting our online store in this link {{link}} and Use Coupon Code {{couponCode}} to get {{discountPercentage}} % off of Discount till {{findDate(endDateUtc)}}.">
+            <img src="/assets/images/mail.png" alt="Gmail" class="icons">
+          </a>
+          <span class="eachShareItemtext">MAIL</span>
+        </div>
+        <div *ngIf="!sharingDiscountFlate" class="eachShareItem">
+          <a target="_blank" (click)="dialogClose()"
+            href="mailto:?subject=Get Exciting offer {{global.currency}}{{discountAmount}} off using Code {{couponCode}} from {{this.global.storeName}}&body=Hi,%0D%0A You can now visit our online store in this link {{link}} and use Coupon code {{couponCode}} to get {{global.currency}}{{discountAmount}} off of Discount till {{findDate(endDateUtc)}}.">
+            <img src="/assets/images/mail.png" alt="Gmail" class="icons">
+          </a>
+          <span class="eachShareItemtext">MAIL</span>
+        </div>
+        <div class="eachShareItem">
+          <img (click)="copyDiscountLink()" src="/assets/images/copy.png" alt="Copy" class="icons">
+          <span class="eachShareItemtext">COPY</span>
+        </div>
+      </div>
+    </mat-dialog-content>
+  </div>
+</div>

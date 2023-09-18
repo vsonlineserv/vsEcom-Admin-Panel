@@ -1,0 +1,196 @@
+<div class="vsecom_topNav">
+    <div fxLayout="row" fxLayoutAlign=" center" class="vsecom_primary_color">
+        <div [@onSideNavChange]="sideNavState ? 'open' : 'close'">
+            <div class="with-bg"></div>
+            <div color="primary" class="alignCenter LogeCenter" [@animateText]="linkText ? 'show' : 'hide'">
+                <a [routerLink]="['/home/dashboard']" href="#">
+                    <img src="../assets/images/logo.png">
+                </a>
+            </div>
+        </div>
+
+
+        <div fxFlex="100" fxLayout="row" fxLayoutAlign=" center" class="header-box-shadow">
+            <button mat-icon-button (click)="onSinenavToggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <div class="siteTitle alignCenter vsecom_logo_Sec" fxFlex="80" fxFlex.lg="80" fxFlex.md="70">
+                <img class="placeholderImage" src="{{this.global.businessImage}}">
+                <!-- <a class="appNameText">{{this.global.currentUserDomainInfo.appName}}</a> -->
+            </div>
+            <div fxFlex="20" fxFlex.lg="20" fxFlex.md="30" fxFlex.sm="70">
+                <button mat-button [matMenuTriggerFor]="menu" fxShow.lt-md="false" fxShow.gt-sm="true"
+                    *ngIf="myAccount">
+                    <div style="display: flex">
+                        <div class="myAccountImage">
+                            <img class="placeholderMyAccountImage" src="{{this.global.myAccountImage}}">
+                        </div>
+                        <p class="ml-2 userNameText">{{this.global.firstLastName}}</p>
+                    </div>
+                </button>
+                <button mat-button [matMenuTriggerFor]="menu" fxShow.lt-md="false" fxShow.gt-sm="true"
+                    *ngIf="!myAccount" class="userNameText">
+                    <mat-icon class="accountIcon">account_circle</mat-icon>
+                    {{this.global.firstLastName}}
+                </button>
+                <mat-menu #menu="matMenu" overlapTrigger="false">
+                    <span matTooltip="{{userNameToDisplay}}" class="ml-2 userNameDisplay">{{userNameToDisplay}}</span>
+                    <button mat-menu-item (click)="navigate('my-account')">
+                        <mat-icon>account_circle</mat-icon>
+                        <span>My Account</span>
+                    </button>
+                    <!-- <button mat-menu-item (click)="navigate('add-address')">
+                        <mat-icon>add_location_alt</mat-icon>
+                        <span>Address</span>
+                    </button> -->
+                </mat-menu>
+                <button mat-icon-button (click)="globalService.logout()">
+                    <mat-icon class="ml-3" title="Logout">exit_to_app</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<mat-sidenav-container class="matContainer hidematcontainer">
+    <mat-sidenav #sidenav [mode]=over [(opened)]="sideNavState" [@onSideNavChange]="sideNavState ? 'open' : 'close'"
+        class="bottom-to-top sideMenuShadow">
+        <mat-nav-list>
+            <a mat-list-item class="uppertxt" [routerLink]="['/home/dashboard']" routerLinkActive="routerLink_Active">
+                <i class="material-icons-outlined menu-icon">home</i> Home
+            </a>
+            <a mat-list-item class="uppertxt vsecom_justify_between" [routerLink]="['/home/sales']"
+                routerLinkActive="routerLink_Active">
+                <div class="vsecom_list_item">
+                    <div class="vsecom_dFlex vsecom_alignItems_center">
+                        <i class="material-icons-outlined menu-icon">shopping_cart</i> Sales
+                    </div>
+                    <div class="countDiv">
+                        {{global.pendingOrderCount}}
+                    </div>
+                </div>
+            </a>
+        </mat-nav-list>
+        <mat-accordion multi>
+            <mat-expansion-panel class="no-shadow">
+                <mat-expansion-panel-header fxLayout="row" [expandedHeight]="expandHeight"
+                    [collapsedHeight]="collapseHeight">
+                    <mat-panel-title class="uppertxt">
+                        <i class="material-icons-outlined menu-icon">inventory</i> Catalog
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <!-- <button (click)="navigate()">settings</button> -->
+                <mat-nav-list class="ptN matExpansionList" dense>
+                    <mat-list-item [routerLink]="['/home/category']" routerLinkActive="routerLink_Active">
+                        <a class="medium_font">Category</a>
+                    </mat-list-item>
+                    <mat-list-item [routerLink]="['/home/view-products']" routerLinkActive="routerLink_Active">
+                        <div class="vsecom_list_item">
+                            <a class="medium_font">Products</a>
+                            <div class="countDiv">
+                                {{global.totalActiveProducts}}
+                            </div>
+                        </div>
+                    </mat-list-item>
+                    <!-- <mat-list-item  [routerLink]="['/home/products']" routerLinkActive="routerLink_Active">
+                            <a class="medium_font">Pricing</a>
+                        </mat-list-item> -->
+                    <mat-list-item [routerLink]="['/home/inventory']" routerLinkActive="routerLink_Active">
+                        <a class="medium_font">Inventory</a>
+                    </mat-list-item>
+                    <mat-list-item [routerLink]="['/home/brands']" routerLinkActive="routerLink_Active">
+                        <a class="medium_font">Brands</a>
+                    </mat-list-item>
+                </mat-nav-list>
+            </mat-expansion-panel>
+        </mat-accordion>
+        <mat-nav-list class="ptN">
+            <a mat-list-item class="uppertxt" [routerLink]="['/home/view-coupon']" routerLinkActive="routerLink_Active">
+                <i class="material-icons-outlined menu-icon">monetization_on</i>
+                <!-- <i class="material-icons-outlined menu-icon">montization_on</i> -->
+                <a>Discount</a>
+            </a>
+            <a mat-list-item class="uppertxt" [routerLink]="['/home/enquiry']" routerLinkActive="routerLink_Active">
+                <div class="vsecom_list_item">
+                    <div class="vsecom_dFlex vsecom_alignItems_center">
+                        <i class="material-icons-outlined menu-icon">question_answer</i> Enquiry
+                    </div>
+                    <div class="countDiv">
+                        {{global.pendingEnquiryCount}}
+                    </div>
+                </div>
+            </a>
+            <a mat-list-item class="uppertxt" [routerLink]="['/home/reports']" routerLinkActive="routerLink_Active">
+                <i class="material-icons-outlined menu-icon">insert_chart_outlined</i>
+                Reports
+            </a>
+        </mat-nav-list>
+        <mat-expansion-panel class="no-shadow">
+            <mat-expansion-panel-header fxLayout="row" [expandedHeight]="expandHeight"
+                [collapsedHeight]="collapseHeight">
+                <mat-panel-title class="uppertxt">
+                    <i class="material-icons menu-icon">settings</i> Settings
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- <button (click)="navigate()">settings</button> -->
+            <mat-nav-list class="ml-0 matExpansionList" dense>
+                <mat-list-item (click)="navigate('payment')">
+                    <a class="medium_font">Payments</a>
+                </mat-list-item>
+                <mat-list-item>
+                    <a (click)="navigate('shipping')" class="medium_font">Shipping</a>
+                </mat-list-item>
+                <mat-list-item (click)="navigate('view-customers')">
+                    <a class="medium_font">Customers</a>
+                </mat-list-item>
+                <!-- <mat-list-item (click)="navigate('staff-registration')"
+                    *ngIf="!this.global.isStaffAccount">
+                    <a class="medium_font">Staff Registration</a>
+                </mat-list-item> -->
+            </mat-nav-list>
+        </mat-expansion-panel>
+
+    </mat-sidenav>
+    <div id="content">
+        <app-online-status [onlineStatusMessage]="connectionStatusMessage" [onlineStatus]="connectionStatus">
+        </app-online-status>
+        <router-outlet></router-outlet>
+        <!-- <footer class="footer" >
+            <div class="vsFooterTextColor">
+                <div class="footerLeft">
+                    <h5>Support: support@vsonlineservices.com</h5>
+                </div>
+                <div class="footerRight">
+                    <h5>Copyrights &copy; All Rights Reserved - VS Online Services Private Limited</h5>
+                </div>
+            </div>
+        </footer> -->
+    </div>
+</mat-sidenav-container>
+<div class="LoaderDiv" *ngIf="loader">
+    <div class="spinLoaderHide">
+        <p class="spinLoaderV">V</p>
+    </div>
+</div>
+<div class="vsAdminCLientButn icon-end">
+    <button mat-icon-button (click)="globalService.logout()">
+        <mat-icon class="ml-3" title="Logout">exit_to_app</mat-icon>
+        Log Out
+    </button>
+</div>
+<div class="appstoreIconsdivMobile">
+    <div>
+        <img width="80" height="55" src="assets/img/Vsecomlogo.png" alt="VSOnlineServices logo" />
+    </div>
+    <h5 class="downloadText">Download vsEcom Mobile App!</h5>
+    <div fxLayout="row warp">
+
+        <a fxFlex="48" href="https://play.google.com/store/apps/details?id=com.vsonlineservices.vsecommerce"
+            target="_blank">
+            <img class="storeIcons img-responsive"
+                src="https://static.wixstatic.com/media/56b215_e2d14d0e68a8412ba41ba71812d3b109~mv2.png/v1/crop/x_53,y_14,w_652,h_269/fill/w_153,h_50,al_c,q_85,usm_0.66_1.00_0.01/Android_BUTTON.webp"></a>
+        <a fxFlex="48" href="https://apps.apple.com/app/id1608689547" target="_blank">
+            <img class="storeIcons img-responsive"
+                src="https://static.wixstatic.com/media/56b215_163583472ce5439aa32919ca9df3e21e~mv2.png/v1/crop/x_53,y_14,w_666,h_269/fill/w_160,h_50,al_c,q_85,usm_0.66_1.00_0.01/Apple_BUTTON.webp"></a>
+    </div>
+
+</div>
