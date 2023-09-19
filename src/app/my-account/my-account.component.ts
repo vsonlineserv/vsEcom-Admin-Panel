@@ -147,7 +147,6 @@ export class MyAccountComponent implements OnInit {
   }
 
   getMyAccountImage() {
-    debugger
     this.userService.GetAccountDetails().subscribe((response) => {
       this.myAccountObj = {};
       Object.assign(this.myAccountObj, response);

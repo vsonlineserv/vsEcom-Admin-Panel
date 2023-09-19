@@ -166,7 +166,6 @@ export class AddProductComponent implements OnInit {
   }
 
   sumVariant() {
-    debugger
     this.variantsList = true;
     this.maxWidth = 50;
     let variantData = [];
@@ -522,7 +521,6 @@ export class AddProductComponent implements OnInit {
   }
 
   getVariantForm(productVariant) {
-    debugger  
     let customdata = this.variantForm.get(['sections']) as FormArray;
     customdata.clear();
     productVariant.forEach(element => {

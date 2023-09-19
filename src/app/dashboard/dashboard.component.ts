@@ -173,6 +173,8 @@ export class DashboardComponent implements OnInit {
       let retailerDetails = response;
       this.retailerDetails = {};
       Object.assign(this.retailerDetails, response);
+      this.global.myAccountImage = this.retailerDetails.logoPicture;
+      this.global.storeName = this.retailerDetails.branches[0].branchName;
       this.globalService.SetRetailerDetailsInStrorage(this.retailerDetails);
       this.getCurrency();
       this.getProductSummary();

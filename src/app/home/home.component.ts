@@ -106,6 +106,7 @@ export class HomeComponent implements OnInit {
     this.pendingOrdersCount();
     this.getProductSummary();
     this.getBranchEnquiry();
+    this.getMyAccountImage();
 
     this.onlineEvent = fromEvent(window, 'online');
     this.offlineEvent = fromEvent(window, 'offline');
@@ -287,6 +288,27 @@ export class HomeComponent implements OnInit {
         sub.next(navigator.onLine);
         sub.complete();
       }));
+  }
+
+  getMyAccountImage() {
+    this.userService.GetAccountDetails().subscribe((response) => {
+      this.myAccountObj = {};
+      Object.assign(this.myAccountObj, response);
+      localStorage.setItem('currentUserInfo', JSON.stringify(response));
+      if (this.myAccountObj.lastName == null || this.myAccountObj.lastName == undefined) {
+        this.myAccountObj.lastName = "";
+      }
+      if (this.myAccountObj.isMerchant == false) {
+        this.global.isStaffAccount = true;
+      }
+      this.global.firstLastName = this.myAccountObj.firstName + ' ' + this.myAccountObj.lastName;
+      if (this.myAccountObj.pictureName != null && this.myAccountObj.pictureName != "") {
+        this.global.myAccountImage = this.myAccountObj.pictureName;
+      } else {
+        this.global.myAccountImage = './assets/images/no-image.png';
+      }
+    }, error => {
+    });
   }
 
 }

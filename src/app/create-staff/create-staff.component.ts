@@ -132,28 +132,9 @@ export class CreateStaffComponent implements OnInit {
         this.createStaffAccount();
       }
       else {
-        if (response != null) {
-          const dialogConfig = new MatDialogConfig();
-          dialogConfig.width = "450px";
-          dialogConfig.height = "fit-content";
-          let dialogRef = this.matDialog.open(StaffExistComponent, dialogConfig);
-          dialogRef.afterClosed().subscribe(value => {
-            if (value) {
-              this.staffForm.patchValue({
-                ExistingAuthId: response.toString(),
-              });
-              this.createStaffAccount();
-            }
-            else {
-              this.spinner = false;
-              this.submitted = false;
-              this.globalService.displayPopupMessage('Please add a staff account with different credentials', false)
-            }
-          });
-        }
-        else {
-          this.createStaffAccount();
-        }
+        this.spinner = false;
+        this.submitted = false;
+        this.globalService.displayPopupMessage('Please add a staff account with different credentials', false)
       }
     }, error => {
       this.spinner = false;

@@ -16,19 +16,19 @@ export class UserService {
   getUserAddress() {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + this.global.loginUserToken.token
+        'Authorization': 'Bearer ' + this.global.vsAccountToken
       })
     };
-    return this.httpClient.get(this.global.vsEcomClientAdminUrl + '/Account/GetAddress?licenseId=', httpOptions);
+    return this.httpClient.get(this.global.apiURL + '/Seller/' + localStorage.getItem('BranchId')  + '/GetAddress', httpOptions);
   }
 
   updateAddress(data) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + this.global.loginUserToken.token
+        'Authorization': 'Bearer ' + this.global.vsAccountToken
       })
     };
-    return this.httpClient.post(this.global.vsEcomClientAdminUrl + '/Account/UpdateAddress', data, httpOptions);
+    return this.httpClient.post(this.global.apiURL + '/Seller/' + localStorage.getItem('BranchId')  + '/UpdateAddress', data, httpOptions);
   }
 
 
@@ -136,19 +136,19 @@ export class UserService {
   getAllStaffAccount() {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + this.global.loginUserToken.token
+        'Authorization': 'Bearer ' + this.global.vsAccountToken
       })
     };
-    return this.httpClient.get(this.global.vsEcomClientAdminUrl + '/Account/GetAllStaffAccount?licenseDetailsId=', httpOptions);
+    return this.httpClient.get(this.global.apiURL + '/Seller/' + localStorage.getItem('BranchId') + '/GetAllStaffAccount', httpOptions);
   }
 
   deleteStaffAccount(staffIdentifier) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + this.global.loginUserToken.token
+        'Authorization': 'Bearer ' + this.global.vsAccountToken
       })
     };
-    return this.httpClient.get(this.global.vsEcomClientAdminUrl + '/Account/DeleteStaffAccount?licenseDetailsId=' + '&staffIdentifier=' + staffIdentifier + '&branchId=' + localStorage.getItem('BranchId'), httpOptions);
+    return this.httpClient.delete(this.global.apiURL + '/Seller/' + localStorage.getItem('BranchId') + '/DeleteStaffAccount/'+ staffIdentifier , httpOptions);
   }
 
   reverseGeocodingWithGoogle(latitude, longitude) {
@@ -184,11 +184,11 @@ export class UserService {
   CheckEmailExists(staffRegister: StaffAccountRegistrationModal) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + this.global.loginUserToken.token
+        'Authorization': 'Bearer ' + this.global.vsAccountToken
       }),
       responseType: 'text' as 'json'
     };
-    return this.httpClient.post<any>(this.global.vsEcomClientAdminUrl + "/Account/CheckEmailExists",
+    return this.httpClient.post<any>(this.global.apiURL + '/Seller/' + localStorage.getItem('StoreId') + "/CheckEmailExists",
       {
         Email: staffRegister.Email,
         Password: staffRegister.Password,
@@ -204,11 +204,11 @@ export class UserService {
   registerStaff(staffRegister: StaffAccountRegistrationModal) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + this.global.loginUserToken.token
+        'Authorization': 'Bearer ' + this.global.vsAccountToken
       }),
       responseType: 'text' as 'json'
     };
-    return this.httpClient.post<any>(this.global.vsEcomClientAdminUrl + "/Account/RegisterStaffAccount",
+    return this.httpClient.post<any>(this.global.apiURL + '/Seller/' + localStorage.getItem('BranchId') + "/RegisterStaff",
       {
         Email: staffRegister.Email,
         Password: staffRegister.Password,
@@ -219,7 +219,6 @@ export class UserService {
         StoreId: Number(localStorage.getItem('StoreId')),
         BranchId: Number(localStorage.getItem('BranchId')),
         PermissionIds: staffRegister.PermissionList,
-        ExistingAuthId: staffRegister.ExistingAuthId
       }, httpOptions);
   }
 
