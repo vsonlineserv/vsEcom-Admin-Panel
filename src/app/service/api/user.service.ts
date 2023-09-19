@@ -152,7 +152,7 @@ export class UserService {
   }
 
   reverseGeocodingWithGoogle(latitude, longitude) {
-    return this.httpClient.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=AIzaSyCcp3FjHz90s6Efod_hOPsOZpHna0WC57w');
+    return this.httpClient.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=GOOGLE KEY FOR LAT & LONG');
   }
 
   getUserLocation() {
