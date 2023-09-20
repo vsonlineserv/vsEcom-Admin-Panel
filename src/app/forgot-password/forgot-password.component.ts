@@ -36,9 +36,7 @@ export class ForgotPasswordComponent implements OnInit {
       this.submitted = false;
       return;
     }
-    const formData = new FormData();
-    formData.append('username', this.forgotPasswordForm.value.userEmail);
-    this.forgotpasswordService.sendVerificationEmail(formData)
+    this.forgotpasswordService.sendVerificationEmail(this.forgotPasswordForm.value.userEmail)
       .subscribe((response) => {
         this.globalService.displayPopupMessage('OTP sent successfully' , true);
         let navigationExtras: NavigationExtras = {

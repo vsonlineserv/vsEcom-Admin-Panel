@@ -30,7 +30,7 @@ export class AddCustomerComponent implements OnInit {
       LastName: new FormControl('', [Validators.required]),
       Email: new FormControl('', [Validators.required, Validators.email]),
       Password: new FormControl('', [Validators.required]),
-      ConfirmPassword: new FormControl('', [Validators.required]),
+      // ConfirmPassword: new FormControl('', [Validators.required]),
       PhoneNumber1: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(14)])
     })
     this.route.queryParams.subscribe(params => {

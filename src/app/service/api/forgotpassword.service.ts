@@ -9,11 +9,11 @@ export class ForgotpasswordService {
 
   constructor(private httpClient: HttpClient, private Globals: Global) { }
 
-  sendVerificationEmail(data) {
+  sendVerificationEmail(username) {
     const httpOptions = {
       responseType: 'text' as 'json'
     }
-    return this.httpClient.post(this.Globals.vsEcomClientAdminUrl + '/Login/ForgotPassword', data, httpOptions);
+    return this.httpClient.get(this.Globals.apiURL + '/ForgotPassword/'+ username, httpOptions);
   }
 
   ChangePassword(data) {
@@ -28,7 +28,7 @@ export class ForgotpasswordService {
   }
 
   resetPassword(data) {
-    return this.httpClient.post(this.Globals.vsEcomClientAdminUrl + '/Login/PasswordReset', data);
+    return this.httpClient.post(this.Globals.apiURL + '/ResetPassword', data);
   }
 
 }

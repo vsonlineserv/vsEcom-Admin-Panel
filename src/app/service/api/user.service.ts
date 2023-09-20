@@ -44,11 +44,11 @@ export class UserService {
   UpdateAccountDetails(data) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + this.global.loginUserToken.token
+        'Authorization': 'Bearer ' + this.global.vsAccountToken
       }),
       responseType: 'text' as 'json'
     };
-    return this.httpClient.post(this.global.vsEcomClientAdminUrl + '/Account/UpdateUserDetails', data, httpOptions);
+    return this.httpClient.post(this.global.apiURL + '/UpdateUserDetails', data, httpOptions);
   }
 
   getEcomEngineTokenUsingVSAuth(login: LoginModal) {
@@ -70,19 +70,6 @@ export class UserService {
       })
     };
     return this.httpClient.get(this.global.apiURL + '/GetRetailerInfo', httpOptions);
-  }
-
-  getContactInfo() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + this.global.loginUserToken.token
-      })
-    };
-    return this.httpClient.get(this.global.vsEcomClientAdminUrl + '/Settings/GetSiteContactInfo?domainId=', httpOptions);
-  }
-
-  GetStoreCategories() {
-    return this.httpClient.get(this.global.vsEcomClientAdminUrl + '/Login/GetStoreCategories');
   }
 
   updateDiscountCoupon(data) {
@@ -165,7 +152,7 @@ export class UserService {
         'Authorization': 'Bearer ' + this.global.loginUserToken.token
       })
     };
-    return this.httpClient.delete(this.global.vsEcomClientAdminUrl + '/Account/DeleteAccount?domainId=' + '&keyword=' + keyword, httpOptions);
+    return this.httpClient.delete(this.global.apiURL + '/Account/DeleteAccount?domainId=' + '&keyword=' + keyword, httpOptions);
   }
 
   ipLookup() {

@@ -10,7 +10,6 @@ import { CurrentUserSubscriptionInfo } from './service/models/currentUserSubscri
 export class Global {
 
     apiURL: string = 'https://localhost:7148'; // vsengine
-    vsEcomClientAdminUrl: string = 'https://localhost:44377/api';
     vsLoginToken: string; //accountToken
     userName: string;
     vsAccountToken: string; //engineToken
